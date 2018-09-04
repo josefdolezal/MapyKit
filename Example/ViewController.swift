@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     // MARK: Properties
 
     private let mapyView = MapyView()
-    private let segmentedControl = UISegmentedControl(items: ["Standard", "Hybrid", "Tourist"])
+    private let segmentedControl = UISegmentedControl(items: ["Standard", "Satelite", "Tourist"])
 
     // MARK: Controller lifecycle
 
@@ -67,7 +67,7 @@ class ViewController: UIViewController {
         if sender.selectedSegmentIndex == 0 {
             mapyView.setExtendedMapType(.standard)
         } else if sender.selectedSegmentIndex == 1 {
-            mapyView.setExtendedMapType(.hybrid)
+            mapyView.setExtendedMapType(.satelite)
         } else if sender.selectedSegmentIndex == 2 {
             mapyView.setExtendedMapType(.tourist)
         }
