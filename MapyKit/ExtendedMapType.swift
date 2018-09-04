@@ -19,23 +19,35 @@ import MapKit
 /// - historical: Historical map (Czech Republic only)
 /// - textMap: Text only map (April fools day easter egg, 2017)
 /// - in100Years: Czech Republic in 100 years (April fools day easter egg, 2018)
-public enum ExtendedMapType: String {
-    case standard = "base-m"
-    case tourist = "turist-m"
-    case winter = "winter-m"
-    case satelite = "bing"
-    case geography = "zemepis-m"
-    case historical = "army2-m"
-    case textMap = "april17-m"
-    case in100Years = "april18"
+public enum ExtendedMapType {
+    case standard
+    case tourist
+    case winter
+    case satelite
+    case hybrid
+    case geography
+    case historical
+    case textMap
+    case in100Years
 
     /// Internal identifier of map type
-    var identifier: String { return rawValue }
+    var identifier: String {
+        switch self {
+        case .standard: return "base-m"
+        case .tourist: return "turist-m"
+        case .winter: return "winter-m"
+        case .satelite, .hybrid: return "bing"
+        case .geography: return "zemepis-m"
+        case .historical: return "army2-m"
+        case .textMap: return "april17-m"
+        case .in100Years: return "april18"
+        }
+    }
     /// Rendenring level of map type
     var level: MKOverlayLevel {
         switch self {
-    case .standard, .tourist, .winter, .geography, .historical, .textMap, .in100Years: return .aboveLabels
-        case .satelite: return .aboveRoads
+    case .standard, .tourist, .winter, .satelite, .geography, .historical, .textMap, .in100Years: return .aboveLabels
+        case .hybrid: return .aboveRoads
         }
     }
 }
