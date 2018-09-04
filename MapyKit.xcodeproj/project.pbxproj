@@ -19,6 +19,7 @@
 		D227AD75213F0F140003DE4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D227AD74213F0F140003DE4C /* Assets.xcassets */; };
 		D227AD78213F0F140003DE4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D227AD76213F0F140003DE4C /* LaunchScreen.storyboard */; };
 		D227AD7E213F0FAF0003DE4C /* MapyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; };
+		D227AD80213F118C0003DE4C /* ExtendedMapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227AD7F213F118C0003DE4C /* ExtendedMapType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		D227AD74213F0F140003DE4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D227AD77213F0F140003DE4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D227AD79213F0F140003DE4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D227AD7F213F118C0003DE4C /* ExtendedMapType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedMapType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 				D215D8AD213EFC5400296D74 /* MapyTileOverlayRenderer.swift */,
 				D227AD63213EFE310003DE4C /* MapyViewDrawer.swift */,
 				D227AD65213F00B30003DE4C /* Selector+MapKit.swift */,
+				D227AD7F213F118C0003DE4C /* ExtendedMapType.swift */,
 			);
 			path = MapyKit;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				D227AD64213EFE310003DE4C /* MapyViewDrawer.swift in Sources */,
 				D227AD66213F00B30003DE4C /* Selector+MapKit.swift in Sources */,
 				D215D8AE213EFC5400296D74 /* MapyTileOverlayRenderer.swift in Sources */,
+				D227AD80213F118C0003DE4C /* ExtendedMapType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -42,6 +42,14 @@ public final class MapyView: MKMapView {
         setupMapyDrawer()
     }
 
+    // MARK: Public API
+
+    public func setExtendedMapType(_ mapType: ExtendedMapType) {
+        drawer.overlay.mapType = mapType
+        remove(drawer.overlay)
+        add(drawer.overlay)
+    }
+
     // MARK: Private API
 
     private func setupMapyDrawer() {
