@@ -12,7 +12,15 @@ final class MapyTileOverlay: MKTileOverlay {
     // MARK: Properties
 
     /// The type of map to be rendered. Default: `.standard`.
-    var mapType: ExtendedMapType = .standard
+    let mapType: ExtendedMapType
+
+    // MARK: Initializers
+
+    init(mapType: ExtendedMapType) {
+        self.mapType = mapType
+
+        super.init(urlTemplate: nil)
+    }
 
     // MARK: Overlay lifecycle
 

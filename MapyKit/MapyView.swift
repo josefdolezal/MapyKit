@@ -27,33 +27,31 @@ public final class MapyView: MKMapView {
     // MARK: Initializers
 
     override public init(frame: CGRect) {
-        self.drawer = MapyViewDrawer()
+        self.drawer = MapyViewDrawer(mapType: .standard)
 
         super.init(frame: frame)
 
-        setupMapyDrawer()
+        setupDrawer()
     }
 
     required public init?(coder aDecoder: NSCoder) {
-        self.drawer = MapyViewDrawer()
+        self.drawer = MapyViewDrawer(mapType: .standard)
 
         super.init(coder: aDecoder)
 
-        setupMapyDrawer()
+        setupDrawer()
     }
 
     // MARK: Public API
 
     public func setExtendedMapType(_ mapType: ExtendedMapType) {
-        drawer.overlay.mapType = mapType
-        remove(drawer.overlay)
-        add(drawer.overlay)
+        drawer.set(mapType: mapType)
     }
 
     // MARK: Private API
 
-    private func setupMapyDrawer() {
+    private func setupDrawer() {
+        drawer.mapView = self
         super.delegate = drawer
-        add(drawer.overlay, level: .aboveLabels)
     }
 }

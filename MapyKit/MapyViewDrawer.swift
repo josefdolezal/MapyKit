@@ -12,19 +12,26 @@ import MapKit
 final class MapyViewDrawer: NSObject, MKMapViewDelegate {
     /// The delegate to which unhandled MKMapViewDelegate selectors will be forwarded
     weak var secondaryDelegate: MKMapViewDelegate?
+    /// Map view where the overlay should be drawn
+    weak var mapView: MKMapView?
 
     /// Custom map view overlay
-    let overlay: MapyTileOverlay
+    private var overlay: MapyTileOverlay
     /// Renderer asociated with custom overlay
-    let renderer: MapyTileRenderer
+    private var renderer: MapyTileRenderer
+    /// Current type of map
+    private var mapType: ExtendedMapType
 
     // MARK: Initialiers
 
-    override init() {
-        let overlay = MapyTileOverlay()
+    init(mapType: ExtendedMapType) {
+        self.mapType = mapType
+        (self.overlay, self.renderer) = MapyViewDrawer.createOverlayRenderer(for: mapType)
 
-        self.overlay = overlay
-        self.renderer = MapyTileRenderer(overlay: overlay)
+        super.init()
+
+        // Once the object is initialized, set the map type
+        set(mapType: mapType)
     }
 
     // MARK: Messaging API
@@ -57,6 +64,21 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
         _ = secondaryDelegate?.perform(aSelector)
     }
 
+    // MARK: Public API
+
+    func set(mapType: ExtendedMapType) {
+        // Keep the reference for old overlay
+        let oldOverlay = self.overlay
+        // Update renderer for new map type
+        (self.overlay, self.renderer) = MapyViewDrawer.createOverlayRenderer(for: mapType)
+
+        // Remove old overlay and add new
+        self.mapView?.remove(oldOverlay)
+        self.mapView?.add(overlay, level: mapType.level)
+
+        self.mapType = mapType
+    }
+
     // MARK: MKMapViewDelegate
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -76,5 +98,14 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
 
         // Return renderer for mapy tiles
         return renderer
+    }
+
+    // MARK: Private API
+
+    private static func createOverlayRenderer(for mapType: ExtendedMapType) -> (MapyTileOverlay, MapyTileRenderer) {
+        let overlay = MapyTileOverlay(mapType: mapType)
+        let renderer = MapyTileRenderer(overlay: overlay)
+
+        return (overlay, renderer)
     }
 }

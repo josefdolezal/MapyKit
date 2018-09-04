@@ -7,27 +7,35 @@
 //
 
 import Foundation
+import MapKit
 
 /// Extended map types for Mapy.cz
 ///
 /// - standard: Standard map
 /// - tourist: Map with hiking trails
 /// - winter: Map of winter resorts
-/// - hybrid: Satelite map with street labels
+/// - satelite: Satelite map with street labels
 /// - geography: Geography map
-/// - hystorical: Historical map (Czech Republic only)
+/// - historical: Historical map (Czech Republic only)
 /// - textMap: Text only map (April fools day easter egg, 2017)
 /// - in100Years: Czech Republic in 100 years (April fools day easter egg, 2018)
 public enum ExtendedMapType: String {
     case standard = "base-m"
     case tourist = "turist-m"
     case winter = "winter-m"
-    case hybrid = "hybrid-sparse-m"
+    case satelite = "bing"
     case geography = "zemepis-m"
-    case hystorical = "army2-m"
+    case historical = "army2-m"
     case textMap = "april17-m"
     case in100Years = "april18"
 
     /// Internal identifier of map type
     var identifier: String { return rawValue }
+    /// Rendenring level of map type
+    var level: MKOverlayLevel {
+        switch self {
+    case .standard, .tourist, .winter, .geography, .historical, .textMap, .in100Years: return .aboveLabels
+        case .satelite: return .aboveRoads
+        }
+    }
 }
