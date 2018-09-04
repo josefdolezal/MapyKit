@@ -11,6 +11,8 @@
 		D215D8AA213EFBF400296D74 /* MapyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8A9213EFBF400296D74 /* MapyView.swift */; };
 		D215D8AC213EFC3000296D74 /* MapyTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8AB213EFC3000296D74 /* MapyTileOverlay.swift */; };
 		D215D8AE213EFC5400296D74 /* MapyTileOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8AD213EFC5400296D74 /* MapyTileOverlayRenderer.swift */; };
+		D227AD64213EFE310003DE4C /* MapyViewDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227AD63213EFE310003DE4C /* MapyViewDrawer.swift */; };
+		D227AD66213F00B30003DE4C /* Selector+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227AD65213F00B30003DE4C /* Selector+MapKit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		D215D8A9213EFBF400296D74 /* MapyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyView.swift; sourceTree = "<group>"; };
 		D215D8AB213EFC3000296D74 /* MapyTileOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyTileOverlay.swift; sourceTree = "<group>"; };
 		D215D8AD213EFC5400296D74 /* MapyTileOverlayRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyTileOverlayRenderer.swift; sourceTree = "<group>"; };
+		D227AD63213EFE310003DE4C /* MapyViewDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyViewDrawer.swift; sourceTree = "<group>"; };
+		D227AD65213F00B30003DE4C /* Selector+MapKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Selector+MapKit.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 				D215D8A9213EFBF400296D74 /* MapyView.swift */,
 				D215D8AB213EFC3000296D74 /* MapyTileOverlay.swift */,
 				D215D8AD213EFC5400296D74 /* MapyTileOverlayRenderer.swift */,
+				D227AD63213EFE310003DE4C /* MapyViewDrawer.swift */,
+				D227AD65213F00B30003DE4C /* Selector+MapKit.swift */,
 			);
 			path = MapyKit;
 			sourceTree = "<group>";
@@ -142,6 +148,8 @@
 			files = (
 				D215D8AA213EFBF400296D74 /* MapyView.swift in Sources */,
 				D215D8AC213EFC3000296D74 /* MapyTileOverlay.swift in Sources */,
+				D227AD64213EFE310003DE4C /* MapyViewDrawer.swift in Sources */,
+				D227AD66213F00B30003DE4C /* Selector+MapKit.swift in Sources */,
 				D215D8AE213EFC5400296D74 /* MapyTileOverlayRenderer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

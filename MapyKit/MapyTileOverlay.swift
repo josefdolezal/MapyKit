@@ -8,7 +8,7 @@
 
 import MapKit
 
-final class MapyOverlay: MKTileOverlay {
+final class MapyTileOverlay: MKTileOverlay {
     override func url(forTilePath path: MKTileOverlayPath) -> URL {
         return URL(string: "https://mapserver.mapy.cz/winter-m/\(path.z)-\(path.x)-\(path.y)")!
     }

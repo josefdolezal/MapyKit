@@ -9,10 +9,9 @@
 import MapKit
 
 final class MapyTileRenderer: MKTileOverlayRenderer {
-    init() {
-        let mapyOverlay = MapyOverlay()
-        mapyOverlay.canReplaceMapContent = true
+    init(overlay: MapyTileOverlay) {
+        overlay.canReplaceMapContent = true
 
-        super.init(overlay: mapyOverlay)
+        super.init(overlay: overlay)
     }
 }
