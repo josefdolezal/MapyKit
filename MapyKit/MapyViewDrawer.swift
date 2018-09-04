@@ -13,7 +13,10 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
     /// The delegate to which unhandled MKMapViewDelegate selectors will be forwarded
     weak var secondaryDelegate: MKMapViewDelegate?
     /// Map view where the overlay should be drawn
-    weak var mapView: MKMapView?
+    weak var mapView: MKMapView? {
+        // Once the map view is set, setup overlays
+        didSet { set(mapType: mapType) }
+    }
 
     /// Custom map view overlay
     private var overlay: MapyTileOverlay
@@ -27,11 +30,6 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
     init(mapType: ExtendedMapType) {
         self.mapType = mapType
         (self.overlay, self.renderer) = MapyViewDrawer.createOverlayRenderer(for: mapType)
-
-        super.init()
-
-        // Once the object is initialized, set the map type
-        set(mapType: mapType)
     }
 
     // MARK: Messaging API
