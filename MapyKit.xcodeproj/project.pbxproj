@@ -86,14 +86,13 @@
 		D215D8A0213EFBB100296D74 /* MapyKit */ = {
 			isa = PBXGroup;
 			children = (
-				D215D8A1213EFBB100296D74 /* MapyKit.h */,
-				D215D8A2213EFBB100296D74 /* Info.plist */,
-				D215D8A9213EFBF400296D74 /* MapyView.swift */,
+				D285541C2141C8BD00C7E423 /* Extensions */,
+				D285541B2141C8AD00C7E423 /* Supporting Files */,
+				D28554132141A61000C7E423 /* MapyLayer.swift */,
+				D227AD7F213F118C0003DE4C /* ExtendedMapType.swift */,
 				D215D8AB213EFC3000296D74 /* MapyTileOverlay.swift */,
 				D227AD63213EFE310003DE4C /* MapyViewDrawer.swift */,
-				D227AD65213F00B30003DE4C /* Selector+MapKit.swift */,
-				D227AD7F213F118C0003DE4C /* ExtendedMapType.swift */,
-				D28554132141A61000C7E423 /* MapyLayer.swift */,
+				D215D8A9213EFBF400296D74 /* MapyView.swift */,
 			);
 			path = MapyKit;
 			sourceTree = "<group>";
@@ -118,6 +117,23 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D285541B2141C8AD00C7E423 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D215D8A1213EFBB100296D74 /* MapyKit.h */,
+				D215D8A2213EFBB100296D74 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D285541C2141C8BD00C7E423 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D227AD65213F00B30003DE4C /* Selector+MapKit.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
