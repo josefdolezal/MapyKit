@@ -20,6 +20,8 @@
 		D227AD7E213F0FAF0003DE4C /* MapyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; };
 		D227AD80213F118C0003DE4C /* ExtendedMapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227AD7F213F118C0003DE4C /* ExtendedMapType.swift */; };
 		D28554142141A61000C7E423 /* MapyLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554132141A61000C7E423 /* MapyLayer.swift */; };
+		D28554162141B3A300C7E423 /* ExtendedMapType+Titles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554152141B3A300C7E423 /* ExtendedMapType+Titles.swift */; };
+		D28554182141B5EB00C7E423 /* MapTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554172141B5EB00C7E423 /* MapTypeCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		D227AD79213F0F140003DE4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D227AD7F213F118C0003DE4C /* ExtendedMapType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedMapType.swift; sourceTree = "<group>"; };
 		D28554132141A61000C7E423 /* MapyLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyLayer.swift; sourceTree = "<group>"; };
+		D28554152141B3A300C7E423 /* ExtendedMapType+Titles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExtendedMapType+Titles.swift"; sourceTree = "<group>"; };
+		D28554172141B5EB00C7E423 /* MapTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 				D227AD74213F0F140003DE4C /* Assets.xcassets */,
 				D227AD76213F0F140003DE4C /* LaunchScreen.storyboard */,
 				D227AD79213F0F140003DE4C /* Info.plist */,
+				D28554152141B3A300C7E423 /* ExtendedMapType+Titles.swift */,
+				D28554172141B5EB00C7E423 /* MapTypeCell.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -239,6 +245,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D28554182141B5EB00C7E423 /* MapTypeCell.swift in Sources */,
+				D28554162141B3A300C7E423 /* ExtendedMapType+Titles.swift in Sources */,
 				D227AD70213F0F120003DE4C /* ViewController.swift in Sources */,
 				D227AD6E213F0F120003DE4C /* AppDelegate.swift in Sources */,
 			);

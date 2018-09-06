@@ -13,64 +13,82 @@ import MapyKit
 class ViewController: UIViewController {
     // MARK: Properties
 
+    private static let mapTypes = ExtendedMapType.allTypes
+
     private let mapyView = MapyView()
-    private let segmentedControl = UISegmentedControl(items: ["Standard", "Tourist", "Hybrid"])
+    private let tableView = UITableView()
+
+    private var currentMapType = ExtendedMapType.standard
 
     // MARK: Controller lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let segmentControlWrapper = UIView()
-        segmentControlWrapper.backgroundColor = .white
-
         // Add views to view hierarchy
         view.addSubview(mapyView)
-        view.addSubview(segmentControlWrapper)
-        segmentControlWrapper.addSubview(segmentedControl)
+        view.addSubview(tableView)
 
         mapyView.translatesAutoresizingMaskIntoConstraints = false
-        segmentControlWrapper.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-
-        // Layout wrapper to the bottom of the screen
-        NSLayoutConstraint.activate([
-            segmentControlWrapper.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            segmentControlWrapper.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            segmentControlWrapper.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-
-        // Layout inside wrapper
-        NSLayoutConstraint.activate([
-            segmentedControl.leadingAnchor.constraint(equalTo: segmentControlWrapper.leadingAnchor, constant: 10),
-            segmentedControl.trailingAnchor.constraint(equalTo: segmentControlWrapper.trailingAnchor, constant: -10),
-            segmentedControl.topAnchor.constraint(equalTo: segmentControlWrapper.topAnchor, constant: 10),
-            segmentedControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
-        ])
+        tableView.translatesAutoresizingMaskIntoConstraints = false
 
         // Layout view to edges of superview
         NSLayoutConstraint.activate([
             mapyView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mapyView.topAnchor.constraint(equalTo: view.topAnchor),
-            mapyView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(handleSegmentedControlValueChange), for: .valueChanged)
-    }
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: mapyView.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
+        ])
 
-    // MARK: UI Bindings
+        // Setup table view
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.tableFooterView = UIView()
+        tableView.register(MapTypeCell.self, forCellReuseIdentifier: MapTypeCell.identifier)
 
-    @objc
-    private func handleSegmentedControlValueChange(sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            mapyView.setExtendedMapType(.standard)
-        } else if sender.selectedSegmentIndex == 1 {
-            mapyView.setExtendedMapType(.tourist)
-        } else if sender.selectedSegmentIndex == 2 {
-            mapyView.setExtendedMapType(.hybrid)
-        }
+        // Setup mapy view
+        mapyView.setExtendedMapType(currentMapType)
     }
 }
 
+extension ViewController: UITableViewDataSource {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return ViewController.mapTypes.count
+    }
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: MapTypeCell.identifier, for: indexPath)
+        let mapType = ViewController.mapTypes[indexPath.row]
+
+        cell.textLabel?.text = mapType.title
+        cell.detailTextLabel?.text = mapType.isMultilayerType
+            ? "Multi-layer map type"
+            : "Single-layer map type"
+        cell.accessoryType = mapType == currentMapType
+            ? .checkmark
+            : .none
+
+        return cell
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let mapType = ViewController.mapTypes[indexPath.row]
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        // Set new map type to the map view
+        self.currentMapType = mapType
+        mapyView.setExtendedMapType(mapType)
+
+        // Reload the table view data
+        tableView.reloadData()
+    }
+}
