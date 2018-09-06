@@ -8,6 +8,8 @@
 
 import MapKit
 
+/// The actual mapy.cz map view. Renders map type based in current configuration
+/// using native `MapKit` technology. Default map type is `.standard`.
 public final class MapyView: MKMapView {
     // MARK: Properties
 
@@ -44,14 +46,20 @@ public final class MapyView: MKMapView {
 
     // MARK: Public API
 
+    /// Sets current map type to new value.
+    ///
+    /// - Parameter mapType: New map type.
     public func setExtendedMapType(_ mapType: ExtendedMapType) {
         drawer.set(mapType: mapType)
     }
 
     // MARK: Private API
 
+    /// Sets up internal map view drawer.
     private func setupDrawer() {
         drawer.mapView = self
+        // Here be sure to setup the delegate for super class, otherwise
+        // the drawer will become it's own secondaty delegate.
         super.delegate = drawer
     }
 }

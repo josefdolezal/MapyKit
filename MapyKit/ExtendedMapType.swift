@@ -15,7 +15,8 @@ import MapKit
 /// - standard: Standard map
 /// - tourist: Map with hiking trails
 /// - winter: Map of winter resorts
-/// - satelite: Satelite map with street labels
+/// - satelite: Satelite map without street labels
+/// - hybrid: Satelite map with street labels
 /// - geography: Geography map
 /// - historical: Historical map (Czech Republic only)
 /// - textMap: Text only map (April fools day easter egg, 2017)

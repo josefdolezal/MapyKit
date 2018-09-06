@@ -9,8 +9,17 @@
 import Foundation
 import MapKit
 
+/// Drawer takes care for complete map rendering flow. The `MKMapView` API
+/// for drawing custom overlays is handled using delegate pattern. Since we
+/// want to the `MapyKit` user to be able to set the delegate himself,
+/// we use delegate forwarding for unrecognized `MapKit` selectors
+/// and overlays set up by user.
 final class MapyViewDrawer: NSObject, MKMapViewDelegate {
+    // MARK: Structure
+
     private typealias DrawableLayer = (overlay: MapyTileOverlay, renderer: MKTileOverlayRenderer)
+
+    // MARK: Properties
 
     /// The delegate to which unhandled MKMapViewDelegate selectors will be forwarded.
     weak var secondaryDelegate: MKMapViewDelegate?
@@ -20,6 +29,7 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
         didSet { set(mapType: mapType) }
     }
 
+    /// Layer to be drawn on map view.
     private var drawableLayers: [DrawableLayer]
     /// Current type of map.
     private var mapType: ExtendedMapType
@@ -63,6 +73,10 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
 
     // MARK: Public API
 
+    /// Sets new map type for map view. During type exchange, all old overlays
+    /// handled by drawer are discarded and new ones are set instead.
+    ///
+    /// - Parameter mapType: New overlay type for map view.
     func set(mapType: ExtendedMapType) {
         // Keep the reference for old layers so it can be removed later
         let oldLayers = self.drawableLayers
@@ -114,6 +128,10 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
 
     // MARK: Private API
 
+    /// Helper factory for mapping map type into drawable layers.
+    ///
+    /// - Parameter mapType: Type for which the layers will be created.
+    /// - Returns: New array of drawable layers.
     private static func createOverlayRenderer(for mapType: ExtendedMapType) -> [DrawableLayer] {
         // For each layer of given type, ceate map overlay and renderer.
         return mapType.layers.map { layer in

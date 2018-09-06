@@ -9,6 +9,7 @@
 import Foundation
 
 extension Selector {
+    /// Indicates whether the selector is used inside `MapKit` framework.
     var isMapKitSelector: Bool {
         return description.hasPrefix("mapView:")
     }

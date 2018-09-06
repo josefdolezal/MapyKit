@@ -8,6 +8,7 @@
 
 import MapKit
 
+/// Tile map overlay for one layer of map type.
 final class MapyTileOverlay: MKTileOverlay {
     // MARK: Properties
 
