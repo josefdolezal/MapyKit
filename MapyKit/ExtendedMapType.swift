@@ -9,7 +9,8 @@
 import Foundation
 import MapKit
 
-/// Extended map types for Mapy.cz
+/// Extended map types for Mapy.cz. Each type may be composed using
+/// multiple layers. These layers may be obtained using `layers` property.
 ///
 /// - standard: Standard map
 /// - tourist: Map with hiking trails
@@ -30,24 +31,21 @@ public enum ExtendedMapType {
     case textMap
     case in100Years
 
-    /// Internal identifier of map type
-    var identifier: String {
+    // MARK: Public API
+
+    /// List of layers used to render the map. Layers are ordered using
+    /// z-index where for each index, lower indexes are rendered before higher indexes.
+    var layers: [MapyLayer] {
         switch self {
-        case .standard: return "base-m"
-        case .tourist: return "turist-m"
-        case .winter: return "winter-m"
-        case .satelite, .hybrid: return "bing"
-        case .geography: return "zemepis-m"
-        case .historical: return "army2-m"
-        case .textMap: return "april17-m"
-        case .in100Years: return "april18"
-        }
-    }
-    /// Rendenring level of map type
-    var level: MKOverlayLevel {
-        switch self {
-    case .standard, .tourist, .winter, .satelite, .geography, .historical, .textMap, .in100Years: return .aboveLabels
-        case .hybrid: return .aboveRoads
+        case .standard: return [.baseMap]
+        case .tourist: return [.touristMap]
+        case .winter: return [.winterMap]
+        case .satelite: return [.sateliteMap]
+        case .hybrid: return [.sateliteMap, .placeLabels]
+        case .geography: return [.geographyMap]
+        case .historical: return [.hystoricalMap]
+        case .textMap: return [.baseMap, .textMap]
+        case .in100Years: return [.baseMap, .textMap]
         }
     }
 }

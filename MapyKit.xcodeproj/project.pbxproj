@@ -10,7 +10,6 @@
 		D215D8A3213EFBB100296D74 /* MapyKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D215D8A1213EFBB100296D74 /* MapyKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D215D8AA213EFBF400296D74 /* MapyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8A9213EFBF400296D74 /* MapyView.swift */; };
 		D215D8AC213EFC3000296D74 /* MapyTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8AB213EFC3000296D74 /* MapyTileOverlay.swift */; };
-		D215D8AE213EFC5400296D74 /* MapyTileOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8AD213EFC5400296D74 /* MapyTileOverlayRenderer.swift */; };
 		D227AD64213EFE310003DE4C /* MapyViewDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227AD63213EFE310003DE4C /* MapyViewDrawer.swift */; };
 		D227AD66213F00B30003DE4C /* Selector+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227AD65213F00B30003DE4C /* Selector+MapKit.swift */; };
 		D227AD6E213F0F120003DE4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227AD6D213F0F120003DE4C /* AppDelegate.swift */; };
@@ -20,6 +19,7 @@
 		D227AD78213F0F140003DE4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D227AD76213F0F140003DE4C /* LaunchScreen.storyboard */; };
 		D227AD7E213F0FAF0003DE4C /* MapyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; };
 		D227AD80213F118C0003DE4C /* ExtendedMapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227AD7F213F118C0003DE4C /* ExtendedMapType.swift */; };
+		D28554142141A61000C7E423 /* MapyLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554132141A61000C7E423 /* MapyLayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +28,6 @@
 		D215D8A2213EFBB100296D74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D215D8A9213EFBF400296D74 /* MapyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyView.swift; sourceTree = "<group>"; };
 		D215D8AB213EFC3000296D74 /* MapyTileOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyTileOverlay.swift; sourceTree = "<group>"; };
-		D215D8AD213EFC5400296D74 /* MapyTileOverlayRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyTileOverlayRenderer.swift; sourceTree = "<group>"; };
 		D227AD63213EFE310003DE4C /* MapyViewDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyViewDrawer.swift; sourceTree = "<group>"; };
 		D227AD65213F00B30003DE4C /* Selector+MapKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Selector+MapKit.swift"; sourceTree = "<group>"; };
 		D227AD6B213F0F120003DE4C /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,6 +38,7 @@
 		D227AD77213F0F140003DE4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D227AD79213F0F140003DE4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D227AD7F213F118C0003DE4C /* ExtendedMapType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedMapType.swift; sourceTree = "<group>"; };
+		D28554132141A61000C7E423 /* MapyLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyLayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,10 +86,10 @@
 				D215D8A2213EFBB100296D74 /* Info.plist */,
 				D215D8A9213EFBF400296D74 /* MapyView.swift */,
 				D215D8AB213EFC3000296D74 /* MapyTileOverlay.swift */,
-				D215D8AD213EFC5400296D74 /* MapyTileOverlayRenderer.swift */,
 				D227AD63213EFE310003DE4C /* MapyViewDrawer.swift */,
 				D227AD65213F00B30003DE4C /* Selector+MapKit.swift */,
 				D227AD7F213F118C0003DE4C /* ExtendedMapType.swift */,
+				D28554132141A61000C7E423 /* MapyLayer.swift */,
 			);
 			path = MapyKit;
 			sourceTree = "<group>";
@@ -228,9 +228,9 @@
 			files = (
 				D215D8AA213EFBF400296D74 /* MapyView.swift in Sources */,
 				D215D8AC213EFC3000296D74 /* MapyTileOverlay.swift in Sources */,
+				D28554142141A61000C7E423 /* MapyLayer.swift in Sources */,
 				D227AD64213EFE310003DE4C /* MapyViewDrawer.swift in Sources */,
 				D227AD66213F00B30003DE4C /* Selector+MapKit.swift in Sources */,
-				D215D8AE213EFC5400296D74 /* MapyTileOverlayRenderer.swift in Sources */,
 				D227AD80213F118C0003DE4C /* ExtendedMapType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

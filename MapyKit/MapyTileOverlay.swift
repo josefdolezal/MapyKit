@@ -11,20 +11,22 @@ import MapKit
 final class MapyTileOverlay: MKTileOverlay {
     // MARK: Properties
 
-    /// The type of map to be rendered. Default: `.standard`.
-    let mapType: ExtendedMapType
+    /// The map layer drawn using this overlay.
+    let layer: MapyLayer
 
     // MARK: Initializers
 
-    init(mapType: ExtendedMapType) {
-        self.mapType = mapType
+    init(layer: MapyLayer) {
+        self.layer = layer
 
         super.init(urlTemplate: nil)
+
+        self.canReplaceMapContent = layer.isSolidLayer
     }
 
     // MARK: Overlay lifecycle
 
     override func url(forTilePath path: MKTileOverlayPath) -> URL {
-        return URL(string: "https://mapserver.mapy.cz/\(mapType.identifier)/\(path.z)-\(path.x)-\(path.y)")!
+        return URL(string: "https://mapserver.mapy.cz/\(layer.identifier)/\(path.z)-\(path.x)-\(path.y)")!
     }
 }
