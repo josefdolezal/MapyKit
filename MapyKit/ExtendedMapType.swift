@@ -45,7 +45,7 @@ public enum ExtendedMapType {
         case .geography: return [.geographyMap]
         case .historical: return [.hystoricalMap]
         case .textMap: return [.baseMap, .textMap]
-        case .in100Years: return [.baseMap, .textMap]
+        case .in100Years: return [.baseMap, .in100YearsMap]
         }
     }
 }
