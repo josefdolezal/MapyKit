@@ -22,6 +22,7 @@ final class MapyTileOverlay: MKTileOverlay {
         super.init(urlTemplate: nil)
 
         self.canReplaceMapContent = layer.isSolidLayer
+        self.maximumZ = 18
     }
 
     // MARK: Overlay lifecycle
