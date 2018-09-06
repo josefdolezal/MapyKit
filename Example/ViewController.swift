@@ -55,8 +55,16 @@ class ViewController: UIViewController {
 
         // Setup mapy view
         mapyView.setExtendedMapType(currentMapType)
+        mapyView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: "Annotation")
+
+        // Add annotation
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: 50.0713667, longitude: 14.4010147)
+        mapyView.addAnnotation(annotation)
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension ViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -79,6 +87,8 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mapType = ViewController.mapTypes[indexPath.row]
@@ -90,5 +100,13 @@ extension ViewController: UITableViewDelegate {
 
         // Reload the table view data
         tableView.reloadData()
+    }
+}
+
+// MARK: - MKMapViewDelegate
+
+extension ViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        return mapyView.dequeueReusableAnnotationView(withIdentifier: "Annotation", for: annotation)
     }
 }
