@@ -29,8 +29,8 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
         didSet { set(mapType: mapType) }
     }
 
-    /// Layer to be drawn on map view.
-    private var drawableLayers: [DrawableLayer]
+    /// Custom map overlays
+    private var overlays: [MKOverlay]
     /// Current type of map.
     private var mapType: ExtendedMapType
 
@@ -38,7 +38,7 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
 
     init(mapType: ExtendedMapType) {
         self.mapType = mapType
-        self.drawableLayers = MapyViewDrawer.createOverlayRenderer(for: mapType)
+        self.overlays = MapyViewDrawer.createCustomOverlays(for: mapType)
     }
 
     // MARK: Messaging API
@@ -72,52 +72,42 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
     ///
     /// - Parameter mapType: New overlay type for map view.
     func set(mapType: ExtendedMapType) {
-        // Keep the reference for old layers so it can be removed later
-        let oldLayers = self.drawableLayers
-        // Create new layers for given type
-        self.drawableLayers = MapyViewDrawer.createOverlayRenderer(for: mapType)
+        // Keep the reference old overlays so it can be removed later
+        let oldOverlays = self.overlays
+        // Create new overlays for given type
+        let overlays = MapyViewDrawer.createCustomOverlays(for: mapType)
 
         // Remove all old layers and add new
-        oldLayers.forEach { self.mapView?.remove($0.overlay) }
-        drawableLayers.forEach { self.mapView?.add($0.overlay, level: .aboveLabels) }
+        oldOverlays.forEach { self.mapView?.remove($0) }
+        overlays.forEach { self.mapView?.add($0, level: .aboveLabels) }
 
         self.mapType = mapType
+        self.overlays = overlays
     }
 
     // MARK: MKMapViewDelegate
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        // Check if the asked renderer should be handled internaly
-        guard overlay is MapyTileOverlay else {
+        // Check whether the requested overlay is internal
+        let isInternalOverlay = overlays.contains { $0 === overlay }
+
+        // Check if the given overlay should be handled internaly
+        guard isInternalOverlay else {
             // The renderer should be handled by delegate, check if it's set
             guard let delegate = secondaryDelegate else {
                 // Invalid state, crash the app
                 assertionFailure("MapyKit: Invalid MapyView state: uknown overlay \(type(of: overlay)) asked to be rendered by MapyKit. Check if your MKMapViewDelegate is correctly set.")
 
-                // Try to fallback to internal drawer in production code, fatal inconsistency otherwise
-                if let renderer = drawableLayers.first?.renderer {
-                    return renderer
-                }
-
-                fatalError("MapyKit: Fatal internal inconsistency. No renderer available for given overlay \(type(of: overlay)).")
+                // Fallback to default renderer
+                return MKOverlayRenderer(overlay: overlay)
             }
 
             // For some reason, this must be force unwrapped
             return delegate.mapView!(mapView, rendererFor: overlay)
         }
 
-        // Try to find layer for given overlay
-        let maybeLayer = drawableLayers
-            .filter { $0.overlay === overlay }
-            .first
-
-        // Check if layer was found. Fatal internal inconsistency otherwise, crash the app.
-        guard let layer = maybeLayer else {
-            fatalError("MapyKit: Fatal internal inconsistency. No renderer available for internal overlay type.")
-        }
-
-        // Return renderer for mapy tiles
-        return layer.renderer
+        // Create new renderer for given overlay
+        return MKTileOverlayRenderer(overlay: overlay)
     }
 
     // MARK: Private API
@@ -125,14 +115,9 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
     /// Helper factory for mapping map type into drawable layers.
     ///
     /// - Parameter mapType: Type for which the layers will be created.
-    /// - Returns: New array of drawable layers.
-    private static func createOverlayRenderer(for mapType: ExtendedMapType) -> [DrawableLayer] {
+    /// - Returns: Map overlays for given map type.
+    private static func createCustomOverlays(for mapType: ExtendedMapType) -> [MKOverlay] {
         // For each layer of given type, ceate map overlay and renderer.
-        return mapType.layers.map { layer in
-            let overlay = MapyTileOverlay(layer: layer)
-            let renderer = MKTileOverlayRenderer(overlay: overlay)
-
-            return (overlay, renderer)
-        }
+        return mapType.layers.map(MapyTileOverlay.init)
     }
 }
