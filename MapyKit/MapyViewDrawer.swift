@@ -56,19 +56,13 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
         return respondsToASelector || (isMapKitSelector && selectorImplementedByDelegate)
     }
 
-    override func doesNotRecognizeSelector(_ aSelector: Selector!) {
-        // If the selector was not recognized, forward it to secondary delegate
-        // but only if it's MapKit selector. This may happen if we return `responds(to:)` true
-        // so the MKMapView tryes to perform selector on drawer but the method is actually
-        // implemented by secondary delegate.
+    override func forwardingTarget(for aSelector: Selector!) -> Any? {
+        // Forward unhandled MapKit selectors to secondary delegate
         guard aSelector.isMapKitSelector else {
-            super.doesNotRecognizeSelector(aSelector)
-
-            return
+            return super.forwardingTarget(for: aSelector)
         }
 
-        // Forward the selector to secondary delegate
-        _ = secondaryDelegate?.perform(aSelector)
+        return secondaryDelegate
     }
 
     // MARK: Public API
