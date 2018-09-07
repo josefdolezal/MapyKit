@@ -16,7 +16,8 @@ import MapKit
 /// - tourist: Map with hiking trails
 /// - winter: Map of winter resorts
 /// - satelite: Satelite map without street labels
-/// - hybrid: Satelite map with street labels
+/// - hybrid: Satelite map with street labels (multilayer type)
+/// - hybridNative: Satelite map with native street labels (singlelayer type)
 /// - geography: Geography map
 /// - historical: Historical map (Czech Republic only)
 /// - textMap: Text only map (April fools day easter egg, 2017)
@@ -27,6 +28,7 @@ public enum ExtendedMapType {
     case winter
     case satelite
     case hybrid
+    case hybridNative
     case geography
     case historical
     case textMap
