@@ -81,7 +81,7 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
         overlays.reversed()
             // Insert each layer to the lowest level,
             // so all custom layers inserted by user are rendered above map
-            .forEach { mapView?.insert($0, at: 0, level: .aboveLabels) }
+            .forEach { mapView?.insert($0, at: 0, level: mapType.layersLevel) }
 
         self.mapType = mapType
     }

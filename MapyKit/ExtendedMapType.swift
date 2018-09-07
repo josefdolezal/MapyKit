@@ -45,10 +45,21 @@ public enum ExtendedMapType {
         case .winter: return [.winterMap]
         case .satelite: return [.sateliteMap]
         case .hybrid: return [.sateliteMap, .placeLabels]
+        case .hybridNative: return [.sateliteMap]
         case .geography: return [.geographyMap]
         case .historical: return [.hystoricalMap]
         case .textMap: return [.baseMap, .textMap]
         case .in100Years: return [.baseMap, .in100YearsMap]
+        }
+    }
+
+    /// Indicates on which level the layers should be rendered.
+    var layersLevel: MKOverlayLevel {
+        switch self {
+        case .hybridNative:
+            return .aboveRoads
+        default:
+            return .aboveLabels
         }
     }
 }
