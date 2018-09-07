@@ -17,12 +17,37 @@
 		D227AD73213F0F120003DE4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D227AD71213F0F120003DE4C /* Main.storyboard */; };
 		D227AD75213F0F140003DE4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D227AD74213F0F140003DE4C /* Assets.xcassets */; };
 		D227AD78213F0F140003DE4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D227AD76213F0F140003DE4C /* LaunchScreen.storyboard */; };
-		D227AD7E213F0FAF0003DE4C /* MapyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; };
 		D227AD80213F118C0003DE4C /* ExtendedMapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227AD7F213F118C0003DE4C /* ExtendedMapType.swift */; };
+		D2488A84214276E30032D382 /* MapyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; };
+		D2488A85214276E30032D382 /* MapyKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D28554142141A61000C7E423 /* MapyLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554132141A61000C7E423 /* MapyLayer.swift */; };
 		D28554162141B3A300C7E423 /* ExtendedMapType+Titles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554152141B3A300C7E423 /* ExtendedMapType+Titles.swift */; };
 		D28554182141B5EB00C7E423 /* MapTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554172141B5EB00C7E423 /* MapTypeCell.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D2488A86214276E30032D382 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D215D895213EFBB100296D74 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D215D89D213EFBB100296D74;
+			remoteInfo = MapyKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D2488A88214276E30032D382 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D2488A85214276E30032D382 /* MapyKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		D215D89E213EFBB100296D74 /* MapyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D227AD7E213F0FAF0003DE4C /* MapyKit.framework in Frameworks */,
+				D2488A84214276E30032D382 /* MapyKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,10 +216,12 @@
 				D227AD67213F0F120003DE4C /* Sources */,
 				D227AD68213F0F120003DE4C /* Frameworks */,
 				D227AD69213F0F120003DE4C /* Resources */,
+				D2488A88214276E30032D382 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D2488A87214276E30032D382 /* PBXTargetDependency */,
 			);
 			name = Example;
 			productName = Example;
@@ -285,6 +312,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D2488A87214276E30032D382 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D215D89D213EFBB100296D74 /* MapyKit */;
+			targetProxy = D2488A86214276E30032D382 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D227AD71213F0F120003DE4C /* Main.storyboard */ = {
@@ -484,14 +519,17 @@
 		D227AD7B213F0F140003DE4C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 69T295ARCG;
 				INFOPLIST_FILE = "Example/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.github.josefdolezal.Example;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.josefdolezal.MapyKit.iOSExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -501,14 +539,17 @@
 		D227AD7C213F0F140003DE4C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 69T295ARCG;
 				INFOPLIST_FILE = "Example/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.github.josefdolezal.Example;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.josefdolezal.MapyKit.iOSExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
