@@ -15,10 +15,6 @@ import MapKit
 /// we use delegate forwarding for unrecognized `MapKit` selectors
 /// and overlays set up by user.
 final class MapyViewDrawer: NSObject, MKMapViewDelegate {
-    // MARK: Structure
-
-    private typealias DrawableLayer = (overlay: MapyTileOverlay, renderer: MKTileOverlayRenderer)
-
     // MARK: Properties
 
     /// The delegate to which unhandled MKMapViewDelegate selectors will be forwarded.
@@ -30,7 +26,7 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
     }
 
     /// Custom map overlays
-    private var overlays: [MKOverlay]
+    private var overlays: [MapyTileOverlay]
     /// Current type of map.
     private var mapType: ExtendedMapType
 
@@ -75,14 +71,19 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
         // Keep the reference old overlays so it can be removed later
         let oldOverlays = self.overlays
         // Create new overlays for given type
-        let overlays = MapyViewDrawer.createCustomOverlays(for: mapType)
+        self.overlays = MapyViewDrawer.createCustomOverlays(for: mapType)
 
         // Remove all old layers and add new
         oldOverlays.forEach { self.mapView?.remove($0) }
-        overlays.forEach { self.mapView?.add($0, level: .aboveLabels) }
+        // We will insert layers one by one at index 0,
+        // reverse the collection so the order of overlays stays the same
+        // after insertion
+        overlays.reversed()
+            // Insert each layer to the lowest level,
+            // so all custom layers inserted by user are rendered above map
+            .forEach { mapView?.insert($0, at: 0, level: .aboveLabels) }
 
         self.mapType = mapType
-        self.overlays = overlays
     }
 
     // MARK: MKMapViewDelegate
@@ -116,7 +117,7 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
     ///
     /// - Parameter mapType: Type for which the layers will be created.
     /// - Returns: Map overlays for given map type.
-    private static func createCustomOverlays(for mapType: ExtendedMapType) -> [MKOverlay] {
+    private static func createCustomOverlays(for mapType: ExtendedMapType) -> [MapyTileOverlay] {
         // For each layer of given type, ceate map overlay and renderer.
         return mapType.layers.map(MapyTileOverlay.init)
     }
