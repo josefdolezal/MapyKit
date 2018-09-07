@@ -14,6 +14,12 @@ class ViewController: UIViewController {
     // MARK: Properties
 
     private static let mapTypes = ExtendedMapType.allTypes
+    private static let polygonCoordinates: [CLLocationCoordinate2D] = [
+        CLLocationCoordinate2D(latitude: 49.946908, longitude: 14.351166),
+        CLLocationCoordinate2D(latitude: 50.107475, longitude: 14.224823),
+        CLLocationCoordinate2D(latitude: 50.174366, longitude: 14.54068),
+        CLLocationCoordinate2D(latitude: 50.068706, longitude: 14.710968)
+    ]
 
     private let mapyView = MapyView()
     private let tableView = UITableView()
@@ -54,6 +60,7 @@ class ViewController: UIViewController {
         tableView.register(MapTypeCell.self, forCellReuseIdentifier: MapTypeCell.identifier)
 
         // Setup mapy view
+        mapyView.delegate = self
         mapyView.setExtendedMapType(currentMapType)
         mapyView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: "Annotation")
 
@@ -61,6 +68,10 @@ class ViewController: UIViewController {
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: 50.0713667, longitude: 14.4010147)
         mapyView.addAnnotation(annotation)
+
+        // Add custom layer
+        let polygon = MKPolygon(coordinates: ViewController.polygonCoordinates, count: ViewController.polygonCoordinates.count)
+        mapyView.add(polygon)
     }
 }
 
@@ -108,5 +119,14 @@ extension ViewController: UITableViewDelegate {
 extension ViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         return mapyView.dequeueReusableAnnotationView(withIdentifier: "Annotation", for: annotation)
+    }
+
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolygonRenderer(overlay: overlay)
+
+        renderer.fillColor = UIColor.black.withAlphaComponent(0.14)
+        renderer.strokeColor = UIColor.black.withAlphaComponent(0.4)
+
+        return renderer
     }
 }
