@@ -16,6 +16,7 @@ extension ExtendedMapType {
         case .winter: return "Winter"
         case .satelite: return "Satelite"
         case .hybrid: return "Hybrid"
+        case .hybridNative: return "Hybrid with native labels"
         case .geography: return "Geography"
         case .historical: return "Historical"
         case .textMap: return "Text map"
@@ -29,6 +30,7 @@ extension ExtendedMapType {
         .winter,
         .satelite,
         .hybrid,
+        .hybridNative,
         .geography,
         .historical,
         .textMap,
