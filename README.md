@@ -10,7 +10,29 @@ This project is currently in early development stage, framework APIs may change 
 
 ## Installation
 
-Only manual installation from source is supported at the moment. Support for [Carthage](https://github.com/Carthage/Carthage) and [CocoaPods](https://cocoapods.org) comming soon.
+### Carthage
+
+Add following line to your `Cartfile`:
+
+```
+github "josefdolezal/MapyKit" ~> 0.1.0
+```
+
+Follow the [installation guide](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos) to correctly link library with your project.
+
+### CocoaPods
+
+Add following line to yor `Podfile`:
+
+```ruby
+pod 'MapyKit', :git => 'https://github.com/josefdolezal/MapyKit.git', '~> 0.1.0'
+```
+
+Once you updated the `Podfile`, run:
+
+```bash
+$ pod install
+```
 
 ## Usage
 
