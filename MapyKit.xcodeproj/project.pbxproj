@@ -23,6 +23,7 @@
 		D238522F214E90DD000087DD /* MapyAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D2385227214E90DD000087DD /* MapyAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D2385236214E91AF000087DD /* FastRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2385235214E91AF000087DD /* FastRPC.swift */; };
 		D2385238214E9616000087DD /* FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2385237214E9616000087DD /* FastRPCSerializable.swift */; };
+		D238523B214E9755000087DD /* Optional+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D238523A214E9755000087DD /* Optional+FastRPCSerializable.swift */; };
 		D2488A84214276E30032D382 /* MapyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; };
 		D2488A85214276E30032D382 /* MapyKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D28554142141A61000C7E423 /* MapyLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554132141A61000C7E423 /* MapyLayer.swift */; };
@@ -83,6 +84,7 @@
 		D238522A214E90DD000087DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2385235214E91AF000087DD /* FastRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPC.swift; sourceTree = "<group>"; };
 		D2385237214E9616000087DD /* FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCSerializable.swift; sourceTree = "<group>"; };
+		D238523A214E9755000087DD /* Optional+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D28554132141A61000C7E423 /* MapyLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyLayer.swift; sourceTree = "<group>"; };
 		D28554152141B3A300C7E423 /* ExtendedMapType+Titles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExtendedMapType+Titles.swift"; sourceTree = "<group>"; };
 		D28554172141B5EB00C7E423 /* MapTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeCell.swift; sourceTree = "<group>"; };
@@ -189,10 +191,19 @@
 		D2385234214E9199000087DD /* FastRPC */ = {
 			isa = PBXGroup;
 			children = (
+				D2385239214E96EA000087DD /* Extensions */,
 				D2385235214E91AF000087DD /* FastRPC.swift */,
 				D2385237214E9616000087DD /* FastRPCSerializable.swift */,
 			);
 			path = FastRPC;
+			sourceTree = "<group>";
+		};
+		D2385239214E96EA000087DD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D238523A214E9755000087DD /* Optional+FastRPCSerializable.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		D285541B2141C8AD00C7E423 /* Supporting Files */ = {
@@ -409,6 +420,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D238523B214E9755000087DD /* Optional+FastRPCSerializable.swift in Sources */,
 				D2385238214E9616000087DD /* FastRPCSerializable.swift in Sources */,
 				D2385236214E91AF000087DD /* FastRPC.swift in Sources */,
 			);
