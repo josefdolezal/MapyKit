@@ -21,8 +21,8 @@ import Foundation
 /// - dateTime: Undocumented. Probably represents timestamp.
 /// - double: Double value.
 /// - int: Integer value.
-/// - int8n: Undocumented. Probably represents signed or unsigned 8bit number.
-/// - int8p: Undocumented. Probably represents signed or unsigned 8bit number.
+/// - int8n: Negative integer value (numbers less then or equal to zero).
+/// - int8p: Positive integer value (greater then zero).
 /// - string: ASCII encoded UTF8 string (keep in mind variable bytes count for UTF8 chars).
 /// - array: (Homogenous?) Array of RPCSerializable objects.
 /// - `struct`: Structured key-value object.
