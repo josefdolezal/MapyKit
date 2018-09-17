@@ -11,16 +11,17 @@ import Foundation
 extension Int: FastRPCSerializable {
     func serialize() throws -> Data {
         // Determine the type of current value
-        let type: FastRPCObejectType = self <= 0
+        let type: FastRPCObejectType = self < 0
             ? .int8n
             : .int8p
+        // Create copy of `self` and ignore it's sign
+        var copy = abs(self)
         // Create identifier using type ID increased by NLEN
-        var identifier = type.identifier + (nonTrailingBytesCount - 1)
-        var copy = self
+        var identifier = type.identifier + (copy.nonTrailingBytesCount - 1)
 
         // Create data from identifier (alway 1B lenght)
         var identifierData = Data(bytes: &identifier, count: 1)
-        let intData = Data(bytes: &copy, count: nonTrailingBytesCount)
+        let intData = Data(bytes: &copy, count: copy.nonTrailingBytesCount)
 
         // Concat data (type + value)
         identifierData.append(intData)
