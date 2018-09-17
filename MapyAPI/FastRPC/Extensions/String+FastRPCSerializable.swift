@@ -16,7 +16,19 @@ extension String: FastRPCSerializable {
             throw FastRPCError.serialization(self, nil)
         }
 
+        // Create identifier for string value (encode id + content length in bytes)
+        var dataLength = data.count
+        let serializedDataLength = Data(bytes: &dataLength, count: dataLength.nonTrailingBytesCount)
+
+        // Create identifier
+        var identifier = FastRPCObejectType.string.identifier + (serializedDataLength.count - 1)
+        var serializedIdentifier = Data(bytes: &identifier, count: identifier.nonTrailingBytesCount)
+
+        // Combine identifier, content length and content
+        serializedIdentifier.append(serializedDataLength)
+        serializedIdentifier.append(data)
+
         // Return converted data
-        return data
+        return serializedIdentifier
     }
 }
