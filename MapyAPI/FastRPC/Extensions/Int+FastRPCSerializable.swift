@@ -14,41 +14,32 @@ extension Int: FastRPCSerializable {
         let type: FastRPCObejectType = self <= 0
             ? .int8n
             : .int8p
+        // Create identifier using type ID increased by NLEN
+        var identifier = (type.identifier + nonTrailingBytesCount) >> 1
+        var copy = self
 
-        // See the `encode(_:)` docs
-        let valueData = encode(abs(self))
-        // Create serialized value identifier
-        let identifier = type.identifier + Swift.max(0, valueData.count - 1)
-        // Int values representing key-value pair
-        let data = [identifier] + valueData
+        // Create data from identifier (alway 1B lenght)
+        var identifierData = Data(bytes: &identifier, count: 1)
+        let intData = Data(bytes: &copy, count: 1)
 
-        return Data(data)
+        // Concat data (type + value)
+        identifierData.append(intData)
+
+        return identifierData
+    }
+}
+
+extension Int {
+    /// Number of bits that are used to store integer value
+    var nonTrailingBitsCount: Int {
+        // Int always takes at least one 1b (zero), sanitize minimum value
+        return Swift.min(1, bitWidth - leadingZeroBitCount)
     }
 
-    /// Encodes given value into data using FastRPC standard. Encoded value must be greater than or equal to zero.
-    /// Implementation is taken from `JAK.FRPC._encodeInt` which may be found on https://api.mapy.cz/js/api/v5/smap-jak.js?v=4.13.27 .
-    ///
-    /// - Returns: Self encoded into data
-    private func encode(_ value: Int) -> [Int] {
-        // Create buffer for integer serialization
-        var buffer = [Int]()
-        // Create mutable copy of given value
-        var encodedValue = value
-
-        // Be sure that zero is explicitly encoded (would go through following loop otherwise)
-        if encodedValue == 0 {
-            return [0]
-        }
-
-        // Convert the value into data using FastRPC standard
-        while encodedValue != 0 {
-            let partial = encodedValue % 256
-
-            encodedValue = (encodedValue - partial) / 256
-            buffer.append(encodedValue)
-        }
-
-        return buffer
+    /// Number of bytes used to store integer value
+    var nonTrailingBytesCount: Int {
+        // Advance used bits by seven so the division is rounded up
+        return (nonTrailingBitsCount + 7) / 8
     }
 }
 
