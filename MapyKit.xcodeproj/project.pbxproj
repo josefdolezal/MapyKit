@@ -30,6 +30,8 @@
 		D2385243214EA6E4000087DD /* Double+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2385242214EA6E4000087DD /* Double+FastRPCSerializable.swift */; };
 		D2385245214EB7C3000087DD /* Bool+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2385244214EB7C3000087DD /* Bool+FastRPCSerializable.swift */; };
 		D2385247214EBC3F000087DD /* Array+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2385246214EBC3F000087DD /* Array+FastRPCSerializable.swift */; };
+		D23975EF21501877000C6AD8 /* SerializationContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23975EE21501877000C6AD8 /* SerializationContainer.swift */; };
+		D23975F1215018C2000C6AD8 /* SerializationBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23975F0215018C2000C6AD8 /* SerializationBuffer.swift */; };
 		D2488A84214276E30032D382 /* MapyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; };
 		D2488A85214276E30032D382 /* MapyKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D28554142141A61000C7E423 /* MapyLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554132141A61000C7E423 /* MapyLayer.swift */; };
@@ -97,6 +99,8 @@
 		D2385242214EA6E4000087DD /* Double+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2385244214EB7C3000087DD /* Bool+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2385246214EBC3F000087DD /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
+		D23975EE21501877000C6AD8 /* SerializationContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializationContainer.swift; sourceTree = "<group>"; };
+		D23975F0215018C2000C6AD8 /* SerializationBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializationBuffer.swift; sourceTree = "<group>"; };
 		D28554132141A61000C7E423 /* MapyLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyLayer.swift; sourceTree = "<group>"; };
 		D28554152141B3A300C7E423 /* ExtendedMapType+Titles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExtendedMapType+Titles.swift"; sourceTree = "<group>"; };
 		D28554172141B5EB00C7E423 /* MapTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeCell.swift; sourceTree = "<group>"; };
@@ -207,6 +211,8 @@
 				D2385235214E91AF000087DD /* FastRPC.swift */,
 				D2385237214E9616000087DD /* FastRPCSerializable.swift */,
 				D2385240214EA57F000087DD /* FastRPCError.swift */,
+				D23975F0215018C2000C6AD8 /* SerializationBuffer.swift */,
+				D23975EE21501877000C6AD8 /* SerializationContainer.swift */,
 			);
 			path = FastRPC;
 			sourceTree = "<group>";
@@ -440,8 +446,10 @@
 			files = (
 				D2385241214EA57F000087DD /* FastRPCError.swift in Sources */,
 				D238523D214E995E000087DD /* Int+FastRPCSerializable.swift in Sources */,
+				D23975F1215018C2000C6AD8 /* SerializationBuffer.swift in Sources */,
 				D2385245214EB7C3000087DD /* Bool+FastRPCSerializable.swift in Sources */,
 				D2385243214EA6E4000087DD /* Double+FastRPCSerializable.swift in Sources */,
+				D23975EF21501877000C6AD8 /* SerializationContainer.swift in Sources */,
 				D238523B214E9755000087DD /* Optional+FastRPCSerializable.swift in Sources */,
 				D2385238214E9616000087DD /* FastRPCSerializable.swift in Sources */,
 				D2385247214EBC3F000087DD /* Array+FastRPCSerializable.swift in Sources */,
