@@ -55,4 +55,9 @@ class String_FastRPCSerializableTests: XCTestCase {
          XCTAssertEqual([UInt8](try "~śř]ň%čÝéŘŮśÍŽÜ".serialize()), [32, 27, 126, 197, 155, 197, 153, 93, 197, 136, 37, 196, 141, 195, 157, 195, 169, 197, 152, 197, 174, 197, 155, 195, 141, 197, 189, 195, 156])
          XCTAssertEqual([UInt8](try "ÚÖ[\\ů~ýÉůŤťüĚňď".serialize()), [32, 27, 195, 154, 195, 150, 91, 92, 197, 175, 126, 195, 189, 195, 137, 197, 175, 197, 164, 197, 165, 195, 188, 196, 154, 197, 136, 196, 143])
     }
+
+    func testSerializeSpecialCases() {
+        XCTAssertEqual([UInt8](try " ".serialize()), [32, 1, 32])
+        XCTAssertEqual([UInt8](try "".serialize()), [32, 0])
+    }
 }
