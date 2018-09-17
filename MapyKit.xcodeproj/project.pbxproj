@@ -33,6 +33,7 @@
 		D23975EF21501877000C6AD8 /* SerializationContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23975EE21501877000C6AD8 /* SerializationContainer.swift */; };
 		D23975F1215018C2000C6AD8 /* SerializationBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23975F0215018C2000C6AD8 /* SerializationBuffer.swift */; };
 		D23975FB21503B17000C6AD8 /* MapyAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2385227214E90DD000087DD /* MapyAPI.framework */; };
+		D239760821503C20000C6AD8 /* Int+FastRPCSerializableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239760721503C20000C6AD8 /* Int+FastRPCSerializableTests.swift */; };
 		D2488A84214276E30032D382 /* MapyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; };
 		D2488A85214276E30032D382 /* MapyKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D28554142141A61000C7E423 /* MapyLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554132141A61000C7E423 /* MapyLayer.swift */; };
@@ -111,6 +112,7 @@
 		D23975F0215018C2000C6AD8 /* SerializationBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializationBuffer.swift; sourceTree = "<group>"; };
 		D23975F621503B17000C6AD8 /* MapyAPITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapyAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D23975FA21503B17000C6AD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D239760721503C20000C6AD8 /* Int+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
 		D28554132141A61000C7E423 /* MapyLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyLayer.swift; sourceTree = "<group>"; };
 		D28554152141B3A300C7E423 /* ExtendedMapType+Titles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExtendedMapType+Titles.swift"; sourceTree = "<group>"; };
 		D28554172141B5EB00C7E423 /* MapTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeCell.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				D239760121503B26000C6AD8 /* Supporting Files */,
+				D239760321503BC3000C6AD8 /* FastRPC */,
 			);
 			path = MapyAPITests;
 			sourceTree = "<group>";
@@ -264,6 +267,22 @@
 				D23975FA21503B17000C6AD8 /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D239760321503BC3000C6AD8 /* FastRPC */ = {
+			isa = PBXGroup;
+			children = (
+				D239760421503BE0000C6AD8 /* Extensions */,
+			);
+			path = FastRPC;
+			sourceTree = "<group>";
+		};
+		D239760421503BE0000C6AD8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D239760721503C20000C6AD8 /* Int+FastRPCSerializableTests.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		D285541B2141C8AD00C7E423 /* Supporting Files */ = {
@@ -422,6 +441,7 @@
 					};
 					D23975F521503B17000C6AD8 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
 					};
 				};
 			};
@@ -527,6 +547,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D239760821503C20000C6AD8 /* Int+FastRPCSerializableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -841,6 +862,7 @@
 		D23975FF21503B17000C6AD8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "MapyAPITests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -850,6 +872,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.josefdolezal.MapyAPITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -858,6 +881,7 @@
 		D239760021503B17000C6AD8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "MapyAPITests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -15,12 +15,12 @@ extension Int: FastRPCSerializable {
             ? .int8n
             : .int8p
         // Create identifier using type ID increased by NLEN
-        var identifier = (type.identifier + nonTrailingBytesCount) >> 1
+        var identifier = type.identifier + (nonTrailingBytesCount - 1)
         var copy = self
 
         // Create data from identifier (alway 1B lenght)
         var identifierData = Data(bytes: &identifier, count: 1)
-        let intData = Data(bytes: &copy, count: 1)
+        let intData = Data(bytes: &copy, count: nonTrailingBytesCount)
 
         // Concat data (type + value)
         identifierData.append(intData)
@@ -33,7 +33,7 @@ extension Int {
     /// Number of bits that are used to store integer value
     var nonTrailingBitsCount: Int {
         // Int always takes at least one 1b (zero), sanitize minimum value
-        return Swift.min(1, bitWidth - leadingZeroBitCount)
+        return Swift.max(1, bitWidth - leadingZeroBitCount)
     }
 
     /// Number of bytes used to store integer value
