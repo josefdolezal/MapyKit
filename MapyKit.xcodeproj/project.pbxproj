@@ -42,6 +42,7 @@
 		D28554162141B3A300C7E423 /* ExtendedMapType+Titles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554152141B3A300C7E423 /* ExtendedMapType+Titles.swift */; };
 		D28554182141B5EB00C7E423 /* MapTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554172141B5EB00C7E423 /* MapTypeCell.swift */; };
 		D2CD64952151772E0038014A /* Bool+FastRPCSerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */; };
+		D2CD6497215181FC0038014A /* Array+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +123,7 @@
 		D28554152141B3A300C7E423 /* ExtendedMapType+Titles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExtendedMapType+Titles.swift"; sourceTree = "<group>"; };
 		D28554172141B5EB00C7E423 /* MapTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeCell.swift; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
+		D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +292,7 @@
 				D239760921504B28000C6AD8 /* String+FastRPCSerializableTests.swift */,
 				D239760B21505781000C6AD8 /* Double+FastRPCSerializable.swift */,
 				D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */,
+				D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -559,6 +562,7 @@
 				D239760821503C20000C6AD8 /* Int+FastRPCSerializableTests.swift in Sources */,
 				D239760A21504B28000C6AD8 /* String+FastRPCSerializableTests.swift in Sources */,
 				D2CD64952151772E0038014A /* Bool+FastRPCSerializationTests.swift in Sources */,
+				D2CD6497215181FC0038014A /* Array+FastRPCSerializable.swift in Sources */,
 				D239760C21505781000C6AD8 /* Double+FastRPCSerializable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
