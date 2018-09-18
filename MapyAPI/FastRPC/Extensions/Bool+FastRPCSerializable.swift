@@ -13,11 +13,11 @@ extension Bool: FastRPCSerializable {
         let identifier = FastRPCObejectType.bool.identifier
 
         // Increase identifier if current value is `true`
-        let data = self
+        var data = self
             ? identifier + 1
             : identifier
 
         // Serialize identifier
-        return Data(data)
+        return Data(bytes: &data, count: 1)
     }
 }
