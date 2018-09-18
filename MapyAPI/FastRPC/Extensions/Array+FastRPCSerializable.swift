@@ -10,9 +10,12 @@ import Foundation
 
 extension Array: FastRPCSerializable where Element: FastRPCSerializable {
     func serialize() throws -> Data {
-        let size = try self.count.serialize()
+        // Encode the size into bytes
+        var size = count
+        let sizeData = Data(bytes: &size, count: size.nonTrailingBytesCount)
         // Advance identifier by number of encoded size components
-        let identifier = FastRPCObejectType.array.identifier + size.count - 1
+        var identifier = FastRPCObejectType.array.identifier + sizeData.count - 1
+        let identifierData = Data(bytes: &identifier, count: identifier.nonTrailingBytesCount)
         // Buffer for final data
         var data = Data()
 
@@ -20,14 +23,14 @@ extension Array: FastRPCSerializable where Element: FastRPCSerializable {
         let elementsData = try reduce(Data()) { partial, element -> Data in
             var data = partial
 
-            data .append(try element.serialize())
+            data.append(try element.serialize())
 
-            return partial
+            return data
         }
 
         // Build the final data structure
-        data.append(Data(identifier))
-        data.append(size)
+        data.append(identifierData)
+        data.append(sizeData)
         data.append(elementsData)
 
         return data
