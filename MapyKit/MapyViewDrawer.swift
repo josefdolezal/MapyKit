@@ -74,14 +74,14 @@ final class MapyViewDrawer: NSObject, MKMapViewDelegate {
         self.overlays = MapyViewDrawer.createCustomOverlays(for: mapType)
 
         // Remove all old layers and add new
-        oldOverlays.forEach { self.mapView?.remove($0) }
+        oldOverlays.forEach { self.mapView?.removeOverlay($0) }
         // We will insert layers one by one at index 0,
         // reverse the collection so the order of overlays stays the same
         // after insertion
         overlays.reversed()
             // Insert each layer to the lowest level,
             // so all custom layers inserted by user are rendered above map
-            .forEach { mapView?.insert($0, at: 0, level: mapType.layersLevel) }
+            .forEach { mapView?.insertOverlay($0, at: 0, level: mapType.layersLevel) }
 
         self.mapType = mapType
     }

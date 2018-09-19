@@ -71,7 +71,7 @@ class ViewController: UIViewController {
 
         // Add custom layer
         let polygon = MKPolygon(coordinates: ViewController.polygonCoordinates, count: ViewController.polygonCoordinates.count)
-        mapyView.add(polygon)
+        mapyView.addOverlay(polygon)
     }
 }
 
