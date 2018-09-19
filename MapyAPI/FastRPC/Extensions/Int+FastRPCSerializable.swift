@@ -43,19 +43,3 @@ extension Int {
         return (nonTrailingBitsCount + 7) / 8
     }
 }
-
-// Convenience initializer for Data using integer value
-extension Data {
-    /// Initialize data using integer
-    init(_ value: Int) {
-        var copy = value
-
-        // Solution taken from https://stackoverflow.com/a/38024025/9016753
-        self = Data(buffer: UnsafeBufferPointer(start: &copy, count: 1))
-    }
-
-    /// Initialize Data using array of integers
-    init(_ value: [Int]) {
-        self = value.withUnsafeBufferPointer(Data.init(buffer:))
-    }
-}
