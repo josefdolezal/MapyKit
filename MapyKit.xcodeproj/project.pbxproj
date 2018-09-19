@@ -44,6 +44,7 @@
 		D2CD64952151772E0038014A /* Bool+FastRPCSerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */; };
 		D2CD6497215181FC0038014A /* Array+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */; };
 		D2CD6499215197CF0038014A /* Optional+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */; };
+		D2CD649B21519F8F0038014A /* FastRPCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CD649A21519F8F0038014A /* FastRPCService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +127,7 @@
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
 		D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+FastRPCSerializable.swift"; sourceTree = "<group>"; };
+		D2CD649A21519F8F0038014A /* FastRPCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +247,7 @@
 				D2385240214EA57F000087DD /* FastRPCError.swift */,
 				D23975F0215018C2000C6AD8 /* SerializationBuffer.swift */,
 				D23975EE21501877000C6AD8 /* SerializationContainer.swift */,
+				D2CD649A21519F8F0038014A /* FastRPCService.swift */,
 			);
 			path = FastRPC;
 			sourceTree = "<group>";
@@ -551,6 +554,7 @@
 				D2385243214EA6E4000087DD /* Double+FastRPCSerializable.swift in Sources */,
 				D23975EF21501877000C6AD8 /* SerializationContainer.swift in Sources */,
 				D238523B214E9755000087DD /* Optional+FastRPCSerializable.swift in Sources */,
+				D2CD649B21519F8F0038014A /* FastRPCService.swift in Sources */,
 				D2385238214E9616000087DD /* FastRPCSerializable.swift in Sources */,
 				D2385247214EBC3F000087DD /* Array+FastRPCSerializable.swift in Sources */,
 				D2385236214E91AF000087DD /* FastRPC.swift in Sources */,
