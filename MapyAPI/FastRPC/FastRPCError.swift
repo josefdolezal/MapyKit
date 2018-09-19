@@ -10,4 +10,5 @@ import Foundation
 
 enum FastRPCError: Error {
     case serialization(Any, Error?)
+    case unknown(Error?)
 }
