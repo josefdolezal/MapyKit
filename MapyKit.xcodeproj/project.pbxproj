@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D202ADCB2152DC91004A6838 /* Date+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D202ADCA2152DC91004A6838 /* Date+FastRPCSerializable.swift */; };
 		D215D8A3213EFBB100296D74 /* MapyKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D215D8A1213EFBB100296D74 /* MapyKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D215D8AA213EFBF400296D74 /* MapyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8A9213EFBF400296D74 /* MapyView.swift */; };
 		D215D8AC213EFC3000296D74 /* MapyTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8AB213EFC3000296D74 /* MapyTileOverlay.swift */; };
@@ -87,6 +88,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D202ADCA2152DC91004A6838 /* Date+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D215D89E213EFBB100296D74 /* MapyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D215D8A1213EFBB100296D74 /* MapyKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapyKit.h; sourceTree = "<group>"; };
 		D215D8A2213EFBB100296D74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				D2385242214EA6E4000087DD /* Double+FastRPCSerializable.swift */,
 				D2385244214EB7C3000087DD /* Bool+FastRPCSerializable.swift */,
 				D2385246214EBC3F000087DD /* Array+FastRPCSerializable.swift */,
+				D202ADCA2152DC91004A6838 /* Date+FastRPCSerializable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 				D23975EF21501877000C6AD8 /* SerializationContainer.swift in Sources */,
 				D238523B214E9755000087DD /* Optional+FastRPCSerializable.swift in Sources */,
 				D2CD649B21519F8F0038014A /* FastRPCService.swift in Sources */,
+				D202ADCB2152DC91004A6838 /* Date+FastRPCSerializable.swift in Sources */,
 				D2385238214E9616000087DD /* FastRPCSerializable.swift in Sources */,
 				D2385247214EBC3F000087DD /* Array+FastRPCSerializable.swift in Sources */,
 				D2385236214E91AF000087DD /* FastRPC.swift in Sources */,
