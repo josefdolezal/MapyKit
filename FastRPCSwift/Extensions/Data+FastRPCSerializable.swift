@@ -17,7 +17,8 @@ extension Data: FastRPCSerializable {
 
         // Serialize identifier and raw data
         data.append(identifier.usedBytes)
-        data.append(data)
+        data.append(count.usedBytes)
+        data.append(self)
 
         return SerializationBuffer(data: data)
     }
