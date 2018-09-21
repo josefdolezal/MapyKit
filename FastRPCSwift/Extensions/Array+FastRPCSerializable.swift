@@ -9,7 +9,7 @@
 import Foundation
 
 extension Array: FastRPCSerializable where Element: FastRPCSerializable {
-    func serialize() throws -> Data {
+    public func serialize() throws -> SerializationBuffer {
         // Encode the size into bytes
         var size = count
         let sizeData = Data(bytes: &size, count: size.nonTrailingBytesCount)
@@ -19,20 +19,18 @@ extension Array: FastRPCSerializable where Element: FastRPCSerializable {
         // Buffer for final data
         var data = Data()
 
-        // Convert each element into data
-        let elementsData = try reduce(Data()) { partial, element -> Data in
-            var data = partial
+        let elementsData = try self
+            // Convert each element into data
+            .map { try $0.serialize().data }
+            // Reduce data bby merging all elements bytes
+            .reduce(Data(), +)
 
-            data.append(try element.serialize())
-
-            return data
-        }
 
         // Build the final data structure
         data.append(identifierData)
         data.append(sizeData)
         data.append(elementsData)
 
-        return data
+        return SerializationBuffer(data: data)
     }
 }

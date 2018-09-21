@@ -9,7 +9,7 @@
 import Foundation
 
 extension Bool: FastRPCSerializable {
-    func serialize() throws -> Data {
+    public func serialize() throws -> SerializationBuffer {
         let identifier = FastRPCObejectType.bool.identifier
 
         // Increase identifier if current value is `true`
@@ -18,6 +18,6 @@ extension Bool: FastRPCSerializable {
             : identifier
 
         // Serialize identifier
-        return Data(bytes: &data, count: 1)
+        return SerializationBuffer(data: Data(bytes: &data, count: 1))
     }
 }

@@ -70,12 +70,10 @@ final class FastRPCService {
     }
 
     private func serialize(procedureParameters parameters: [FastRPCSerializable]) throws -> Data {
-        return try parameters.reduce(Data()) { partial, element in
-            var data = partial
-
-            data.append(try element.serialize())
-
-            return data
-        }
+        return try parameters
+            // Map each parameter into data
+            .map { try $0.serialize().data }
+            // Reduce parameters into single 
+            .reduce(Data(), +)
     }
 }

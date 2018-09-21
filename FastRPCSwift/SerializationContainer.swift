@@ -8,50 +8,59 @@
 
 import Foundation
 
+/// Serialization container takes care data of serialization using FRPC. It exposes high-level
+/// API for serialing structured objects and language primitives while maintaing serialized
+/// data valid with FRPS standard. For primitive serialization use `PrimitiveSerializationContainer`.
 public final class SerializationContainer {
-    // MARK: Properties
+    // MARK: - Properties
 
+    /// Internal representation of given structured members. Each member is
+    /// FRPC encoded key-value pair.
     private var members: [Data]
-    private weak var buffer: SerializationBuffer?
 
-    // MARK: Initializers
+    // MARK: - Initializers
 
-    init(buffer: SerializationBuffer) {
+    /// Public initializer for creating serialization container. Creates new empty container.
+    public init() {
         self.members = []
-        self.buffer = buffer
     }
 
-    // MARK: Primitives
+    // MARK: Public API
 
-    public func serialize(bool: Bool, for key: String) {
+    public func createBuffer() -> SerializationBuffer {
+        // Serialize data by merging members data
+        let serializedData = members.reduce(Data(), +)
+
+        return SerializationBuffer(data: serializedData)
+    }
+
+    // MARK: - Primitives
+
+    public func serialize(bool: Bool, for key: String) throws {
 
     }
 
-    public func serialize(int: Int, for key: String) {
+    public func serialize(int: Int, for key: String) throws {
 
     }
 
-    public func serialize(string: String, for key: String) {
+    public func serialize(string: String, for key: String) throws {
 
     }
 
-    // MARK: Objects
+    // MARK: - Objects
 
     // MARK: Collections
 
-    public func serialize(collection: [Bool], for key: String) {
+    public func serialize(collection: [Bool], for key: String) throws {
 
     }
 
-    public func serialize(collection: [Int], for key: String) {
+    public func serialize(collection: [Int], for key: String) throws {
 
     }
 
-    public func serialize(collection: String, for key: String) {
+    public func serialize(collection: [String], for key: String) throws {
 
-    }
-
-    deinit {
-        buffer?.add(members: members)
     }
 }

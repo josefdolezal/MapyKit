@@ -11,7 +11,7 @@ import XCTest
 
 class Bool_FastRPCSerializationTests: XCTestCase {
     func testSerializeCorrectly() {
-        XCTAssertEqual(try [UInt8](true.serialize()), [17])
-        XCTAssertEqual(try [UInt8](false.serialize()), [16])
+        XCTAssertEqual(try [UInt8](true.serialize().data), [17])
+        XCTAssertEqual(try [UInt8](false.serialize().data), [16])
     }
 }

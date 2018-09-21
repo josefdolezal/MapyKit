@@ -9,7 +9,7 @@
 import Foundation
 
 extension Double: FastRPCSerializable {
-    func serialize() throws -> Data {
+    public func serialize() throws -> SerializationBuffer {
         // Create identifier exactly 1B in length
         var identifier = FastRPCObejectType.double.identifier
         var identifierData = Data(bytes: &identifier, count: 1)
@@ -21,6 +21,6 @@ extension Double: FastRPCSerializable {
         // Combbine identifier with number data
         identifierData.append(doubleData)
 
-        return identifierData
+        return SerializationBuffer(data: identifierData)
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 extension Int: FastRPCSerializable {
-    func serialize() throws -> Data {
+    public func serialize() throws -> SerializationBuffer {
         // Determine the type of current value
         let type: FastRPCObejectType = self < 0
             ? .int8n
@@ -26,7 +26,7 @@ extension Int: FastRPCSerializable {
         // Concat data (type + value)
         identifierData.append(intData)
 
-        return identifierData
+        return SerializationBuffer(data: identifierData)
     }
 }
 

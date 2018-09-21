@@ -9,7 +9,7 @@
 import Foundation
 
 extension Date: FastRPCSerializable {
-    func serialize() throws -> Data {
+    public func serialize() throws -> SerializationBuffer {
         let calendar = Calendar.current
         let identifier = FastRPCObejectType.dateTime.identifier
         let dateComponents = calendar.dateComponents([.year, .month, .day, .weekday, .hour, .minute, .second], from: self)
@@ -49,7 +49,9 @@ extension Date: FastRPCSerializable {
         ]
 
         // Combine the data into single result
-        return bytes.reduce(Data(), +)
+        let data = bytes.reduce(Data(), +)
+
+        return SerializationBuffer(data: data)
     }
 
     // MARK: Private API

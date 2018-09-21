@@ -9,13 +9,13 @@
 import Foundation
 
 extension Optional: FastRPCSerializable where Wrapped: FastRPCSerializable {
-    func serialize() throws -> Data {
+    public func serialize() throws -> SerializationBuffer {
         switch self {
         // For `nil` value, send Null literal
         case .none:
-            var nilIdentifier = FastRPCObejectType.nil.identifier
+            let nilIdentifier = FastRPCObejectType.nil.identifier
 
-            return  Data(bytes: &nilIdentifier, count: nilIdentifier.nonTrailingBytesCount)
+            return SerializationBuffer(data: nilIdentifier.usedBytes)
         // For `some` cases, serialize wrapped value
         case let .some(wrapped):
             return try wrapped.serialize()

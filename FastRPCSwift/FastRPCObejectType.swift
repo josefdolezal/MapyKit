@@ -26,7 +26,7 @@ import Foundation
 /// - string: ASCII encoded UTF8 string (keep in mind variable bytes count for UTF8 chars).
 /// - array: (Homogenous?) Array of RPCSerializable objects.
 /// - `struct`: Structured key-value object.
-enum FastRPCObejectType: Int {
+public enum FastRPCObejectType: Int {
     // MARK: Meta
 
     case `nil` = 12

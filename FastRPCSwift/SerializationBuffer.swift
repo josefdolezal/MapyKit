@@ -8,26 +8,22 @@
 
 import Foundation
 
+/// Serialization buffer is public structure which can be only initialized internaly.
+/// It's a small wrapper constrainting user of FRPC to use only valid serialization / deserialization.
+/// Making the initializer internal does not allow user to create his own (and probably invalid) byte serialization.
 public final class SerializationBuffer {
     // MARK: Properties
 
-    private var data: Data
+    /// The actual data representing serialized values. Accessible internaly so it can be composed
+    internal let data: Data
 
     // MARK: Initializers
 
-    init() {
-        self.data = Data()
-    }
-
-    // MARK: Public API
-
-    public func container() -> SerializationContainer {
-        return SerializationContainer(buffer: self)
-    }
-
-    // MARK: Internal API
-
-    func add(members: [Data]) {
-        
+    /// Creates new serialization wrapper using serialized data. Those
+    /// data won't be changed in any way and are sent as-is.
+    ///
+    /// - Parameter data: Serialized data.
+    init(data: Data) {
+        self.data = data
     }
 }

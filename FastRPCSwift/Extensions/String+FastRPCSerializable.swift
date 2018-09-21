@@ -9,7 +9,7 @@
 import Foundation
 
 extension String: FastRPCSerializable {
-    func serialize() throws -> Data {
+    public func serialize() throws -> SerializationBuffer {
         // Try ot convert UTF8 string into data
         guard let data = data(using: .utf8) else {
             // Throw error on failure
@@ -29,6 +29,6 @@ extension String: FastRPCSerializable {
         serializedIdentifier.append(data)
 
         // Return converted data
-        return serializedIdentifier
+        return SerializationBuffer(data: serializedIdentifier)
     }
 }
