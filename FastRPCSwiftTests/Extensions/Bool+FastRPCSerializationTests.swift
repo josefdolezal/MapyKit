@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import MapyAPI
+@testable import FastRPCSwift
 
 class Bool_FastRPCSerializationTests: XCTestCase {
     func testSerializeCorrectly() {

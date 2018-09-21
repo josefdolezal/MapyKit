@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import MapyAPI
+@testable import FastRPCSwift
 
 class Double_FastRPCSerializable: XCTestCase {
     func testSerializePositiveNumbers() {

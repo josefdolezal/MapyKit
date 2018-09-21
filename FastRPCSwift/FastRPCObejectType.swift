@@ -1,5 +1,5 @@
 //
-//  FastRPC.swift
+//  FastRPCObejectType.swift
 //  MapyAPI
 //
 //  Created by Josef Dolezal on 16/09/2018.
