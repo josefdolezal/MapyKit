@@ -31,75 +31,35 @@ public final class SerializationContainer {
     ///
     /// - Returns: New serialization buffer.
     public func createBuffer() -> SerializationBuffer {
+        // Struct data storage
+        var data = Data()
+        // Serialize identifier
+        let identifier = FastRPCObejectType.struct.identifier + members.count.nonTrailingBytesCount - 1
+        data.append(identifier.usedBytes)
+        data.append(members.count.usedBytes)
+
         // Serialize data by merging members data
-        let serializedData = members.reduce(Data(), +)
+        let membersData = members.reduce(Data(), +)
+        // Append members data to the end of data buffer
+        data.append(membersData)
 
-        return SerializationBuffer(data: serializedData)
+        return SerializationBuffer(data: data)
     }
-
-    // MARK: - Primitives
 
     /// Serialize Bool value into buffer under given key.
     ///
     /// - Parameters:
-    ///   - bool: The value to be serialized
+    ///   - value: The value to be serialized
     ///   - key: Serialization key
     /// - Throws: FastRPCError
-    public func serialize(bool: Bool, for key: String) throws {
+    public func serialize(value: FastRPCSerializable, for key: String) throws {
+        // Encode the value name using .utf8
+        guard var data = key.data(using: .utf8) else {
+            throw FastRPCError.serialization(key, nil)
+        }
 
-    }
-
-    /// Serialize Int value into buffer under given key.
-    ///
-    /// - Parameters:
-    ///   - int: The value to be serialized
-    ///   - key: Serialization key
-    /// - Throws: FastRPCError
-    public func serialize(int: Int, for key: String) throws {
-
-    }
-
-    /// Serialize String value into buffer under given key.
-    ///
-    /// - Parameters:
-    ///   - string: The value to be serialized
-    ///   - key: Serialization key
-    /// - Throws: FastRPCError
-    public func serialize(string: String, for key: String) throws {
-
-    }
-
-    // MARK: - Objects
-
-    // MARK: Collections
-
-    /// Serialize collection of primitive values into buffer under given key.
-    ///
-    /// - Parameters:
-    ///   - collection: The collection to be serialized
-    ///   - key: Serialization key
-    /// - Throws: FastRPCError
-    public func serialize(collection: [Bool], for key: String) throws {
-
-    }
-
-    /// Serialize collection of primitive values into buffer under given key.
-    ///
-    /// - Parameters:
-    ///   - collection: The collection to be serialized
-    ///   - key: Serialization key
-    /// - Throws: FastRPCError
-    public func serialize(collection: [Int], for key: String) throws {
-
-    }
-
-    /// Serialize collection of primitive values into buffer under given key.
-    ///
-    /// - Parameters:
-    ///   - collection: The collection to be serialized
-    ///   - key: Serialization key
-    /// - Throws: FastRPCError
-    public func serialize(collection: [String], for key: String) throws {
-
+        // Append encoded value and then append encoded member into internal storage
+        try data.append(value.serialize().data)
+        members.append(data)
     }
 }

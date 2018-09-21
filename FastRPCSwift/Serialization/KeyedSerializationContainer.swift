@@ -30,40 +30,8 @@ public class KeyedSerializationContainer<T: CodingKey> {
         return serializationContainer.createBuffer()
     }
 
-    // MARK: - Primitives
-
-    /// See `SerializationContainer.serialize(bool:for:)`
-    public func serialize(bool: Bool, for key: T) throws {
-        try serializationContainer.serialize(bool: bool, for: key.stringValue)
-    }
-
-    /// See `SerializationContainer.serialize(int:for:)`
-    public func serialize(int: Int, for key: T) throws {
-        try serializationContainer.serialize(int: int, for: key.stringValue)
-    }
-
-    /// See `SerializationContainer.serialize(string:for:)`
-    public func serialize(string: String, for key: T) throws {
-        try serializationContainer.serialize(string: string, for: key.stringValue)
-    }
-
-    // MARK: - Objects
-
-    // MARK: Collections
-
-    /// See `SerializationContainer.serialize(collection:for:)`
-    public func serialize(collection: [Bool], for key: T) throws {
-        try serializationContainer.serialize(collection: collection, for: key.stringValue)
-    }
-
-    /// See `SerializationContainer.serialize(collection:for:)`
-    public func serialize(collection: [Int], for key: T) throws {
-        try serializationContainer.serialize(collection: collection, for: key.stringValue)
-    }
-
-
-    /// See `SerializationContainer.serialize(collection:for:)`
-    public func serialize(collection: [String], for key: T) throws {
-        try serializationContainer.serialize(collection: collection, for: key.stringValue)
+    /// See `SerializationContainer.serialize(value:for:)`
+    public func serialize(value: FastRPCSerializable, for key: T) throws {
+        try serializationContainer.serialize(value: value, for: key.stringValue)
     }
 }
