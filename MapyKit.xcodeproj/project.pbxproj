@@ -53,6 +53,7 @@
 		D28776E3215513920007C378 /* FastRPCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CD649A21519F8F0038014A /* FastRPCService.swift */; };
 		D28776E521551A7A0007C378 /* KeyedSerializationContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776E421551A7A0007C378 /* KeyedSerializationContainer.swift */; };
 		D28776EC215531CD0007C378 /* Data+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776EB215531CD0007C378 /* Data+FastRPCSerializable.swift */; };
+		D28776EE2155333F0007C378 /* Data+FastRPCSerializableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776ED2155333F0007C378 /* Data+FastRPCSerializableTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -156,6 +157,7 @@
 		D28776C7215512450007C378 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D28776E421551A7A0007C378 /* KeyedSerializationContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedSerializationContainer.swift; sourceTree = "<group>"; };
 		D28776EB215531CD0007C378 /* Data+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+FastRPCSerializable.swift"; sourceTree = "<group>"; };
+		D28776ED2155333F0007C378 /* Data+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
 		D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+FastRPCSerializable.swift"; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */,
 				D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */,
 				D202ADCC2152EF44004A6838 /* Date+FastRPCSerializableTests.swift */,
+				D28776ED2155333F0007C378 /* Data+FastRPCSerializableTests.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -731,6 +734,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D28776EE2155333F0007C378 /* Data+FastRPCSerializableTests.swift in Sources */,
 				D28776D5215513820007C378 /* Optional+FastRPCSerializable.swift in Sources */,
 				D28776D0215513820007C378 /* Int+FastRPCSerializableTests.swift in Sources */,
 				D28776D1215513820007C378 /* String+FastRPCSerializableTests.swift in Sources */,
