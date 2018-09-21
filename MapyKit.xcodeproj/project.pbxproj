@@ -43,6 +43,11 @@
 		D28554142141A61000C7E423 /* MapyLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554132141A61000C7E423 /* MapyLayer.swift */; };
 		D28554162141B3A300C7E423 /* ExtendedMapType+Titles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554152141B3A300C7E423 /* ExtendedMapType+Titles.swift */; };
 		D28554182141B5EB00C7E423 /* MapTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554172141B5EB00C7E423 /* MapTypeCell.swift */; };
+		D28776B7215512300007C378 /* FastRPCSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = D28776B5215512300007C378 /* FastRPCSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D28776BA215512300007C378 /* FastRPCSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28776B3215512300007C378 /* FastRPCSwift.framework */; };
+		D28776BB215512300007C378 /* FastRPCSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D28776B3215512300007C378 /* FastRPCSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D28776C6215512450007C378 /* FastRPCSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776C5215512450007C378 /* FastRPCSwiftTests.swift */; };
+		D28776C8215512450007C378 /* FastRPCSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28776B3215512300007C378 /* FastRPCSwift.framework */; };
 		D2CD64952151772E0038014A /* Bool+FastRPCSerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */; };
 		D2CD6497215181FC0038014A /* Array+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */; };
 		D2CD6499215197CF0038014A /* Optional+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */; };
@@ -71,6 +76,20 @@
 			remoteGlobalIDString = D215D89D213EFBB100296D74;
 			remoteInfo = MapyKit;
 		};
+		D28776B8215512300007C378 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D215D895213EFBB100296D74 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D28776B2215512300007C378;
+			remoteInfo = FastRPCSwift;
+		};
+		D28776C9215512450007C378 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D215D895213EFBB100296D74 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D28776B2215512300007C378;
+			remoteInfo = FastRPCSwift;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -81,6 +100,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				D238522F214E90DD000087DD /* MapyAPI.framework in Embed Frameworks */,
+				D28776BB215512300007C378 /* FastRPCSwift.framework in Embed Frameworks */,
 				D2488A85214276E30032D382 /* MapyKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -128,6 +148,12 @@
 		D28554132141A61000C7E423 /* MapyLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyLayer.swift; sourceTree = "<group>"; };
 		D28554152141B3A300C7E423 /* ExtendedMapType+Titles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExtendedMapType+Titles.swift"; sourceTree = "<group>"; };
 		D28554172141B5EB00C7E423 /* MapTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeCell.swift; sourceTree = "<group>"; };
+		D28776B3215512300007C378 /* FastRPCSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FastRPCSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D28776B5215512300007C378 /* FastRPCSwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FastRPCSwift.h; sourceTree = "<group>"; };
+		D28776B6215512300007C378 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D28776C3215512450007C378 /* FastRPCSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FastRPCSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D28776C5215512450007C378 /* FastRPCSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCSwiftTests.swift; sourceTree = "<group>"; };
+		D28776C7215512450007C378 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
 		D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+FastRPCSerializable.swift"; sourceTree = "<group>"; };
@@ -147,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D238522E214E90DD000087DD /* MapyAPI.framework in Frameworks */,
+				D28776BA215512300007C378 /* FastRPCSwift.framework in Frameworks */,
 				D2488A84214276E30032D382 /* MapyKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -166,6 +193,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D28776B0215512300007C378 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D28776C0215512450007C378 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D28776C8215512450007C378 /* FastRPCSwift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -176,6 +218,8 @@
 				D2385228214E90DD000087DD /* MapyAPI */,
 				D227AD6C213F0F120003DE4C /* Example */,
 				D23975F721503B17000C6AD8 /* MapyAPITests */,
+				D28776B4215512300007C378 /* FastRPCSwift */,
+				D28776C4215512450007C378 /* FastRPCSwiftTests */,
 				D215D89F213EFBB100296D74 /* Products */,
 				D227AD7D213F0FAF0003DE4C /* Frameworks */,
 			);
@@ -188,6 +232,8 @@
 				D227AD6B213F0F120003DE4C /* Example.app */,
 				D2385227214E90DD000087DD /* MapyAPI.framework */,
 				D23975F621503B17000C6AD8 /* MapyAPITests.xctest */,
+				D28776B3215512300007C378 /* FastRPCSwift.framework */,
+				D28776C3215512450007C378 /* FastRPCSwiftTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -346,6 +392,40 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		D28776B4215512300007C378 /* FastRPCSwift */ = {
+			isa = PBXGroup;
+			children = (
+				D28776CE215512530007C378 /* Supporting Files */,
+			);
+			path = FastRPCSwift;
+			sourceTree = "<group>";
+		};
+		D28776C4215512450007C378 /* FastRPCSwiftTests */ = {
+			isa = PBXGroup;
+			children = (
+				D28776CF2155125D0007C378 /* Supporting Files */,
+				D28776C5215512450007C378 /* FastRPCSwiftTests.swift */,
+			);
+			path = FastRPCSwiftTests;
+			sourceTree = "<group>";
+		};
+		D28776CE215512530007C378 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D28776B5215512300007C378 /* FastRPCSwift.h */,
+				D28776B6215512300007C378 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D28776CF2155125D0007C378 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D28776C7215512450007C378 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -362,6 +442,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D238522B214E90DD000087DD /* MapyAPI.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D28776AE215512300007C378 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D28776B7215512300007C378 /* FastRPCSwift.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +488,7 @@
 			dependencies = (
 				D2488A87214276E30032D382 /* PBXTargetDependency */,
 				D238522D214E90DD000087DD /* PBXTargetDependency */,
+				D28776B9215512300007C378 /* PBXTargetDependency */,
 			);
 			name = Example;
 			productName = Example;
@@ -442,13 +531,49 @@
 			productReference = D23975F621503B17000C6AD8 /* MapyAPITests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		D28776B2215512300007C378 /* FastRPCSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D28776BC215512300007C378 /* Build configuration list for PBXNativeTarget "FastRPCSwift" */;
+			buildPhases = (
+				D28776AE215512300007C378 /* Headers */,
+				D28776AF215512300007C378 /* Sources */,
+				D28776B0215512300007C378 /* Frameworks */,
+				D28776B1215512300007C378 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FastRPCSwift;
+			productName = FastRPCSwift;
+			productReference = D28776B3215512300007C378 /* FastRPCSwift.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D28776C2215512450007C378 /* FastRPCSwiftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D28776CB215512450007C378 /* Build configuration list for PBXNativeTarget "FastRPCSwiftTests" */;
+			buildPhases = (
+				D28776BF215512450007C378 /* Sources */,
+				D28776C0215512450007C378 /* Frameworks */,
+				D28776C1215512450007C378 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D28776CA215512450007C378 /* PBXTargetDependency */,
+			);
+			name = FastRPCSwiftTests;
+			productName = FastRPCSwiftTests;
+			productReference = D28776C3215512450007C378 /* FastRPCSwiftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		D215D895213EFBB100296D74 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0940;
+				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Josef Dolezal";
 				TargetAttributes = {
@@ -467,6 +592,12 @@
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 0940;
 					};
+					D28776B2215512300007C378 = {
+						CreatedOnToolsVersion = 10.0;
+					};
+					D28776C2215512450007C378 = {
+						CreatedOnToolsVersion = 10.0;
+					};
 				};
 			};
 			buildConfigurationList = D215D898213EFBB100296D74 /* Build configuration list for PBXProject "MapyKit" */;
@@ -484,8 +615,10 @@
 			targets = (
 				D215D89D213EFBB100296D74 /* MapyKit */,
 				D2385226214E90DD000087DD /* MapyAPI */,
+				D28776B2215512300007C378 /* FastRPCSwift */,
 				D227AD6A213F0F120003DE4C /* Example */,
 				D23975F521503B17000C6AD8 /* MapyAPITests */,
+				D28776C2215512450007C378 /* FastRPCSwiftTests */,
 			);
 		};
 /* End PBXProject section */
@@ -516,6 +649,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D23975F421503B17000C6AD8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D28776B1215512300007C378 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D28776C1215512450007C378 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -583,6 +730,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D28776AF215512300007C378 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D28776BF215512450007C378 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D28776C6215512450007C378 /* FastRPCSwiftTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -600,6 +762,16 @@
 			isa = PBXTargetDependency;
 			target = D215D89D213EFBB100296D74 /* MapyKit */;
 			targetProxy = D2488A86214276E30032D382 /* PBXContainerItemProxy */;
+		};
+		D28776B9215512300007C378 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D28776B2215512300007C378 /* FastRPCSwift */;
+			targetProxy = D28776B8215512300007C378 /* PBXContainerItemProxy */;
+		};
+		D28776CA215512450007C378 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D28776B2215512300007C378 /* FastRPCSwift */;
+			targetProxy = D28776C9215512450007C378 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -928,6 +1100,100 @@
 			};
 			name = Release;
 		};
+		D28776BD215512300007C378 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 69T295ARCG;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "FastRPCSwift/Supporting Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.josefdolezal.FastRPCSwift;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D28776BE215512300007C378 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 69T295ARCG;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "FastRPCSwift/Supporting Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.josefdolezal.FastRPCSwift;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D28776CC215512450007C378 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "FastRPCSwiftTests/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.josefdolezal.FastRPCSwiftTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D28776CD215512450007C378 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "FastRPCSwiftTests/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.josefdolezal.FastRPCSwiftTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -972,6 +1238,24 @@
 			buildConfigurations = (
 				D23975FF21503B17000C6AD8 /* Debug */,
 				D239760021503B17000C6AD8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D28776BC215512300007C378 /* Build configuration list for PBXNativeTarget "FastRPCSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D28776BD215512300007C378 /* Debug */,
+				D28776BE215512300007C378 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D28776CB215512450007C378 /* Build configuration list for PBXNativeTarget "FastRPCSwiftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D28776CC215512450007C378 /* Debug */,
+				D28776CD215512450007C378 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
