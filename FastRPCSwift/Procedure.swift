@@ -11,10 +11,24 @@ import Foundation
 /// Represents remote procedure. Is called with serialized `parameters`, the generic parameter
 /// `Output` is used for call return type.
 public struct Procedure<Output: FastRPCSerializable>: FastRPCSerializable {
+    // MARK: Properties
+
     /// The procedure name
-    var name: String
+    public var name: String
     /// Procedure parameters
-    var parameters: [FastRPCSerializable]
+    public var parameters: [FastRPCSerializable]
+
+    // MARK: Initializers
+
+    /// Creates new remote procedure representation. Procedure may be called using `FastRPCService`.
+    ///
+    /// - Parameters:
+    ///   - name: Name of remote procedure
+    ///   - parameters: Remote procedure parameters
+    public init(name: String, parameters: [FastRPCSerializable]) {
+        self.name = name
+        self.parameters = parameters
+    }
 
     // MARK: FastRPCSerializable
 

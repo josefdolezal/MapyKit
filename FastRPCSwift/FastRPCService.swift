@@ -18,7 +18,7 @@ enum HTTPMethod: String {
 }
 
 /// FastRPC API service. Takes care of HTTP communication and data serialization / deserialization.
-final class FastRPCService {
+public final class FastRPCService {
     // MARK: Properties
 
     /// FRPC method endpoint URL.
@@ -50,7 +50,7 @@ final class FastRPCService {
     ///   - procedure: The procedure to be called on remote URL
     ///   - success: Callback called on procedure call success
     ///   - failure: Callback called on procedure call failure
-    func call<Response: FastRPCSerializable>(procedure: Procedure<Response>, success: @escaping (Data) -> Void, failure: @escaping (FastRPCError) -> Void) {
+    public func call<Response: FastRPCSerializable>(procedure: Procedure<Response>, success: @escaping (Data) -> Void, failure: @escaping (FastRPCError) -> Void) {
         do {
             let request = try procedureRequest(for: procedure)
             let task = session.dataTask(with: request) { data, _, error in
