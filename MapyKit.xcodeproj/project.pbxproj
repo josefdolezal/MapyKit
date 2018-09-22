@@ -54,6 +54,7 @@
 		D28776E521551A7A0007C378 /* KeyedSerializationContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776E421551A7A0007C378 /* KeyedSerializationContainer.swift */; };
 		D28776EC215531CD0007C378 /* Data+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776EB215531CD0007C378 /* Data+FastRPCSerializable.swift */; };
 		D28776EE2155333F0007C378 /* Data+FastRPCSerializableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776ED2155333F0007C378 /* Data+FastRPCSerializableTests.swift */; };
+		D28776F0215561480007C378 /* Procedure.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776EF215561480007C378 /* Procedure.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,6 +159,7 @@
 		D28776E421551A7A0007C378 /* KeyedSerializationContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedSerializationContainer.swift; sourceTree = "<group>"; };
 		D28776EB215531CD0007C378 /* Data+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D28776ED2155333F0007C378 /* Data+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
+		D28776EF215561480007C378 /* Procedure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Procedure.swift; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
 		D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+FastRPCSerializable.swift"; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 				D2385240214EA57F000087DD /* FastRPCError.swift */,
 				D2385235214E91AF000087DD /* FastRPCObejectType.swift */,
 				D2CD649A21519F8F0038014A /* FastRPCService.swift */,
+				D28776EF215561480007C378 /* Procedure.swift */,
 			);
 			path = FastRPCSwift;
 			sourceTree = "<group>";
@@ -715,6 +718,7 @@
 				D28776DC2155138E0007C378 /* Array+FastRPCSerializable.swift in Sources */,
 				D28776D82155138E0007C378 /* Optional+FastRPCSerializable.swift in Sources */,
 				D28776E3215513920007C378 /* FastRPCService.swift in Sources */,
+				D28776F0215561480007C378 /* Procedure.swift in Sources */,
 				D28776EC215531CD0007C378 /* Data+FastRPCSerializable.swift in Sources */,
 				D28776E521551A7A0007C378 /* KeyedSerializationContainer.swift in Sources */,
 				D28776E1215513920007C378 /* SerializationBuffer.swift in Sources */,
