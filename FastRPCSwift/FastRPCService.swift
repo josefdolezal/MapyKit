@@ -84,6 +84,8 @@ public final class FastRPCService {
 
         // Configure request
         request.httpMethod = HTTPMethod.post.type
+        request.addHeader(.contentType(.base64frpc))
+        request.addHeader(.accept(.base64frpc))
         request.httpBody = body
 
         return request
