@@ -26,7 +26,7 @@ public final class MapyAPIService {
 
     /// Creates new API service.
     public init() {
-        self.baseURL = URL(string: "https://pro.mapy.cz/")!
+        self.baseURL = URL(string: "https://pro.mapy.cz/tplanner")!
         self.frpcService = FastRPCService(url: baseURL)
     }
 
@@ -54,7 +54,7 @@ public final class MapyAPIService {
 
         // Combine all procedure parameters
         let parameters: [FastRPCSerializable] = locations + [type]
-        let procedure: Procedure<Int> = Procedure(name: "navigate", parameters: parameters)
+        let procedure: Procedure<Int> = Procedure(name: "route", parameters: parameters)
 
         return procedure
     }
