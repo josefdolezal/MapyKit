@@ -57,11 +57,11 @@
 		D28776F0215561480007C378 /* Procedure.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776EF215561480007C378 /* Procedure.swift */; };
 		D28776F22156DA8E0007C378 /* MapyAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776F12156DA8E0007C378 /* MapyAPIService.swift */; };
 		D28776F72156DEB60007C378 /* TransportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776F62156DEB60007C378 /* TransportType.swift */; };
-		D28776F92156E2880007C378 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776F82156E2880007C378 /* Location.swift */; };
 		D28776FD215709610007C378 /* FastRPCProtocolVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776FC215709610007C378 /* FastRPCProtocolVersion.swift */; };
 		D2877700215800C00007C378 /* HTTPHeaderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776FF215800C00007C378 /* HTTPHeaderField.swift */; };
 		D2877702215800D70007C378 /* HTTPContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877701215800D70007C378 /* HTTPContentType.swift */; };
 		D2877704215800F40007C378 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877703215800F40007C378 /* HTTPMethod.swift */; };
+		D2877706215805650007C378 /* NavigationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877705215805650007C378 /* NavigationPoint.swift */; };
 		D28777082158084F0007C378 /* Dictionary+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28777072158084F0007C378 /* Dictionary+FastRPCSerializable.swift */; };
 		D287770A215810AA0007C378 /* Dictionary+FastRPCSerializableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877709215810AA0007C378 /* Dictionary+FastRPCSerializableTests.swift */; };
 /* End PBXBuildFile section */
@@ -178,11 +178,11 @@
 		D28776EF215561480007C378 /* Procedure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Procedure.swift; sourceTree = "<group>"; };
 		D28776F12156DA8E0007C378 /* MapyAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyAPIService.swift; sourceTree = "<group>"; };
 		D28776F62156DEB60007C378 /* TransportType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportType.swift; sourceTree = "<group>"; };
-		D28776F82156E2880007C378 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D28776FC215709610007C378 /* FastRPCProtocolVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCProtocolVersion.swift; sourceTree = "<group>"; };
 		D28776FF215800C00007C378 /* HTTPHeaderField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeaderField.swift; sourceTree = "<group>"; };
 		D2877701215800D70007C378 /* HTTPContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPContentType.swift; sourceTree = "<group>"; };
 		D2877703215800F40007C378 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		D2877705215805650007C378 /* NavigationPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPoint.swift; sourceTree = "<group>"; };
 		D28777072158084F0007C378 /* Dictionary+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2877709215810AA0007C378 /* Dictionary+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
@@ -462,7 +462,7 @@
 			isa = PBXGroup;
 			children = (
 				D28776F62156DEB60007C378 /* TransportType.swift */,
-				D28776F82156E2880007C378 /* Location.swift */,
+				D2877705215805650007C378 /* NavigationPoint.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -753,7 +753,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D28776F22156DA8E0007C378 /* MapyAPIService.swift in Sources */,
-				D28776F92156E2880007C378 /* Location.swift in Sources */,
+				D2877706215805650007C378 /* NavigationPoint.swift in Sources */,
 				D28776F72156DEB60007C378 /* TransportType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

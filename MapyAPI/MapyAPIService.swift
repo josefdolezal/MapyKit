@@ -37,9 +37,9 @@ public final class MapyAPIService {
     /// - Parameters:
     ///   - success: Request success callback
     ///   - failure: Request failure callback
-    public func navigate(from: Location, to: Location, through: [Location] = [], type: TransportType, success: @escaping SuccessCallback, failure: @escaping FailureCallback) {
+    public func navigate(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint] = [], success: @escaping SuccessCallback, failure: @escaping FailureCallback) {
         // Create procedure from given parameters
-        let procedure = MapyAPIService.createNavigationProcedure(from: from, to: to, through: through, type: type)
+        let procedure = MapyAPIService.createNavigationProcedure(from: from, to: to, through: through)
 
         // Call remote procedure
         frpcService.call(procedure: procedure, success: success, failure: failure)
@@ -47,13 +47,12 @@ public final class MapyAPIService {
 
     // MARK: Private API
 
-    private static func createNavigationProcedure(from: Location, to: Location, through: [Location], type: TransportType) -> Procedure<Int> {
-        // Map locations into serializable parameters
-        let locations = ([from] + through + [to])
-            .flatMap { [$0.latitude, $0.longitude] }
+    private static func createNavigationProcedure(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint]) -> Procedure<Int> {
+        // Merge serialiable points
+        let locations = [from] + through + [to]
 
         // Combine all procedure parameters
-        let parameters: [FastRPCSerializable] = locations + [type]
+        let parameters: [FastRPCSerializable] = locations
         let procedure: Procedure<Int> = Procedure(name: "route", parameters: parameters)
 
         return procedure
