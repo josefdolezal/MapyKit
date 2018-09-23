@@ -31,6 +31,22 @@ public struct NavigationPoint: FastRPCSerializable {
     /// Navigation transport type, must be set for starting point
     public var transportType: TransportType?
 
+    // MARK: Initializers
+
+    /// Creates new navigation point. This object may be used to determine route navigation steps.
+    ///
+    /// - Parameters:
+    ///   - id: Point identifier
+    ///   - source: Source of the geometry value
+    ///   - geometry: Point geometry
+    ///   - transportType: Type of transport (required for starting position)
+    public init(id: Int? = nil, source: String, geometry: String, transportType: TransportType? = nil) {
+        self.id = id
+        self.source = source
+        self.geometry = geometry
+        self.transportType = transportType
+    }
+
     // MARK: FastRPCSerializable
 
     public func serialize() throws -> SerializationBuffer {

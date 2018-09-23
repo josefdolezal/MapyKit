@@ -51,9 +51,7 @@ public final class MapyAPIService {
         // Merge serialiable points
         let locations = [from] + through + [to]
 
-        // Combine all procedure parameters
-        let parameters: [FastRPCSerializable] = locations
-        let procedure: Procedure<Int> = Procedure(name: "route", parameters: parameters)
+        let procedure: Procedure<Int> = Procedure(name: "route", parameters: [locations])
 
         return procedure
     }

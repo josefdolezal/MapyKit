@@ -47,7 +47,7 @@ public struct Procedure<Output: FastRPCSerializable>: FastRPCSerializable {
         var data = FastRPCObejectType.nonDataType.identifier.usedBytes
         // Append protocol version info
         data.append(FastRPCProtocolVersion.major.usedBytes)
-        data.append(FastRPCProtocolVersion.major.usedBytes)
+        data.append(FastRPCProtocolVersion.minor.usedBytes)
 
         // Combine procedure data (id, name length and parameters)
         data.append(FastRPCObejectType.procedure.identifier.usedBytes)
