@@ -88,10 +88,12 @@ public final class FastRPCService {
         // Create mutable request and serialize procedure
         var request = URLRequest(url: url)
         let rpc = try procedure.serialize()
+        // Encode data using base64
+        let body = rpc.data.base64EncodedData()
 
         // Configure request
         request.httpMethod = HTTPMethod.post.type
-        request.httpBody = rpc.data
+        request.httpBody = body
 
         return request
     }
