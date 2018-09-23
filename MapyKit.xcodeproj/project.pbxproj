@@ -58,6 +58,7 @@
 		D28776F22156DA8E0007C378 /* MapyAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776F12156DA8E0007C378 /* MapyAPIService.swift */; };
 		D28776F72156DEB60007C378 /* TransportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776F62156DEB60007C378 /* TransportType.swift */; };
 		D28776F92156E2880007C378 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776F82156E2880007C378 /* Location.swift */; };
+		D28776FD215709610007C378 /* FastRPCVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776FC215709610007C378 /* FastRPCVersion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -173,6 +174,7 @@
 		D28776F12156DA8E0007C378 /* MapyAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyAPIService.swift; sourceTree = "<group>"; };
 		D28776F62156DEB60007C378 /* TransportType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportType.swift; sourceTree = "<group>"; };
 		D28776F82156E2880007C378 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		D28776FC215709610007C378 /* FastRPCVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCVersion.swift; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
 		D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+FastRPCSerializable.swift"; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 				D2385235214E91AF000087DD /* FastRPCObejectType.swift */,
 				D2CD649A21519F8F0038014A /* FastRPCService.swift */,
 				D28776EF215561480007C378 /* Procedure.swift */,
+				D28776FC215709610007C378 /* FastRPCVersion.swift */,
 			);
 			path = FastRPCSwift;
 			sourceTree = "<group>";
@@ -753,6 +756,7 @@
 				D28776E0215513920007C378 /* FastRPCError.swift in Sources */,
 				D28776D92155138E0007C378 /* String+FastRPCSerializable.swift in Sources */,
 				D28776DA2155138E0007C378 /* Double+FastRPCSerializable.swift in Sources */,
+				D28776FD215709610007C378 /* FastRPCVersion.swift in Sources */,
 				D28776DE215513920007C378 /* FastRPCObejectType.swift in Sources */,
 				D28776DF215513920007C378 /* FastRPCSerializable.swift in Sources */,
 				D28776E2215513920007C378 /* SerializationContainer.swift in Sources */,
