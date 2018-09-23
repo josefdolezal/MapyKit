@@ -13,14 +13,12 @@ import FastRPCSwift
 /// informations to make navigation roads more reliable.
 ///
 /// - car: Navigation for car
-/// - publicTransport: Navigation using public transport
 /// - bike: Navigation for bike
 /// - foot: Foot navigation
 /// - skiing: Cross country skiing navigation
 /// - boat: Canoeing navigation
 public enum TransportType: FastRPCSerializable {
     case car(PreferredAttributes)
-    case publicTransport
     case bike(BikeType)
     case foot(TourType)
     case skiing
@@ -29,12 +27,14 @@ public enum TransportType: FastRPCSerializable {
     /// Remote API transport type identifier
     var identifier: Int {
         switch self {
-        case .car: return 1
-        case .publicTransport: return 2
-        case .bike: return 3
-        case .foot: return 4
-        case .skiing: return 5
-        case .boat: return 6
+        case .car(.fast): return 111
+        case .car(.short): return 113
+        case .bike(.mountain): return 121
+        case .bike(.road): return 122
+        case .foot(.short): return 131
+        case .foot(.touristic): return 131
+        case .skiing: return 141
+        case .boat: return 143
         }
     }
 
