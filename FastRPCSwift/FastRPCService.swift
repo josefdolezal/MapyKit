@@ -8,15 +8,6 @@
 
 import Foundation
 
-/// HTTP request methods.
-enum HTTPMethod: String {
-    /// HTTP POST method
-    case post
-
-    /// Method type used for HTTP headers
-    var type: String { return rawValue.uppercased() }
-}
-
 /// FastRPC API service. Takes care of HTTP communication and data serialization / deserialization.
 public final class FastRPCService {
     // MARK: Properties

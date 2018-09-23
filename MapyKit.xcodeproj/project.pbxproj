@@ -59,6 +59,9 @@
 		D28776F72156DEB60007C378 /* TransportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776F62156DEB60007C378 /* TransportType.swift */; };
 		D28776F92156E2880007C378 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776F82156E2880007C378 /* Location.swift */; };
 		D28776FD215709610007C378 /* FastRPCProtocolVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776FC215709610007C378 /* FastRPCProtocolVersion.swift */; };
+		D2877700215800C00007C378 /* HTTPHeaderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776FF215800C00007C378 /* HTTPHeaderField.swift */; };
+		D2877702215800D70007C378 /* HTTPContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877701215800D70007C378 /* HTTPContentType.swift */; };
+		D2877704215800F40007C378 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877703215800F40007C378 /* HTTPMethod.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +178,9 @@
 		D28776F62156DEB60007C378 /* TransportType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportType.swift; sourceTree = "<group>"; };
 		D28776F82156E2880007C378 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D28776FC215709610007C378 /* FastRPCProtocolVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCProtocolVersion.swift; sourceTree = "<group>"; };
+		D28776FF215800C00007C378 /* HTTPHeaderField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeaderField.swift; sourceTree = "<group>"; };
+		D2877701215800D70007C378 /* HTTPContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPContentType.swift; sourceTree = "<group>"; };
+		D2877703215800F40007C378 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
 		D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+FastRPCSerializable.swift"; sourceTree = "<group>"; };
@@ -396,6 +402,7 @@
 		D28776B4215512300007C378 /* FastRPCSwift */ = {
 			isa = PBXGroup;
 			children = (
+				D28776FE215800A30007C378 /* HTTP */,
 				D28776CE215512530007C378 /* Supporting Files */,
 				D2385239214E96EA000087DD /* Extensions */,
 				D28776EA215520680007C378 /* Serialization */,
@@ -452,6 +459,16 @@
 				D28776F82156E2880007C378 /* Location.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D28776FE215800A30007C378 /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				D28776FF215800C00007C378 /* HTTPHeaderField.swift */,
+				D2877701215800D70007C378 /* HTTPContentType.swift */,
+				D2877703215800F40007C378 /* HTTPMethod.swift */,
+			);
+			path = HTTP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -753,6 +770,9 @@
 				D28776EC215531CD0007C378 /* Data+FastRPCSerializable.swift in Sources */,
 				D28776E521551A7A0007C378 /* KeyedSerializationContainer.swift in Sources */,
 				D28776E1215513920007C378 /* SerializationBuffer.swift in Sources */,
+				D2877702215800D70007C378 /* HTTPContentType.swift in Sources */,
+				D2877704215800F40007C378 /* HTTPMethod.swift in Sources */,
+				D2877700215800C00007C378 /* HTTPHeaderField.swift in Sources */,
 				D28776E0215513920007C378 /* FastRPCError.swift in Sources */,
 				D28776D92155138E0007C378 /* String+FastRPCSerializable.swift in Sources */,
 				D28776DA2155138E0007C378 /* Double+FastRPCSerializable.swift in Sources */,
