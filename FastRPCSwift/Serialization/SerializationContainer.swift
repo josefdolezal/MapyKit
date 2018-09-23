@@ -54,11 +54,15 @@ public final class SerializationContainer {
     /// - Throws: FastRPCError
     public func serialize(value: FastRPCSerializable, for key: String) throws {
         // Encode the value name using .utf8
-        guard var data = key.data(using: .utf8) else {
+        guard let keyData = key.data(using: .utf8) else {
             throw FastRPCError.serialization(key, nil)
         }
 
-        // Append encoded value and then append encoded member into internal storage
+        // Create initial data from encoded key length
+        var data = keyData.count.truncatedBytes(to: 1)
+
+        // Append encoded key, value and then append encoded member into internal storage
+        data.append(keyData)
         try data.append(value.serialize().data)
         members.append(data)
     }
