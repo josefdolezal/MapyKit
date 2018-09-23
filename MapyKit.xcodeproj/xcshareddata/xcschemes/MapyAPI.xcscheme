@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D23975F521503B17000C6AD8"
+               BuildableName = "MapyAPITests.xctest"
+               BlueprintName = "MapyAPITests"
+               ReferencedContainer = "container:MapyKit.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D2385226214E90DD000087DD"
+            BuildableName = "MapyAPI.framework"
+            BlueprintName = "MapyAPI"
+            ReferencedContainer = "container:MapyKit.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>

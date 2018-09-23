@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D28776C2215512450007C378"
+               BuildableName = "FastRPCSwiftTests.xctest"
+               BlueprintName = "FastRPCSwiftTests"
+               ReferencedContainer = "container:MapyKit.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D28776B2215512300007C378"
+            BuildableName = "FastRPCSwift.framework"
+            BlueprintName = "FastRPCSwift"
+            ReferencedContainer = "container:MapyKit.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
