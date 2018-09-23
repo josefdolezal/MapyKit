@@ -13,18 +13,18 @@ import Foundation
 ///
 /// - `nil`: Represents empty state for optional value. Equivalent to Swift `nil` literal.
 /// - procedure: Identifier for RPC method call/name.
-/// - binary: Binary data.
-/// - fault: Undocumented. Probably represents some kind of failure.
-/// - magic: Undocumented.
-/// - response: Undocumented. Probably represents request response.
+/// - binary: Raw binary data.
+/// - fault: Remote procedure call failure.
+/// - nonDataType: Marks content as non data type. Uses 2B.
+/// - response: Represents request response.
 /// - bool: Boolean value.
-/// - dateTime: Undocumented. Probably represents timestamp.
+/// - dateTime: Represents structured datetime format.
 /// - double: Double value.
 /// - int: Integer value.
 /// - int8n: Negative integer value (numbers less then or equal to zero).
 /// - int8p: Positive integer value (greater then zero).
 /// - string: ASCII encoded UTF8 string (keep in mind variable bytes count for UTF8 chars).
-/// - array: (Homogenous?) Array of RPCSerializable objects.
+/// - array: Homogenous array of RPCSerializable objects.
 /// - `struct`: Structured key-value object.
 public enum FastRPCObejectType: Int {
     // MARK: Meta
@@ -33,7 +33,7 @@ public enum FastRPCObejectType: Int {
     case procedure = 13
     case binary = 6
     case fault = 15
-    case magic = 25
+    case nonDataType = 0xCA11
     case response = 14
 
     // MARK: Primitive
@@ -55,6 +55,9 @@ public enum FastRPCObejectType: Int {
 
     /// FastRPC data serialization format.
     var identifier: Int {
-        return rawValue << 3
+        switch self {
+        case .magic: return rawValue
+        default: return rawValue << 3
+        }
     }
 }
