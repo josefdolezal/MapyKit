@@ -1,5 +1,5 @@
 //
-//  FastRPCVersion.swift
+//  FastRPCProtocolVersion.swift
 //  FastRPCSwift
 //
 //  Created by Josef Dolezal on 23/09/2018.
@@ -9,7 +9,7 @@
 import Foundation
 
 /// Currently used FastRPC version standard.
-public enum FastRPCVersion {
+public enum FastRPCProtocolVersion {
     /// FRPC major version
     public static let major: Int = 2
     /// FRPC minor version
