@@ -56,7 +56,7 @@ public enum FastRPCObejectType: Int {
     /// FastRPC data serialization format.
     var identifier: Int {
         switch self {
-        case .magic: return rawValue
+        case .nonDataType: return rawValue
         default: return rawValue << 3
         }
     }

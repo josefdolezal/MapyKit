@@ -43,8 +43,14 @@ public struct Procedure<Output: FastRPCSerializable>: FastRPCSerializable {
             .map { try $0.serialize().data }
             .reduce(Data(), +)
 
+        // We are making call, use non data-type structure for that
+        var data = FastRPCObejectType.nonDataType.identifier.usedBytes
+        // Append protocol version info
+        data.append(FastRPCProtocolVersion.major.usedBytes)
+        data.append(FastRPCProtocolVersion.major.usedBytes)
+
         // Combine procedure data (id, name length and parameters)
-        var data = FastRPCObejectType.procedure.identifier.usedBytes
+        data.append(FastRPCObejectType.procedure.identifier.usedBytes)
         data.append(nameData.count.truncatedBytes(to: 1))
         data.append(nameData)
         data.append(parametersData)
