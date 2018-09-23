@@ -62,6 +62,7 @@
 		D2877700215800C00007C378 /* HTTPHeaderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776FF215800C00007C378 /* HTTPHeaderField.swift */; };
 		D2877702215800D70007C378 /* HTTPContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877701215800D70007C378 /* HTTPContentType.swift */; };
 		D2877704215800F40007C378 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877703215800F40007C378 /* HTTPMethod.swift */; };
+		D28777082158084F0007C378 /* Dictionary+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28777072158084F0007C378 /* Dictionary+FastRPCSerializable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -181,6 +182,7 @@
 		D28776FF215800C00007C378 /* HTTPHeaderField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeaderField.swift; sourceTree = "<group>"; };
 		D2877701215800D70007C378 /* HTTPContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPContentType.swift; sourceTree = "<group>"; };
 		D2877703215800F40007C378 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		D28777072158084F0007C378 /* Dictionary+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
 		D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+FastRPCSerializable.swift"; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 				D2385246214EBC3F000087DD /* Array+FastRPCSerializable.swift */,
 				D202ADCA2152DC91004A6838 /* Date+FastRPCSerializable.swift */,
 				D28776EB215531CD0007C378 /* Data+FastRPCSerializable.swift */,
+				D28777072158084F0007C378 /* Dictionary+FastRPCSerializable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -763,6 +766,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D28777082158084F0007C378 /* Dictionary+FastRPCSerializable.swift in Sources */,
 				D28776DC2155138E0007C378 /* Array+FastRPCSerializable.swift in Sources */,
 				D28776D82155138E0007C378 /* Optional+FastRPCSerializable.swift in Sources */,
 				D28776E3215513920007C378 /* FastRPCService.swift in Sources */,
