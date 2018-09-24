@@ -32,7 +32,7 @@ public enum TransportType: FastRPCSerializable {
         case .bike(.mountain): return 121
         case .bike(.road): return 122
         case .foot(.short): return 131
-        case .foot(.touristic): return 131
+        case .foot(.touristic): return 132
         case .skiing: return 141
         case .boat: return 143
         }
