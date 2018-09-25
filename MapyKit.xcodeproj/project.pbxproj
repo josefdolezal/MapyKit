@@ -64,6 +64,7 @@
 		D2877706215805650007C378 /* NavigationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877705215805650007C378 /* NavigationPoint.swift */; };
 		D28777082158084F0007C378 /* Dictionary+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28777072158084F0007C378 /* Dictionary+FastRPCSerializable.swift */; };
 		D287770A215810AA0007C378 /* Dictionary+FastRPCSerializableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877709215810AA0007C378 /* Dictionary+FastRPCSerializableTests.swift */; };
+		D2C25BC92159814D00A78896 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C25BC82159814D00A78896 /* Location.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +186,7 @@
 		D2877705215805650007C378 /* NavigationPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPoint.swift; sourceTree = "<group>"; };
 		D28777072158084F0007C378 /* Dictionary+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2877709215810AA0007C378 /* Dictionary+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
+		D2C25BC82159814D00A78896 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
 		D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+FastRPCSerializable.swift"; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 			children = (
 				D28776F62156DEB60007C378 /* TransportType.swift */,
 				D2877705215805650007C378 /* NavigationPoint.swift */,
+				D2C25BC82159814D00A78896 /* Location.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -754,6 +757,7 @@
 			files = (
 				D28776F22156DA8E0007C378 /* MapyAPIService.swift in Sources */,
 				D2877706215805650007C378 /* NavigationPoint.swift in Sources */,
+				D2C25BC92159814D00A78896 /* Location.swift in Sources */,
 				D28776F72156DEB60007C378 /* TransportType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
