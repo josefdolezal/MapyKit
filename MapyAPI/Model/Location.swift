@@ -54,3 +54,21 @@ public struct Location: FastRPCSerializable {
         return code
     }
 }
+
+//var code = "";
+//if (delta >= -1024 && delta < 1024) {
+//    code += ALPHABET.charAt(delta + 1024 >> 6);
+//    code += ALPHABET.charAt(delta + 1024 & 63)
+//} else if (delta >= -32768 && delta < 32768) {
+//    var value = 131072 | delta + 32768;
+//    code += ALPHABET.charAt(value >> 12 & 63);
+//    code += ALPHABET.charAt(value >> 6 & 63);
+//    code += ALPHABET.charAt(value & 63)
+//} else {
+//    var _value = 805306368 | orig & 268435455;
+//    code += ALPHABET.charAt(_value >> 24 & 63);
+//    code += ALPHABET.charAt(_value >> 18 & 63);
+//    code += ALPHABET.charAt(_value >> 12 & 63);
+//    code += ALPHABET.charAt(_value >> 6 & 63);
+//    code += ALPHABET.charAt(_value & 63)
+//}

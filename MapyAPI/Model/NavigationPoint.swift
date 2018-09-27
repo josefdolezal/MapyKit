@@ -20,6 +20,24 @@ public struct NavigationPoint: FastRPCSerializable {
         case descriptionParameters = "descParams"
     }
 
+    private struct DescriptionParams: FastRPCSerializable {
+        var fetchPhoto: Bool
+        var ratios: [String]
+        var lang: [String]
+
+        static let test = DescriptionParams(fetchPhoto: true, ratios: ["3x2"], lang: ["en"])
+
+        func serialize() throws -> SerializationBuffer {
+            let container = SerializationContainer()
+
+            try container.serialize(value: fetchPhoto, for: "fetchPhoto")
+            try container.serialize(value: ratios, for: "ratios")
+            try container.serialize(value: lang, for: "lang")
+
+            return container.createBuffer()
+        }
+    }
+
     // MARK: Properties
 
     /// Point identifier (optional, `nil` for coordiantes-only points)
@@ -62,7 +80,7 @@ public struct NavigationPoint: FastRPCSerializable {
         }
 
         // Since we don't use description parameters, add dummy empty object
-        try container.serialize(value: [String: Int](), for: .descriptionParameters)
+        try container.serialize(value: DescriptionParams.test, for: .descriptionParameters)
 
         return container.createBuffer()
     }
