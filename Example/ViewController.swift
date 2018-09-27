@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import MapyKit
+import MapyAPI
 
 class ViewController: UIViewController {
     // MARK: Properties
@@ -23,6 +24,7 @@ class ViewController: UIViewController {
 
     private let mapyView = MapyView()
     private let tableView = UITableView()
+    private let service = MapyAPIService()
 
     private var currentMapType = ExtendedMapType.standard
 
@@ -72,6 +74,22 @@ class ViewController: UIViewController {
         // Add custom layer
         let polygon = MKPolygon(coordinates: ViewController.polygonCoordinates, count: ViewController.polygonCoordinates.count)
         mapyView.addOverlay(polygon)
+
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleMapViewTap))
+        mapyView.addGestureRecognizer(tapRecognizer)
+    }
+
+    @objc
+    private func handleMapViewTap() {
+        let start = NavigationPoint(source: "coor", geometry: "9fgdHxXtso", transportType: .foot(.touristic))
+        let destination = NavigationPoint(source: "coor", geometry: "9feO7xXwOM")
+
+        service.navigate(from: start, to: destination,
+        success: { data in
+            print("request succeeded with response: \(data)")
+        }, failure: { error in
+            print("request failed with response: \(error)")
+        })
     }
 }
 
