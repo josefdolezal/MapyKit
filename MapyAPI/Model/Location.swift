@@ -24,8 +24,8 @@ public struct Location: FastRPCSerializable {
 
     public func serialize() throws -> SerializationBuffer {
         // Prepare coordinates for serialization
-        let x = Int(latitude + 180) * (1 << 28) / 360
-        let y = Int(longitude + 90) * (1 << 28) / 180
+        let x = Int((latitude + 180) * Double(1 << 28) / 360)
+        let y = Int((longitude + 90) * Double(1 << 28) / 180)
 
         // Serialize each coordiante separately, merge the result
         let encoded = Location.serialize(coords: x) + Location.serialize(coords: y)
@@ -36,7 +36,8 @@ public struct Location: FastRPCSerializable {
 
     // MARK: Private API
 
-    /// Serializes given coordinate into ASCII string.
+    /// Serializes given coordinate into ASCII string. Given integer number is serialized using
+    /// some kind of geohashing algorithm.
     ///
     /// - Parameter coords: Coordinates to be serilized
     /// - Returns: Serialized coordinates
@@ -44,31 +45,32 @@ public struct Location: FastRPCSerializable {
         var code = ""
 
         if coords >= -1024 && coords < 1024 {
-
+            code.append(Location.alphabet[coords + 1024 >> 6])
+            code.append(Location.alphabet[coords + 1024 & 63])
         } else if coords >= -32768 && coords < 32768 {
-
+            let value = 131072 | 1024 + 32768
+            code.append(Location.alphabet[value >> 12 & 63])
+            code.append(Location.alphabet[value >> 6 & 63])
+            code.append(Location.alphabet[value & 63])
         } else {
-
+            let value = 805306368 | coords & 268435455
+            code.append(Location.alphabet[value >> 24 & 63])
+            code.append(Location.alphabet[value >> 18 & 63])
+            code.append(Location.alphabet[value >> 12 & 63])
+            code.append(Location.alphabet[value >> 6 & 63])
+            code.append(Location.alphabet[value & 63])
         }
 
         return code
     }
 }
 
-//var code = "";
-//if (delta >= -1024 && delta < 1024) {
-//    code += ALPHABET.charAt(delta + 1024 >> 6);
-//    code += ALPHABET.charAt(delta + 1024 & 63)
-//} else if (delta >= -32768 && delta < 32768) {
-//    var value = 131072 | delta + 32768;
-//    code += ALPHABET.charAt(value >> 12 & 63);
-//    code += ALPHABET.charAt(value >> 6 & 63);
-//    code += ALPHABET.charAt(value & 63)
-//} else {
-//    var _value = 805306368 | orig & 268435455;
-//    code += ALPHABET.charAt(_value >> 24 & 63);
-//    code += ALPHABET.charAt(_value >> 18 & 63);
-//    code += ALPHABET.charAt(_value >> 12 & 63);
-//    code += ALPHABET.charAt(_value >> 6 & 63);
-//    code += ALPHABET.charAt(_value & 63)
-//}
+fileprivate extension String {
+    /// Gets character at given index from string. Partial function, throws on
+    /// out-of-range indexes.
+    ///
+    /// - Parameter index: Index of character to be returned
+    subscript(_ index: Int) -> Character {
+        return self[self.index(startIndex, offsetBy: index)]
+    }
+}
