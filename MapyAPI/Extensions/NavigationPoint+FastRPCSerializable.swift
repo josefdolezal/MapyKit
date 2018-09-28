@@ -13,8 +13,9 @@ extension NavigationPoint: FastRPCSerializable {
         let container = KeyedSerializationContainer(for: CodingKeys.self)
 
         try container.serialize(value: id, for: .id)
-        try container.serialize(value: source, for: .source)
-        try container.serialize(value: geometry, for: .geometry)
+        // Currently, we only support coordinates as navigatiom points, so it's OK to hardcode it
+        try container.serialize(value: "coor", for: .source)
+        try container.serialize(value: coordinates, for: .coordinates)
 
         // Serialize transport only if it's available
         if let transportType = transportType {
@@ -22,7 +23,7 @@ extension NavigationPoint: FastRPCSerializable {
         }
 
         // Since we don't use description parameters, add dummy empty object
-        try container.serialize(value: DescriptionParams.test, for: .descriptionParameters)
+        try container.serialize(value: descriptionParameters, for: .descriptionParameters)
 
         return container.createBuffer()
     }

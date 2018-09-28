@@ -12,32 +12,33 @@ import FastRPCSwift
 public struct NavigationPoint {
     // MARK: Structure
 
-    enum CodingKeys: String, CodingKey {
+    internal enum CodingKeys: String, CodingKey {
         case id
         case source
-        case geometry
+        case coordinates = "geometry"
         case transportType = "routeParams"
         case descriptionParameters = "descParams"
     }
 
+    /// Fake nested object used for FRPC serialization (syntax sugar for nested objects is not ready yet)
     internal struct DescriptionParams {
         var fetchPhoto: Bool
         var ratios: [String]
         var lang: [String]
 
-        static let test = DescriptionParams(fetchPhoto: true, ratios: ["3x2"], lang: ["en"])
+        static let fixed = DescriptionParams(fetchPhoto: true, ratios: ["3x2"], lang: ["en"])
     }
 
     // MARK: Properties
 
     /// Point identifier (optional, `nil` for coordiantes-only points)
     public var id: Int?
-    /// Source of point
-    public var source: String
-    /// Point geometry
-    public var geometry: String
+    /// Point coordinates
+    public var coordinates: Location
     /// Navigation transport type, must be set for starting point
     public var transportType: TransportType?
+    /// Use internal singleton for nested objects
+    internal let descriptionParameters = DescriptionParams.fixed
 
     // MARK: Initializers
 
@@ -45,13 +46,11 @@ public struct NavigationPoint {
     ///
     /// - Parameters:
     ///   - id: Point identifier
-    ///   - source: Source of the geometry value
-    ///   - geometry: Point geometry
+    ///   - coordinates: Pont coordinates
     ///   - transportType: Type of transport (required for starting position)
-    public init(id: Int? = nil, source: String, geometry: String, transportType: TransportType? = nil) {
+    public init(id: Int? = nil, coordinates: Location, transportType: TransportType? = nil) {
         self.id = id
-        self.source = source
-        self.geometry = geometry
+        self.coordinates = coordinates
         self.transportType = transportType
     }
 }
