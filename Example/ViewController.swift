@@ -81,8 +81,11 @@ class ViewController: UIViewController {
 
     @objc
     private func handleMapViewTap() {
-        let start = NavigationPoint(source: "coor", geometry: "9fgdHxXtso", transportType: .foot(.touristic))
-        let destination = NavigationPoint(source: "coor", geometry: "9feO7xXwOM")
+        let startLocation = Location(latitude: 26.322762072086334, longitude: 45.53549565374851)
+        let start = NavigationPoint(coordinates: startLocation, transportType: .foot(.touristic))
+
+        let destinationLocation = Location(latitude: 25.71641117334366, longitude: 45.51505118608475)
+        let destination = NavigationPoint(coordinates: destinationLocation)
 
         service.navigate(from: start, to: destination,
         success: { data in
