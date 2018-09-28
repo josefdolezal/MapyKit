@@ -10,7 +10,7 @@ import XCTest
 @testable import FastRPCSwift
 @testable import MapyAPI
 
-class LocationTests: XCTestCase {
+class Location_FastRPCSerializableTests: XCTestCase {
     func testLocationSerialize() throws {
         XCTAssertEqual(try [UInt8](Location(latitude: 14.304998517036438, longitude: 50.12692652642727).serialize().data), try [UInt8]("9gjHQxY45C".serialize().data))
         XCTAssertEqual(try [UInt8](Location(latitude: 14.311264157295227, longitude: 50.135097205638885).serialize().data), try [UInt8]("9gkOQxYKgX".serialize().data))

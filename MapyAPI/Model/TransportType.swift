@@ -17,7 +17,7 @@ import FastRPCSwift
 /// - foot: Foot navigation
 /// - skiing: Cross country skiing navigation
 /// - boat: Canoeing navigation
-public enum TransportType: FastRPCSerializable {
+public enum TransportType {
     case car(PreferredAttributes)
     case bike(BikeType)
     case foot(TourType)
@@ -36,12 +36,6 @@ public enum TransportType: FastRPCSerializable {
         case .skiing: return 141
         case .boat: return 143
         }
-    }
-
-    // MARK: FastRPCSerializable
-
-    public func serialize() throws -> SerializationBuffer {
-        return try identifier.serialize()
     }
 }
 

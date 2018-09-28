@@ -9,7 +9,7 @@
 import FastRPCSwift
 
 /// Navigation point representing start, destionation or way through points.
-public struct NavigationPoint: FastRPCSerializable {
+public struct NavigationPoint {
     // MARK: Structure
 
     enum CodingKeys: String, CodingKey {
@@ -20,22 +20,12 @@ public struct NavigationPoint: FastRPCSerializable {
         case descriptionParameters = "descParams"
     }
 
-    private struct DescriptionParams: FastRPCSerializable {
+    internal struct DescriptionParams {
         var fetchPhoto: Bool
         var ratios: [String]
         var lang: [String]
 
         static let test = DescriptionParams(fetchPhoto: true, ratios: ["3x2"], lang: ["en"])
-
-        func serialize() throws -> SerializationBuffer {
-            let container = SerializationContainer()
-
-            try container.serialize(value: fetchPhoto, for: "fetchPhoto")
-            try container.serialize(value: ratios, for: "ratios")
-            try container.serialize(value: lang, for: "lang")
-
-            return container.createBuffer()
-        }
     }
 
     // MARK: Properties
@@ -63,25 +53,5 @@ public struct NavigationPoint: FastRPCSerializable {
         self.source = source
         self.geometry = geometry
         self.transportType = transportType
-    }
-
-    // MARK: FastRPCSerializable
-
-    public func serialize() throws -> SerializationBuffer {
-        let container = KeyedSerializationContainer(for: CodingKeys.self)
-
-        try container.serialize(value: id, for: .id)
-        try container.serialize(value: source, for: .source)
-        try container.serialize(value: geometry, for: .geometry)
-
-        // Serialize transport only if it's available
-        if let transportType = transportType {
-            try container.serialize(value: ["criterion": transportType.identifier], for: .transportType)
-        }
-
-        // Since we don't use description parameters, add dummy empty object
-        try container.serialize(value: DescriptionParams.test, for: .descriptionParameters)
-
-        return container.createBuffer()
     }
 }

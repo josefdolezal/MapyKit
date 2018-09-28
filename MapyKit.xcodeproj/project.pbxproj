@@ -64,7 +64,10 @@
 		D2877706215805650007C378 /* NavigationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877705215805650007C378 /* NavigationPoint.swift */; };
 		D28777082158084F0007C378 /* Dictionary+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28777072158084F0007C378 /* Dictionary+FastRPCSerializable.swift */; };
 		D287770A215810AA0007C378 /* Dictionary+FastRPCSerializableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877709215810AA0007C378 /* Dictionary+FastRPCSerializableTests.swift */; };
-		D2A370BD215E4FD70096D219 /* LocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370BC215E4FD70096D219 /* LocationTests.swift */; };
+		D2A370BD215E4FD70096D219 /* Location+FastRPCSerializableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370BC215E4FD70096D219 /* Location+FastRPCSerializableTests.swift */; };
+		D2A370C0215E5FF00096D219 /* Location+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370BF215E5FF00096D219 /* Location+FastRPCSerializable.swift */; };
+		D2A370C2215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370C1215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift */; };
+		D2A370C4215E60F50096D219 /* TransportType+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370C3215E60F50096D219 /* TransportType+FastRPCSerializable.swift */; };
 		D2C25BC92159814D00A78896 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C25BC82159814D00A78896 /* Location.swift */; };
 /* End PBXBuildFile section */
 
@@ -187,7 +190,10 @@
 		D2877705215805650007C378 /* NavigationPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPoint.swift; sourceTree = "<group>"; };
 		D28777072158084F0007C378 /* Dictionary+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2877709215810AA0007C378 /* Dictionary+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
-		D2A370BC215E4FD70096D219 /* LocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTests.swift; sourceTree = "<group>"; };
+		D2A370BC215E4FD70096D219 /* Location+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
+		D2A370BF215E5FF00096D219 /* Location+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+FastRPCSerializable.swift"; sourceTree = "<group>"; };
+		D2A370C1215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationPoint+FastRPCSerializable.swift"; sourceTree = "<group>"; };
+		D2A370C3215E60F50096D219 /* TransportType+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransportType+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2C25BC82159814D00A78896 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
 		D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
@@ -309,6 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				D2385233214E90E9000087DD /* Supporting Files */,
+				D2A370BE215E5FBF0096D219 /* Extensions */,
 				D28776F52156DE720007C378 /* Model */,
 				D28776F12156DA8E0007C378 /* MapyAPIService.swift */,
 			);
@@ -344,7 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				D239760121503B26000C6AD8 /* Supporting Files */,
-				D2A370B9215E4FAF0096D219 /* Model */,
+				D2A370C5215E61350096D219 /* Extensions */,
 			);
 			path = MapyAPITests;
 			sourceTree = "<group>";
@@ -483,12 +490,22 @@
 			path = HTTP;
 			sourceTree = "<group>";
 		};
-		D2A370B9215E4FAF0096D219 /* Model */ = {
+		D2A370BE215E5FBF0096D219 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D2A370BC215E4FD70096D219 /* LocationTests.swift */,
+				D2A370C3215E60F50096D219 /* TransportType+FastRPCSerializable.swift */,
+				D2A370C1215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift */,
+				D2A370BF215E5FF00096D219 /* Location+FastRPCSerializable.swift */,
 			);
-			path = Model;
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D2A370C5215E61350096D219 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D2A370BC215E4FD70096D219 /* Location+FastRPCSerializableTests.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -767,7 +784,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D28776F22156DA8E0007C378 /* MapyAPIService.swift in Sources */,
+				D2A370C2215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift in Sources */,
+				D2A370C4215E60F50096D219 /* TransportType+FastRPCSerializable.swift in Sources */,
 				D2877706215805650007C378 /* NavigationPoint.swift in Sources */,
+				D2A370C0215E5FF00096D219 /* Location+FastRPCSerializable.swift in Sources */,
 				D2C25BC92159814D00A78896 /* Location.swift in Sources */,
 				D28776F72156DEB60007C378 /* TransportType.swift in Sources */,
 			);
@@ -777,7 +797,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2A370BD215E4FD70096D219 /* LocationTests.swift in Sources */,
+				D2A370BD215E4FD70096D219 /* Location+FastRPCSerializableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
