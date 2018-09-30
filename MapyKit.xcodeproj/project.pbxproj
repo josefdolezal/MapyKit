@@ -194,6 +194,7 @@
 		D2A370BF215E5FF00096D219 /* Location+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2A370C1215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationPoint+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2A370C3215E60F50096D219 /* TransportType+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransportType+FastRPCSerializable.swift"; sourceTree = "<group>"; };
+		D2A370C6215ED2BA0096D219 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D2C25BC82159814D00A78896 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
 		D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
@@ -255,6 +256,7 @@
 		D215D894213EFBB100296D74 = {
 			isa = PBXGroup;
 			children = (
+				D2A370C6215ED2BA0096D219 /* Playground.playground */,
 				D215D8A0213EFBB100296D74 /* MapyKit */,
 				D2385228214E90DD000087DD /* MapyAPI */,
 				D28776B4215512300007C378 /* FastRPCSwift */,
