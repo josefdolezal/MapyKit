@@ -67,3 +67,196 @@ public final class SerializationContainer {
         members.append(data)
     }
 }
+
+struct FastRPCDecoder {
+    public func decode<T: Decodable>(_ value: T.Type, from data: Data) throws -> T {
+        let decoder = _FastRPCDecoder(data: data)
+
+        return try T(from: decoder)
+    }
+}
+
+struct _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
+    var codingPath: [CodingKey] = []
+
+    var userInfo: [CodingUserInfoKey : Any] = [:]
+
+    private var data: Data
+
+    init(data: Data) {
+        self.data = data
+    }
+
+    // MARK: - Decoder
+
+    func container<Key>(keyedBy type: Key.Type) throws -> KeyedDecodingContainer<Key> where Key : CodingKey {
+        fatalError()
+    }
+
+    func unkeyedContainer() throws -> UnkeyedDecodingContainer {
+        fatalError()
+    }
+
+    func singleValueContainer() throws -> SingleValueDecodingContainer {
+        return self
+    }
+
+    // MARK: SingleValueDecodingContainer (Primitives)
+
+    func decodeNil() -> Bool {
+        // We decode nil only if first byte is nil literal
+        guard let byte = data.first else {
+            return false
+        }
+
+        return byte == UInt8(FastRPCObejectType.nil.identifier)
+    }
+
+    mutating func decode(_ type: Bool.Type) throws -> Bool {
+        try expectNonNull(type, with: FastRPCObejectType.bool)
+
+        let bool = data.popFirst()!
+
+        // The bool value is encoded in the last bit
+        return bool & 1 == 1
+    }
+
+    mutating func decode(_ type: String.Type) throws -> String {
+        try expectNonNull(type, with: FastRPCObejectType.string)
+
+        // Increase required count by one (FRPC standard)
+        let dataSize = Int((data.popFirst()! & 0x07) + 1)
+
+        // Check whether the container has enough data for decoding
+        guard dataSize <= data.count else {
+            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: codingPath, debugDescription: "Expected \(dataSize)B of string data, got \(data.count)B instead."))
+        }
+
+        // Remove string data from container
+        let stringData = data.prefix(dataSize)
+        data.removeFirst(dataSize)
+
+        // Decode string data with utf8 encoding
+        guard let string = String(data: stringData, encoding: .utf8) else {
+            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: codingPath, debugDescription: "Given data cannot be decoded using UTF8."))
+        }
+
+        return string
+    }
+
+    func decode(_ type: Int.Type) throws -> Int {
+        fatalError()
+    }
+
+    func decode(_ type: Double.Type) throws -> Double {
+        fatalError()
+    }
+
+    func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
+        fatalError()
+    }
+
+    // MARK: SingleValueDecodingContainer (Unsupported types)
+
+    func decode(_ type: Float.Type) throws -> Float {
+        let double = try decode(Double.self)
+
+        fallbackImplementationNotice(from: type, to: Double.self)
+
+        return Float(double)
+    }
+
+    func decode(_ type: Int8.Type) throws -> Int8 {
+        let int = try decode(Int.self)
+
+        fallbackImplementationNotice(from: type, to: Int.self)
+
+        return Int8(int)
+    }
+
+    func decode(_ type: Int16.Type) throws -> Int16 {
+        let int = try decode(Int.self)
+
+        fallbackImplementationNotice(from: type, to: Int.self)
+
+        return Int16(int)
+    }
+
+    func decode(_ type: Int32.Type) throws -> Int32 {
+        let int = try decode(Int.self)
+
+        fallbackImplementationNotice(from: type, to: Int.self)
+
+        return Int32(int)
+    }
+
+    func decode(_ type: Int64.Type) throws -> Int64 {
+        let int = try decode(Int.self)
+
+        fallbackImplementationNotice(from: type, to: Int.self)
+
+        return Int64(int)
+    }
+
+    func decode(_ type: UInt.Type) throws -> UInt {
+        let int = try decode(Int.self)
+
+        fallbackImplementationNotice(from: type, to: Int.self)
+
+        return UInt(int)
+    }
+
+    func decode(_ type: UInt8.Type) throws -> UInt8 {
+        let int = try decode(Int.self)
+
+        fallbackImplementationNotice(from: type, to: Int.self)
+
+        return UInt8(int)
+    }
+
+    func decode(_ type: UInt16.Type) throws -> UInt16 {
+        let int = try decode(Int.self)
+
+        fallbackImplementationNotice(from: type, to: Int.self)
+
+        return UInt16(int)
+    }
+
+    func decode(_ type: UInt32.Type) throws -> UInt32 {
+        let int = try decode(Int.self)
+
+        fallbackImplementationNotice(from: type, to: Int.self)
+
+        return UInt32(int)
+    }
+
+    func decode(_ type: UInt64.Type) throws -> UInt64 {
+        let int = try decode(Int.self)
+
+        fallbackImplementationNotice(from: type, to: Int.self)
+
+        return UInt64(int)
+    }
+
+    // MARK: Private API
+
+    private func expectNonNull<T>(_ type: T.Type, with objectType: FastRPCObejectType) throws {
+        // Do not allow null values on stack
+        guard !self.decodeNil() else {
+            throw DecodingError.valueNotFound(type, DecodingError.Context(codingPath: codingPath, debugDescription: "Expected \(type) but found null value instead."))
+        }
+
+        guard
+            // Dequeu type information (mask off last three bits)
+            let typeByte = data.first.map({ $0 & 0xF8 }),
+            // Compare actual type with required type
+            objectType.identifier == typeByte
+        else {
+                throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: codingPath, debugDescription: "Expected type information for \(type) (\(objectType.identifier) but got null value or incorrect information instead."))
+        }
+    }
+
+    private func fallbackImplementationNotice<T, U>(from required: T.Type, to fallback: U.Type) where U: Decodable {
+        debugPrint("[FastFRPCSwift] Required type \(required) is not supported by FastRPC standard. The value will be decoded as \(fallback) which may cause undefined behavior.")
+    }
+}
