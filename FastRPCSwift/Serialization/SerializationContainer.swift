@@ -76,7 +76,7 @@ struct FastRPCDecoder {
     }
 }
 
-struct _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
+class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
     var codingPath: [CodingKey] = []
 
     var userInfo: [CodingUserInfoKey : Any] = [:]
@@ -112,8 +112,8 @@ struct _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
         return byte == UInt8(FastRPCObejectType.nil.identifier)
     }
 
-    mutating func decode(_ type: Bool.Type) throws -> Bool {
-        try expectNonNull(type, with: FastRPCObejectType.bool)
+    func decode(_ type: Bool.Type) throws -> Bool {
+        try expectNonNull(type, with: .bool)
 
         let bool = data.popFirst()!
 
@@ -121,11 +121,11 @@ struct _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
         return bool & 1 == 1
     }
 
-    mutating func decode(_ type: String.Type) throws -> String {
-        try expectNonNull(type, with: FastRPCObejectType.string)
+    func decode(_ type: String.Type) throws -> String {
+        try expectNonNull(type, with: .string)
 
         // Increase required count by one (FRPC standard)
-        let dataSize = Int((data.popFirst()! & 0x07) + 1)
+        let dataSize = Int(data.popFirst()! & 0x07) + 1
 
         // Check whether the container has enough data for decoding
         guard dataSize <= data.count else {
@@ -145,7 +145,26 @@ struct _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
     }
 
     func decode(_ type: Int.Type) throws -> Int {
-        fatalError()
+        try expectNonNull(Int.self, with: .int8p)
+
+        // Encode int size and increase it by 1 (FRPC standard)
+        let dataSize = Int(data.popFirst()! & 0x07) + 1
+        // Get expected bytes
+        let bytes = try expectBytes(count: dataSize)
+        // Convert data to Integer - discussion: we cannot use standard solution using memory layout,
+        // since it work only with properly aligned bytes (count matches with actual implementation)
+        // therefore we use bits shifting with sum
+        let int = bytes.enumerated()
+            // Reverse the collection so the highest byte has the biggest offset
+            .reversed()
+            // Shift byte Int representation by offset * 8 (bits)
+            .map { offset, byte in
+                Int(byte) << (offset * 8)
+            }
+            // Sum the shifted values
+            .reduce(0, +)
+
+        return int
     }
 
     func decode(_ type: Double.Type) throws -> Double {
@@ -252,8 +271,21 @@ struct _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
             // Compare actual type with required type
             objectType.identifier == typeByte
         else {
-                throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: codingPath, debugDescription: "Expected type information for \(type) (\(objectType.identifier) but got null value or incorrect information instead."))
+            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: codingPath, debugDescription: "Expected type information for \(type) (\(objectType.identifier) but got null value or incorrect information instead."))
         }
+    }
+
+    private func expectBytes(count: Int) throws -> Data {
+        // Check if we have required bytes count
+        guard data.count >= count else {
+            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: codingPath, debugDescription: "Expected \(count)B of data, got \(data.count)B instead."))
+        }
+
+        // Get expected bytes and remove it
+        let bytes = data.prefix(count)
+        data.removeFirst(count)
+
+        return bytes
     }
 
     private func fallbackImplementationNotice<T, U>(from required: T.Type, to fallback: U.Type) where U: Decodable {
