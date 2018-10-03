@@ -173,7 +173,13 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
     }
 
     func decode(_ type: Double.Type) throws -> Double {
-        fatalError()
+        try expectNonNull(Double.self, with: .double)
+
+        // Get double data (fixed size for IEEE 754)
+        let bytes = try expectBytes(count: 8)
+
+        // Convert raw data into double
+        return bytes.withUnsafeBytes { $0.pointee }
     }
 
     func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
