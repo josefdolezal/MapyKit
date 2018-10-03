@@ -113,29 +113,20 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
     }
 
     func decode(_ type: Bool.Type) throws -> Bool {
-        try expectNonNull(type, with: .bool)
-
-        let bool = data.popFirst()!
+        let bool = try expectNonNull(type, with: .bool)
 
         // The bool value is encoded in the last bit
-        return bool & 1 == 1
+        return bool & 0x01 == 1
     }
 
     func decode(_ type: String.Type) throws -> String {
-        try expectNonNull(type, with: .string)
+        let info = try expectNonNull(type, with: .string)
 
-        // Increase required count by one (FRPC standard)
-        let lengthDataSize = Int(data.popFirst()! & 0x07) + 1
-
-        // Check whether the container has enough data for decoding string length
-        guard lengthDataSize <= data.count else {
-            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: codingPath, debugDescription: "Expected \(lengthDataSize)B of string length data, got \(data.count)B instead."))
-        }
-
-        // Remove string length data from container
-        let stringLengthData = data.prefix(lengthDataSize)
-        data.removeFirst(lengthDataSize)
-
+        // Get string data length from additional data,
+        // increase required count by one (FRPC standard)
+        let lengthDataSize = Int(info) + 1
+        // Get data containing info about string data length
+        let stringLengthData = try expectBytes(count: lengthDataSize)
         // Get string length
         let stringDataSize = stringLengthData
             // Reverse data so highest byte has biggest offset
@@ -143,16 +134,12 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
             // Get each bytes offset
             .enumerated()
             // Shift bytes by it's offset
-            .map { Int($1) << $0 }
+            .map { Int($1) << ($0 * 8) }
             // Sum the bytes to get the actual value
             .reduce(0, +)
 
-        guard stringDataSize <= data.count else {
-            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: codingPath, debugDescription: "Expected \(stringDataSize)B of string data, got \(data.count)B instead."))
-        }
-
-        let stringData = data.prefix(stringDataSize)
-        data.removeFirst(stringDataSize)
+        /// Get actual encoded string data
+        let stringData = try expectBytes(count: stringDataSize)
 
         // Decode string data with utf8 encoding
         guard let string = String(data: stringData, encoding: .utf8) else {
@@ -163,10 +150,10 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
     }
 
     func decode(_ type: Int.Type) throws -> Int {
-        try expectNonNull(Int.self, with: .int8p)
+       let info = try expectNonNull(Int.self, with: .int8p)
 
         // Encode int size and increase it by 1 (FRPC standard)
-        let dataSize = Int(data.popFirst()! & 0x07) + 1
+        let dataSize = Int(info) + 1
         // Get expected bytes
         let bytes = try expectBytes(count: dataSize)
         // Convert data to Integer - discussion: we cannot use standard solution using memory layout,
@@ -277,20 +264,25 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
 
     // MARK: Private API
 
-    private func expectNonNull<T>(_ type: T.Type, with objectType: FastRPCObejectType) throws {
+    /// Requires data to not be null or has null literal. On success, returns additional type info
+    /// for given type.
+    @discardableResult
+    private func expectNonNull<T>(_ type: T.Type, with objectType: FastRPCObejectType) throws -> UInt8 {
         // Do not allow null values on stack
         guard !self.decodeNil() else {
             throw DecodingError.valueNotFound(type, DecodingError.Context(codingPath: codingPath, debugDescription: "Expected \(type) but found null value instead."))
         }
 
         guard
-            // Dequeu type information (mask off last three bits)
-            let typeByte = data.first.map({ $0 & 0xF8 }),
-            // Compare actual type with required type
-            objectType.identifier == typeByte
+            let byte = data.popFirst(),
+            // Compare actual type with required type (mask off last three bits)
+            objectType.identifier == byte & 0xF8
         else {
             throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: codingPath, debugDescription: "Expected type information for \(type) (\(objectType.identifier) but got null value or incorrect information instead."))
         }
+
+        // Return aditional type info (last three bits)
+        return byte & 0x07
     }
 
     private func expectBytes(count: Int) throws -> Data {
