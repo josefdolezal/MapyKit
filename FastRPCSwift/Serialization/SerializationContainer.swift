@@ -183,7 +183,7 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
     }
 
     func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
-        fatalError()
+        return try T(from: self)
     }
 
     // MARK: SingleValueDecodingContainer (Unsupported types)
