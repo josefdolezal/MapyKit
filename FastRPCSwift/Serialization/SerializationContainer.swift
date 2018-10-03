@@ -125,16 +125,34 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
         try expectNonNull(type, with: .string)
 
         // Increase required count by one (FRPC standard)
-        let dataSize = Int(data.popFirst()! & 0x07) + 1
+        let lengthDataSize = Int(data.popFirst()! & 0x07) + 1
 
-        // Check whether the container has enough data for decoding
-        guard dataSize <= data.count else {
-            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: codingPath, debugDescription: "Expected \(dataSize)B of string data, got \(data.count)B instead."))
+        // Check whether the container has enough data for decoding string length
+        guard lengthDataSize <= data.count else {
+            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: codingPath, debugDescription: "Expected \(lengthDataSize)B of string length data, got \(data.count)B instead."))
         }
 
-        // Remove string data from container
-        let stringData = data.prefix(dataSize)
-        data.removeFirst(dataSize)
+        // Remove string length data from container
+        let stringLengthData = data.prefix(lengthDataSize)
+        data.removeFirst(lengthDataSize)
+
+        // Get string length
+        let stringDataSize = stringLengthData
+            // Reverse data so highest byte has biggest offset
+            .reversed()
+            // Get each bytes offset
+            .enumerated()
+            // Shift bytes by it's offset
+            .map { Int($1) << $0 }
+            // Sum the bytes to get the actual value
+            .reduce(0, +)
+
+        guard stringDataSize <= data.count else {
+            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: codingPath, debugDescription: "Expected \(stringDataSize)B of string data, got \(data.count)B instead."))
+        }
+
+        let stringData = data.prefix(stringDataSize)
+        data.removeFirst(stringDataSize)
 
         // Decode string data with utf8 encoding
         guard let string = String(data: stringData, encoding: .utf8) else {
