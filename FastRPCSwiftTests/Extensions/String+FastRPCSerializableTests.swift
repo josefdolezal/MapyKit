@@ -66,23 +66,10 @@ class String_FastRPCSerializableTests: XCTestCase {
 
         for _ in 0 ... 100 {
             let length = Int.random(in: 0 ... 100)
-            let string = randomString(length: length)
+            let string = String.random(maxLength: length)
             let data = try string.serialize().data
 
             try XCTAssertEqual(decoder.decode(String.self, from: data), string)
         }
-    }
-
-    // MARK: Helpers
-
-    private func randomString(length: Int) -> String {
-        let chars = (0...length)
-            .map { _ -> Character in
-                let char = UInt8.random(in: .min ... .max)
-
-                return Character(Unicode.Scalar(char))
-            }
-
-        return String(chars)
     }
 }

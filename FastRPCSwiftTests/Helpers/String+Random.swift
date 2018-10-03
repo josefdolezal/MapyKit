@@ -10,6 +10,8 @@ import Foundation
 
 extension String {
     static func random(maxLength: Int) -> String {
+        guard maxLength > 0 else { return "" }
+
         let chars = (0...maxLength)
             .map { _ -> Character in
                 let char = UInt8.random(in: .min ... .max)
