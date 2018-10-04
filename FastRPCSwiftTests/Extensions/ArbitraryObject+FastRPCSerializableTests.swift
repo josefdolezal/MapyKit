@@ -35,9 +35,9 @@ class ArbitraryObject_FastRPCSerializableTests: XCTestCase {
 
     func testDecodesPlainObjects() throws {
         for _ in 0 ... 100 {
-            let int = Int.random(in: .min ... .max)
+            let int = Int.random(in: 0 ... .max)
             let intData = try int.serialize().data
-            let string = String.random(maxLength: Int.random(in: 0 ... 300))
+            let string = String.random(maxLength: Int.random(in: 1 ... 200))
             let stringData = try string.serialize().data
             let bool = Bool.random()
             let boolData = try bool.serialize().data

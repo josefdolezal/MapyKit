@@ -65,7 +65,7 @@ class String_FastRPCSerializableTests: XCTestCase {
         let decoder = FastRPCDecoder()
 
         for _ in 0 ... 100 {
-            let length = Int.random(in: 0 ... 100)
+            let length = Int.random(in: 0 ... 300)
             let string = String.random(maxLength: length)
             let data = try string.serialize().data
 
