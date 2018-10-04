@@ -129,8 +129,6 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
         let stringLengthData = try expectBytes(count: lengthDataSize)
         // Get string length
         let stringDataSize = stringLengthData
-            // Reverse data so highest byte has biggest offset
-            .reversed()
             // Get each bytes offset
             .enumerated()
             // Shift bytes by it's offset
