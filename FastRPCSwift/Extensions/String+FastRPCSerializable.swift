@@ -11,24 +11,23 @@ import Foundation
 extension String: FastRPCSerializable {
     public func serialize() throws -> SerializationBuffer {
         // Try ot convert UTF8 string into data
-        guard let data = data(using: .utf8) else {
+        guard let stringData = self.data(using: .utf8) else {
             // Throw error on failure
             throw FastRPCError.serialization(self, nil)
         }
 
-        // Create identifier for string value (encode id + content length in bytes)
-        var dataLength = data.count
-        let serializedDataLength = Data(bytes: &dataLength, count: dataLength.nonTrailingBytesCount)
-
-        // Create identifier
-        var identifier = FastRPCObejectType.string.identifier + (serializedDataLength.count - 1)
-        var serializedIdentifier = Data(bytes: &identifier, count: identifier.nonTrailingBytesCount)
+        // Encode data size into bytes
+        let dataBytesSize = stringData.count.usedBytes
+        // Create identifier (id + encoded data size)
+        let identifier = FastRPCObejectType.string.identifier + (dataBytesSize.count - 1)
+        // Create data container for final encoded value
+        var data = identifier.usedBytes
 
         // Combine identifier, content length and content
-        serializedIdentifier.append(serializedDataLength)
-        serializedIdentifier.append(data)
+        data.append(dataBytesSize)
+        data.append(stringData)
 
         // Return converted data
-        return SerializationBuffer(data: serializedIdentifier)
+        return SerializationBuffer(data: data)
     }
 }
