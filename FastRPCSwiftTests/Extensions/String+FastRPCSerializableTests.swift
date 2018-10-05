@@ -56,6 +56,34 @@ class String_FastRPCSerializableTests: XCTestCase {
          XCTAssertEqual([UInt8](try "ÚÖ[\\ů~ýÉůŤťüĚňď".serialize().data), [32, 27, 195, 154, 195, 150, 91, 92, 197, 175, 126, 195, 189, 195, 137, 197, 175, 197, 164, 197, 165, 195, 188, 196, 154, 197, 136, 196, 143])
     }
 
+    func testSerializeRandomStrings() throws {
+        for _ in 0...100 {
+            let string = String.random(maxLength: Int.random(in: 0...300))
+            let stringData = string.data(using: .utf8)!
+            var subject = try string.serialize().data
+
+            // Get information of how many bytes are used by string length
+            let bytesLength = Int(subject.removeFirst() & 0x07) + 1
+            // Get string length
+            let length = subject.prefix(bytesLength)
+                .enumerated()
+                .map { offset, byte in
+                    Int(byte) << (8 * offset)
+                }
+                .reduce(0, +)
+
+            // Remove the string length data
+            subject.removeFirst(bytesLength)
+
+            // Test serialized info about string length bytes count
+            XCTAssertEqual(bytesLength, stringData.count.usedBytes.count)
+            // Test string length
+            XCTAssertEqual(length, stringData.count)
+            // Test raw bytes itself
+            XCTAssertEqual(subject, stringData)
+        }
+    }
+
     func testSerializeSpecialCases() {
         XCTAssertEqual([UInt8](try " ".serialize().data), [32, 1, 32])
         XCTAssertEqual([UInt8](try "".serialize().data), [32, 0])
