@@ -64,7 +64,20 @@ class Int_FastRPCSerializableTests: XCTestCase {
         let decoder = FastRPCDecoder()
 
         for _ in 0...100 {
-            let subject = Int(Int32.random(in: 0 ... 200))
+            let subject = Int(Int32.random(in: 0 ... .max))
+            let encoded = try subject.serialize().data
+
+            try XCTAssertEqual(decoder.decode(Int.self, from: encoded), subject)
+        }
+
+        try XCTAssertEqual(decoder.decode(Int.self, from: 0.serialize().data), 0)
+    }
+
+    func testDecodeNegativeNumbers() throws {
+        let decoder = FastRPCDecoder()
+
+        for _ in 0...100 {
+            let subject = Int.random(in: .min ..< 0)
             let encoded = try subject.serialize().data
 
             try XCTAssertEqual(decoder.decode(Int.self, from: encoded), subject)

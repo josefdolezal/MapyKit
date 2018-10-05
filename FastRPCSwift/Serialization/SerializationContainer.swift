@@ -128,13 +128,7 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
         // Get data containing info about string data length
         let stringLengthData = try expectBytes(count: lengthDataSize)
         // Get string length
-        let stringDataSize = stringLengthData
-            // Get each bytes offset
-            .enumerated()
-            // Shift bytes by it's offset
-            .map { Int($1) << ($0 * 8) }
-            // Sum the bytes to get the actual value
-            .reduce(0, +)
+        let stringDataSize = Int(data: stringLengthData)
 
         /// Get actual encoded string data
         let stringData = try expectBytes(count: stringDataSize)
@@ -148,26 +142,19 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
     }
 
     func decode(_ type: Int.Type) throws -> Int {
-       let info = try expectNonNull(Int.self, with: .int8p)
+        // Check first for type information (without last 3 additional info bits)
+        guard let type = data.first.map({ Int($0) & 0xF8 }) else {
+            throw DecodingError.valueNotFound(Int.self, DecodingError.Context(codingPath: codingPath, debugDescription: "Expected either Int8p, Int8n or Int type metadata, got null value instead."))
+        }
 
-        // Encode int size and increase it by 1 (FRPC standard)
-        let dataSize = Int(info) + 1
-        // Get expected bytes
-        let bytes = try expectBytes(count: dataSize)
-        // Convert data to Integer - discussion: we cannot use standard solution using memory layout,
-        // since it work only with properly aligned bytes (count matches with actual implementation)
-        // therefore we use bits shifting with sum
-        let int = bytes.enumerated()
-            // Reverse the collection so the highest byte has the biggest offset
-            .reversed()
-            // Shift byte Int representation by offset * 8 (bits)
-            .map { offset, byte in
-                Int(byte) << (offset * 8)
-            }
-            // Sum the shifted values
-            .reduce(0, +)
-
-        return int
+        // Switch over int identifier
+        switch type {
+        case FastRPCObejectType.int8p.identifier: return try decodePositiveInteger()
+        case FastRPCObejectType.int8n.identifier: return try decodeNegativeInteger()
+        case FastRPCObejectType.int.identifier: return try decodeZigZagInteger()
+        default:
+            throw DecodingError.typeMismatch(Int.self, DecodingError.Context(codingPath: codingPath, debugDescription: "Expected \(Int.self) type but got \(type) type identifier instead."))
+        }
     }
 
     func decode(_ type: Double.Type) throws -> Double {
@@ -266,6 +253,35 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
         return UInt64(int)
     }
 
+    // MARK: Internal Encoding
+
+    private func decodePositiveInteger() throws -> Int {
+        let info = try expectNonNull(Int.self, with: .int8p)
+        // Encode int size and increase it by 1 (FRPC standard)
+        let dataSize = Int(info) + 1
+        // Get expected bytes
+        let bytes = try expectBytes(count: dataSize)
+
+        // Return converted bytes
+        return Int(data: bytes)
+    }
+
+    private func decodeNegativeInteger() throws -> Int {
+        let info = try expectNonNull(Int.self, with: .int8n)
+        // Encode int size and increase it by 1 (FRPC standard)
+        let dataSize = Int(info) + 1
+        // Get expected bytes
+        let bytes = try expectBytes(count: dataSize)
+        // Convert data to integer
+        let int = Int(data: bytes)
+
+        return -int
+    }
+
+    private func decodeZigZagInteger() throws -> Int {
+        fatalError("ZigZag integer decoding is not implemented yet. Use Int8p or Int8n instead.")
+    }
+
     // MARK: Private API
 
     /// Requires data to not be null or has null literal. On success, returns additional type info
@@ -278,12 +294,15 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
         }
 
         guard
-            let byte = data.popFirst(),
+            let byte = data.first,
             // Compare actual type with required type (mask off last three bits)
             objectType.identifier == byte & 0xF8
         else {
             throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: codingPath, debugDescription: "Expected type information for \(type) (\(objectType.identifier) but got null value or incorrect information instead."))
         }
+
+        // We have requested type byte, remove it
+        _ = data.popFirst()
 
         // Return aditional type info (last three bits)
         return byte & 0x07
