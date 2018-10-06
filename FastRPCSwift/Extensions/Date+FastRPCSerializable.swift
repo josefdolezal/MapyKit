@@ -53,12 +53,12 @@ extension Date: FastRPCSerializable {
 
         return SerializationBuffer(data: data)
     }
+}
 
-    // MARK: Private API
-
+internal extension Date {
     /// Since there is no easy way to determine whether the current timezome is after
     /// GMT, we use date formatter to obtain timezone in format 'GMT-08:00' or 'GMT+08:00'.
-    private static let timezoneFormatter: DateFormatter = {
+    internal static let timezoneFormatter: DateFormatter = {
         let formatter = DateFormatter()
 
         formatter.dateFormat = "ZZZZ"
@@ -71,34 +71,9 @@ extension Date: FastRPCSerializable {
     /// after GMT.
     ///
     /// - Returns: True if date timezone is located after GMT.
-    private func isTimezoneAfterGMT() -> Bool {
+    internal func isTimezoneAfterGMT() -> Bool {
         let timezone = Date.timezoneFormatter.string(from: self)
 
         return timezone.contains("+")
-    }
-}
-
-extension Int {
-    var usedBytes: Data {
-        var copy = self
-
-        return Data(bytes: &copy, count: copy.nonTrailingBytesCount)
-    }
-
-    func truncatedBytes(to length: Int) -> Data {
-        let sanitizedLength = Swift.min(length, bitWidth / 8)
-        var copy = self
-
-        return Data(bytes: &copy, count: sanitizedLength)
-    }
-}
-
-extension Data {
-    static func + (_ lhs: Data, _ rhs: Data) -> Data {
-        var result = lhs
-
-        result.append(rhs)
-
-        return result
     }
 }

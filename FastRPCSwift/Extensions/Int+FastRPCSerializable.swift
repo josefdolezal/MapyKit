@@ -43,6 +43,19 @@ extension Int {
         return (nonTrailingBitsCount + 7) / 8
     }
 
+    var usedBytes: Data {
+        var copy = self
+
+        return Data(bytes: &copy, count: copy.nonTrailingBytesCount)
+    }
+
+    func truncatedBytes(to length: Int) -> Data {
+        let sanitizedLength = Swift.min(length, bitWidth / 8)
+        var copy = self
+
+        return Data(bytes: &copy, count: sanitizedLength)
+    }
+
     /// Initializes Integer from raw data. Data must be little endian representation of integer and
     /// must not contain more bytes that is used to represent integer.
     init(data: Data) {

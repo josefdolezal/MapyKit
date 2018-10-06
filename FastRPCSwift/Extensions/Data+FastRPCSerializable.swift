@@ -23,3 +23,13 @@ extension Data: FastRPCSerializable {
         return SerializationBuffer(data: data)
     }
 }
+
+internal extension Data {
+    static func + (_ lhs: Data, _ rhs: Data) -> Data {
+        var result = lhs
+
+        result.append(rhs)
+
+        return result
+    }
+}
