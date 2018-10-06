@@ -24,6 +24,9 @@
 		D23975FB21503B17000C6AD8 /* MapyAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2385227214E90DD000087DD /* MapyAPI.framework */; };
 		D2488A84214276E30032D382 /* MapyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; };
 		D2488A85214276E30032D382 /* MapyKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D25336062168AE190031635C /* FastRPCCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25336052168AE190031635C /* FastRPCCodable.swift */; };
+		D25336082168BAAE0031635C /* FastRPCEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25336072168BAAE0031635C /* FastRPCEncoder.swift */; };
+		D253360A2168BAC20031635C /* FastRPCDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25336092168BAC20031635C /* FastRPCDecoder.swift */; };
 		D258E9D42165617D009F752B /* ArbitraryObject+FastRPCSerializableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258E9D32165617D009F752B /* ArbitraryObject+FastRPCSerializableTests.swift */; };
 		D258E9D7216562E4009F752B /* String+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258E9D6216562E4009F752B /* String+Random.swift */; };
 		D28554142141A61000C7E423 /* MapyLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554132141A61000C7E423 /* MapyLayer.swift */; };
@@ -171,6 +174,9 @@
 		D239760721503C20000C6AD8 /* Int+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
 		D239760921504B28000C6AD8 /* String+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
 		D239760B21505781000C6AD8 /* Double+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+FastRPCSerializable.swift"; sourceTree = "<group>"; };
+		D25336052168AE190031635C /* FastRPCCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCCodable.swift; sourceTree = "<group>"; };
+		D25336072168BAAE0031635C /* FastRPCEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCEncoder.swift; sourceTree = "<group>"; };
+		D25336092168BAC20031635C /* FastRPCDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCDecoder.swift; sourceTree = "<group>"; };
 		D258E9D32165617D009F752B /* ArbitraryObject+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbitraryObject+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
 		D258E9D6216562E4009F752B /* String+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
 		D28554132141A61000C7E423 /* MapyLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyLayer.swift; sourceTree = "<group>"; };
@@ -482,6 +488,9 @@
 				D23975F0215018C2000C6AD8 /* SerializationBuffer.swift */,
 				D23975EE21501877000C6AD8 /* SerializationContainer.swift */,
 				D28776E421551A7A0007C378 /* KeyedSerializationContainer.swift */,
+				D25336052168AE190031635C /* FastRPCCodable.swift */,
+				D25336072168BAAE0031635C /* FastRPCEncoder.swift */,
+				D25336092168BAC20031635C /* FastRPCDecoder.swift */,
 			);
 			path = Serialization;
 			sourceTree = "<group>";
@@ -821,12 +830,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D253360A2168BAC20031635C /* FastRPCDecoder.swift in Sources */,
 				D28777082158084F0007C378 /* Dictionary+FastRPCSerializable.swift in Sources */,
 				D28776DC2155138E0007C378 /* Array+FastRPCSerializable.swift in Sources */,
+				D25336082168BAAE0031635C /* FastRPCEncoder.swift in Sources */,
 				D28776D82155138E0007C378 /* Optional+FastRPCSerializable.swift in Sources */,
 				D28776E3215513920007C378 /* FastRPCService.swift in Sources */,
 				D28776F0215561480007C378 /* Procedure.swift in Sources */,
 				D28776EC215531CD0007C378 /* Data+FastRPCSerializable.swift in Sources */,
+				D25336062168AE190031635C /* FastRPCCodable.swift in Sources */,
 				D28776E521551A7A0007C378 /* KeyedSerializationContainer.swift in Sources */,
 				D28776E1215513920007C378 /* SerializationBuffer.swift in Sources */,
 				D2877702215800D70007C378 /* HTTPContentType.swift in Sources */,
