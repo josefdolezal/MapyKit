@@ -1,0 +1,52 @@
+{
+    "category":"area_cz",
+    "highlight":[
+
+    ],
+    "sentence":"",
+    "userData":{
+        "bbox":[
+            50.613224029541016,
+            15.357636451721191,
+            50.809062957763672,
+            15.907720565795898
+        ],
+        "country":"Česko",
+        "district":"Trutnov",
+        "evidenceNumber":"",
+        "highlight":[
+            0,
+            4
+        ],
+        "highlightSecond":[
+
+        ],
+        "houseNumber":"",
+        "iconType":"geo",
+        "id":26572,
+        "img":"",
+        "importance":0.32826599478721619,
+        "latitude":50.706606999999998,
+        "longitude":15.643539000000001,
+        "muniId":"2940",
+        "municipality":"Špindlerův Mlýn",
+        "nuts":"",
+        "poiType":"",
+        "poiTypeId":10,
+        "popularity":0.499,
+        "premiseIds":[
+
+        ],
+        "quarter":"",
+        "region":"Královéhradecký kraj",
+        "source":"area",
+        "street":"",
+        "streetNumber":"",
+        "suggestFirstRow":"Karkonoski Park Narodowy",
+        "suggestSecondRow":"Česko",
+        "suggestThirdRow":"",
+        "ward":"",
+        "wikiId":"Q2043817",
+        "zipCode":""
+    }
+}

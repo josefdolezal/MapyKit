@@ -1,0 +1,287 @@
+[{
+    "deletedFromBack":0,
+    "hasGeo":0,
+    "hasService":0,
+    "id":"fbc25843-bc3f-410a-9ea0-a7c839b73b1e",
+    "result":[
+        {
+            "category":"municipality_cz",
+            "highlight":[
+
+            ],
+            "sentence":"",
+            "userData":{
+                "bbox":[
+                    49.941898345947266,
+                    14.22443675994873,
+                    50.17742919921875,
+                    14.706787109375
+                ],
+                "country":"Česko",
+                "district":"Hlavní město Praha",
+                "evidenceNumber":"",
+                "highlight":[
+                    0,
+                    5
+                ],
+                "highlightSecond":[
+                    19,
+                    24,
+                    44,
+                    49
+                ],
+                "houseNumber":"",
+                "iconType":"geo",
+                "id":3468,
+                "img":"",
+                "importance":0.76339501142501831,
+                "latitude":50.083549385700003,
+                "longitude":14.4341412988,
+                "muniId":"3468",
+                "municipality":"Praha",
+                "nuts":"CZ0100",
+                "poiType":"",
+                "poiTypeId":0,
+                "popularity":0.92400000000000004,
+                "premiseIds":[
+
+                ],
+                "quarter":"",
+                "region":"Hlavní město Praha",
+                "source":"muni",
+                "street":"",
+                "streetNumber":"",
+                "suggestFirstRow":"Praha",
+                "suggestSecondRow":"okres Hlavní město Praha, kraj Hlavní město Praha, Česko",
+                "suggestThirdRow":"",
+                "ward":"",
+                "wikiId":"Q1085",
+                "zipCode":""
+            }
+        },
+        {
+            "category":"pubtran_cz",
+            "highlight":[
+
+            ],
+            "sentence":"",
+            "userData":{
+                "bbox":[
+                    50.080917851824381,
+                    14.431163755374241,
+                    50.085241058100188,
+                    14.442392696425735
+                ],
+                "country":"Česko",
+                "district":"Hlavní město Praha",
+                "evidenceNumber":"",
+                "highlight":[
+                    0,
+                    5
+                ],
+                "highlightSecond":[
+                    0,
+                    5,
+                    20,
+                    25,
+                    40,
+                    45
+                ],
+                "houseNumber":"",
+                "iconType":"default",
+                "id":15212548,
+                "img":"",
+                "importance":0.52580302953720093,
+                "latitude":50.083079503699999,
+                "longitude":14.436778225899999,
+                "muniId":"3468",
+                "municipality":"Praha",
+                "nuts":"",
+                "poiType":"",
+                "poiTypeId":6512,
+                "popularity":0.76400000000000001,
+                "premiseIds":[
+
+                ],
+                "quarter":"",
+                "region":"Hlavní město Praha",
+                "source":"pubt",
+                "street":"",
+                "streetNumber":"",
+                "suggestFirstRow":"Praha hlavní nádraží",
+                "suggestSecondRow":"Praha, Hlavní město Praha, Hlavní město Praha, Česko",
+                "suggestThirdRow":"",
+                "ward":"",
+                "wikiId":"Q0",
+                "zipCode":""
+            }
+        },
+        {
+            "category":"pubtran_cz",
+            "highlight":[
+
+            ],
+            "sentence":"",
+            "userData":{
+                "bbox":[
+                    50.066545457808111,
+                    14.399762810074245,
+                    50.070869960107714,
+                    14.410991751125739
+                ],
+                "country":"Česko",
+                "district":"Hlavní město Praha",
+                "evidenceNumber":"",
+                "highlight":[
+                    0,
+                    5
+                ],
+                "highlightSecond":[
+                    0,
+                    5,
+                    20,
+                    25,
+                    40,
+                    45
+                ],
+                "houseNumber":"",
+                "iconType":"default",
+                "id":15699332,
+                "img":"",
+                "importance":0.52901899814605713,
+                "latitude":50.068707757699997,
+                "longitude":14.4053772806,
+                "muniId":"3468",
+                "municipality":"Praha",
+                "nuts":"",
+                "poiType":"",
+                "poiTypeId":6513,
+                "popularity":0.66400000000000003,
+                "premiseIds":[
+
+                ],
+                "quarter":"",
+                "region":"Hlavní město Praha",
+                "source":"pubt",
+                "street":"",
+                "streetNumber":"",
+                "suggestFirstRow":"Praha, Na Knížecí",
+                "suggestSecondRow":"Praha, Hlavní město Praha, Hlavní město Praha, Česko",
+                "suggestThirdRow":"",
+                "ward":"",
+                "wikiId":"Q0",
+                "zipCode":""
+            }
+        },
+        {
+            "category":"poi_cz",
+            "highlight":[
+
+            ],
+            "sentence":"",
+            "userData":{
+                "bbox":[
+                    50.084128456501332,
+                    14.407177245574243,
+                    50.088451373225233,
+                    14.418406186625736
+                ],
+                "country":"Česko",
+                "district":"Hlavní město Praha",
+                "evidenceNumber":"",
+                "highlight":[
+                    17,
+                    22
+                ],
+                "highlightSecond":[
+                    13,
+                    18
+                ],
+                "houseNumber":"",
+                "iconType":"default",
+                "id":1914541,
+                "img":"",
+                "importance":0.76339501142501831,
+                "latitude":50.086289963600002,
+                "longitude":14.412791716099999,
+                "muniId":"3468",
+                "municipality":"Praha",
+                "nuts":"",
+                "poiType":"",
+                "poiTypeId":1310,
+                "popularity":0.57399999999999995,
+                "premiseIds":[
+
+                ],
+                "quarter":"Praha 1",
+                "region":"Hlavní město Praha",
+                "source":"base",
+                "street":"Karlův most",
+                "streetNumber":"",
+                "suggestFirstRow":"Památka UNESCO - Praha - historické centrum",
+                "suggestSecondRow":"Karlův most, Praha",
+                "suggestThirdRow":"",
+                "ward":"Staré Město Malá Strana",
+                "wikiId":"Q1085",
+                "zipCode":""
+            }
+        },
+        {
+            "category":"pubtran_cz",
+            "highlight":[
+
+            ],
+            "sentence":"",
+            "userData":{
+                "bbox":[
+                    50.085668880566637,
+                    14.428530718574253,
+                    50.089991658360852,
+                    14.439759659625746
+                ],
+                "country":"Česko",
+                "district":"Hlavní město Praha",
+                "evidenceNumber":"",
+                "highlight":[
+                    0,
+                    5
+                ],
+                "highlightSecond":[
+                    0,
+                    5,
+                    20,
+                    25,
+                    40,
+                    45
+                ],
+                "houseNumber":"",
+                "iconType":"default",
+                "id":15212549,
+                "img":"",
+                "importance":0.51088899374008179,
+                "latitude":50.087830318199998,
+                "longitude":14.434145189100001,
+                "muniId":"3468",
+                "municipality":"Praha",
+                "nuts":"",
+                "poiType":"",
+                "poiTypeId":6512,
+                "popularity":0.59699999999999998,
+                "premiseIds":[
+
+                ],
+                "quarter":"",
+                "region":"Hlavní město Praha",
+                "source":"pubt",
+                "street":"",
+                "streetNumber":"",
+                "suggestFirstRow":"Praha Masarykovo nádraží",
+                "suggestSecondRow":"Praha, Hlavní město Praha, Hlavní město Praha, Česko",
+                "suggestThirdRow":"",
+                "ward":"",
+                "wikiId":"Q0",
+                "zipCode":""
+            }
+        }
+    ]
+}]

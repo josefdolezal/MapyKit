@@ -75,6 +75,11 @@
 		D2C25BC92159814D00A78896 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C25BC82159814D00A78896 /* Location.swift */; };
 		D2C3B0592169FEC400B1F257 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B0582169FEC400B1F257 /* Place.swift */; };
 		D2C3B05B216A0DF100B1F257 /* Place+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B05A216A0DF100B1F257 /* Place+Codable.swift */; };
+		D2C3B05D216A7A7400B1F257 /* Place+CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B05C216A7A7400B1F257 /* Place+CodableTests.swift */; };
+		D2C3B061216A7D8800B1F257 /* 00-place.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C3B060216A7D8800B1F257 /* 00-place.json */; };
+		D2C3B063216A7E3B00B1F257 /* 01-place.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C3B062216A7E3B00B1F257 /* 01-place.json */; };
+		D2C3B065216A8A7A00B1F257 /* 00-places.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C3B064216A8A7A00B1F257 /* 00-places.json */; };
+		D2C3B067216A8A8700B1F257 /* 01-places.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C3B066216A8A8700B1F257 /* 01-places.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -208,6 +213,11 @@
 		D2C25BC82159814D00A78896 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D2C3B0582169FEC400B1F257 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		D2C3B05A216A0DF100B1F257 /* Place+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Place+Codable.swift"; sourceTree = "<group>"; };
+		D2C3B05C216A7A7400B1F257 /* Place+CodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Place+CodableTests.swift"; sourceTree = "<group>"; };
+		D2C3B060216A7D8800B1F257 /* 00-place.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "00-place.json"; sourceTree = "<group>"; };
+		D2C3B062216A7E3B00B1F257 /* 01-place.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "01-place.json"; sourceTree = "<group>"; };
+		D2C3B064216A8A7A00B1F257 /* 00-places.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "00-places.json"; sourceTree = "<group>"; };
+		D2C3B066216A8A8700B1F257 /* 01-places.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "01-places.json"; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
 		D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+FastRPCSerializable.swift"; sourceTree = "<group>"; };
@@ -364,6 +374,7 @@
 		D23975F721503B17000C6AD8 /* MapyAPITests */ = {
 			isa = PBXGroup;
 			children = (
+				D2C3B05E216A7D6900B1F257 /* Stub */,
 				D239760121503B26000C6AD8 /* Supporting Files */,
 				D2A370C5215E61350096D219 /* Extensions */,
 			);
@@ -532,8 +543,28 @@
 			isa = PBXGroup;
 			children = (
 				D2A370BC215E4FD70096D219 /* Location+FastRPCSerializableTests.swift */,
+				D2C3B05C216A7A7400B1F257 /* Place+CodableTests.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D2C3B05E216A7D6900B1F257 /* Stub */ = {
+			isa = PBXGroup;
+			children = (
+				D2C3B05F216A7D7200B1F257 /* Place */,
+			);
+			path = Stub;
+			sourceTree = "<group>";
+		};
+		D2C3B05F216A7D7200B1F257 /* Place */ = {
+			isa = PBXGroup;
+			children = (
+				D2C3B060216A7D8800B1F257 /* 00-place.json */,
+				D2C3B062216A7E3B00B1F257 /* 01-place.json */,
+				D2C3B064216A8A7A00B1F257 /* 00-places.json */,
+				D2C3B066216A8A8700B1F257 /* 01-places.json */,
+			);
+			path = Place;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -763,6 +794,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2C3B067216A8A8700B1F257 /* 01-places.json in Resources */,
+				D2C3B063216A7E3B00B1F257 /* 01-place.json in Resources */,
+				D2C3B065216A8A7A00B1F257 /* 00-places.json in Resources */,
+				D2C3B061216A7D8800B1F257 /* 00-place.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -827,6 +862,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2C3B05D216A7A7400B1F257 /* Place+CodableTests.swift in Sources */,
 				D2A370BD215E4FD70096D219 /* Location+FastRPCSerializableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,0 +1,52 @@
+{
+    "category":"municipality_cz",
+    "highlight":[
+
+    ],
+    "sentence":"",
+    "userData":{
+        "bbox":[
+            49.026603698730469,
+            17.18956184387207,
+            49.049739837646484,
+            17.220279693603516
+        ],
+        "country":"Česko",
+        "district":"Hodonín",
+        "evidenceNumber":"",
+        "highlight":[
+            0,
+            6
+        ],
+        "highlightSecond":[
+
+        ],
+        "houseNumber":"",
+        "iconType":"geo",
+        "id":5662,
+        "img":"",
+        "importance":0.30707800388336182,
+        "latitude":49.035777799505802,
+        "longitude":17.207224943329699,
+        "muniId":"5662",
+        "municipality":"Skalka",
+        "nuts":"CZ0645",
+        "poiType":"",
+        "poiTypeId":0,
+        "popularity":0.436,
+        "premiseIds":[
+
+        ],
+        "quarter":"",
+        "region":"Jihomoravský kraj",
+        "source":"muni",
+        "street":"",
+        "streetNumber":"",
+        "suggestFirstRow":"Skalka",
+        "suggestSecondRow":"okres Hodonín, Jihomoravský kraj, Česko",
+        "suggestThirdRow":"",
+        "ward":"",
+        "wikiId":"Q1974362",
+        "zipCode":""
+    }
+}

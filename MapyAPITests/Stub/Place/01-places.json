@@ -1,0 +1,270 @@
+{
+    "deletedFromBack":0,
+    "hasGeo":0,
+    "hasService":0,
+    "id":"0a935064-7354-4edc-aed6-7a70f4e99c2b",
+    "result":[
+        {
+            "category":"municipality_cz",
+            "highlight":[
+
+            ],
+            "sentence":"",
+            "userData":{
+                "bbox":[
+                    49.237400054931641,
+                    14.10004997253418,
+                    49.335945129394531,
+                    14.238595962524414
+                ],
+                "country":"Česko",
+                "district":"Písek",
+                "evidenceNumber":"",
+                "highlight":[
+                    0,
+                    5
+                ],
+                "highlightSecond":[
+                    6,
+                    11
+                ],
+                "houseNumber":"",
+                "iconType":"geo",
+                "id":860,
+                "img":"",
+                "importance":0.4972589910030365,
+                "latitude":49.3087953306893,
+                "longitude":14.147502862241399,
+                "muniId":"860",
+                "municipality":"Písek",
+                "nuts":"CZ0314",
+                "poiType":"",
+                "poiTypeId":0,
+                "popularity":0.78100000000000003,
+                "premiseIds":[
+
+                ],
+                "quarter":"",
+                "region":"Jihočeský kraj",
+                "source":"muni",
+                "street":"",
+                "streetNumber":"",
+                "suggestFirstRow":"Písek",
+                "suggestSecondRow":"okres Písek, Jihočeský kraj, Česko",
+                "suggestThirdRow":"",
+                "ward":"",
+                "wikiId":"Q158245",
+                "zipCode":""
+            }
+        },
+        {
+            "category":"district_cz",
+            "highlight":[
+
+            ],
+            "sentence":"",
+            "userData":{
+                "bbox":[
+                    49.156742095947266,
+                    13.932015419006348,
+                    49.567855834960938,
+                    14.475480079650879
+                ],
+                "country":"Česko",
+                "district":"Písek",
+                "evidenceNumber":"",
+                "highlight":[
+                    6,
+                    11
+                ],
+                "highlightSecond":[
+
+                ],
+                "houseNumber":"",
+                "iconType":"geo",
+                "id":4,
+                "img":"",
+                "importance":0.42182400822639465,
+                "latitude":49.387597146774503,
+                "longitude":14.2142396290376,
+                "muniId":"",
+                "municipality":"",
+                "nuts":"CZ0314",
+                "poiType":"",
+                "poiTypeId":0,
+                "popularity":0.497,
+                "premiseIds":[
+
+                ],
+                "quarter":"",
+                "region":"Jihočeský kraj",
+                "source":"dist",
+                "street":"",
+                "streetNumber":"",
+                "suggestFirstRow":"okres Písek",
+                "suggestSecondRow":"Jihočeský kraj, Česko",
+                "suggestThirdRow":"",
+                "ward":"",
+                "wikiId":"Q594929",
+                "zipCode":""
+            }
+        },
+        {
+            "category":"municipality_cz",
+            "highlight":[
+
+            ],
+            "sentence":"",
+            "userData":{
+                "bbox":[
+                    49.531993865966797,
+                    18.773048400878906,
+                    49.596942901611328,
+                    18.839141845703125
+                ],
+                "country":"Česko",
+                "district":"Frýdek-Místek",
+                "evidenceNumber":"",
+                "highlight":[
+                    0,
+                    5
+                ],
+                "highlightSecond":[
+
+                ],
+                "houseNumber":"",
+                "iconType":"geo",
+                "id":4576,
+                "img":"",
+                "importance":0.3920539915561676,
+                "latitude":49.5592401492381,
+                "longitude":18.802308454807701,
+                "muniId":"4576",
+                "municipality":"Písek",
+                "nuts":"CZ0802",
+                "poiType":"",
+                "poiTypeId":0,
+                "popularity":0.52200000000000002,
+                "premiseIds":[
+
+                ],
+                "quarter":"",
+                "region":"Moravskoslezský kraj",
+                "source":"muni",
+                "street":"",
+                "streetNumber":"",
+                "suggestFirstRow":"Písek",
+                "suggestSecondRow":"okres Frýdek-Místek, Moravskoslezský kraj, Česko",
+                "suggestThirdRow":"",
+                "ward":"",
+                "wikiId":"Q1818233",
+                "zipCode":""
+            }
+        },
+        {
+            "category":"municipality_cz",
+            "highlight":[
+
+            ],
+            "sentence":"",
+            "userData":{
+                "bbox":[
+                    50.1456298828125,
+                    15.496548652648926,
+                    50.175651550292969,
+                    15.534436225891113
+                ],
+                "country":"Česko",
+                "district":"Hradec Králové",
+                "evidenceNumber":"",
+                "highlight":[
+                    0,
+                    5
+                ],
+                "highlightSecond":[
+
+                ],
+                "houseNumber":"",
+                "iconType":"geo",
+                "id":2217,
+                "img":"",
+                "importance":0.3213610053062439,
+                "latitude":50.155430799972201,
+                "longitude":15.5017288900405,
+                "muniId":"2217",
+                "municipality":"Písek",
+                "nuts":"CZ0521",
+                "poiType":"",
+                "poiTypeId":0,
+                "popularity":0.436,
+                "premiseIds":[
+
+                ],
+                "quarter":"",
+                "region":"Královéhradecký kraj",
+                "source":"muni",
+                "street":"",
+                "streetNumber":"",
+                "suggestFirstRow":"Písek",
+                "suggestSecondRow":"okres Hradec Králové, Královéhradecký kraj, Česko",
+                "suggestThirdRow":"",
+                "ward":"",
+                "wikiId":"Q174622",
+                "zipCode":""
+            }
+        },
+        {
+            "category":"pubtran_cz",
+            "highlight":[
+
+            ],
+            "sentence":"",
+            "userData":{
+                "bbox":[
+                    49.297294829319561,
+                    14.141018270474261,
+                    49.301688299363462,
+                    14.152247211525754
+                ],
+                "country":"Česko",
+                "district":"Písek",
+                "evidenceNumber":"",
+                "highlight":[
+                    0,
+                    5
+                ],
+                "highlightSecond":[
+                    0,
+                    12
+                ],
+                "houseNumber":"",
+                "iconType":"default",
+                "id":15210444,
+                "img":"",
+                "importance":0.34459099173545837,
+                "latitude":49.299491613299999,
+                "longitude":14.146632740999999,
+                "muniId":"860",
+                "municipality":"Písek",
+                "nuts":"",
+                "poiType":"",
+                "poiTypeId":6513,
+                "popularity":0.47999999999999998,
+                "premiseIds":[
+
+                ],
+                "quarter":"",
+                "region":"Jihočeský kraj",
+                "source":"pubt",
+                "street":"",
+                "streetNumber":"",
+                "suggestFirstRow":"Písek, aut.nádr.",
+                "suggestSecondRow":"Písek, Písek, Jihočeský kraj, Česko",
+                "suggestThirdRow":"",
+                "ward":"",
+                "wikiId":"Q0",
+                "zipCode":""
+            }
+        }
+    ]
+}

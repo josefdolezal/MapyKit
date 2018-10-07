@@ -73,22 +73,18 @@ public extension Array where Element == Place {
         case result
     }
 
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         // Get unkeyed container from outer object
         let container = try decoder.container(keyedBy: CodingKeys.self)
         var unkeyedContainer = try container.nestedUnkeyedContainer(forKey: .result)
-        let count = 0
 
-        // Create storage for elements decoding
-        var places = [Place]()
+        // Create empty array
+        self.init()
 
         // Decode elements one-by-one
-        while unkeyedContainer.currentIndex < count {
-            try places.append(unkeyedContainer.decode(Place.self))
+        while unkeyedContainer.isAtEnd {
+            try append(unkeyedContainer.decode(Place.self))
         }
-
-        // Initialize self from decoded places storage
-        self = places
     }
 }
 
