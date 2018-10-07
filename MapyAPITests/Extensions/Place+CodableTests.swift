@@ -40,7 +40,7 @@ class Place_CodableTests: XCTestCase {
         // Get all files from testing bundle
         let files = try bundledFiles()
             // Get only json files with single place object
-            .filter { $0.lastPathComponent.hasSuffix("places.json") }
+            .filter { $0.lastPathComponent.hasSuffix("suggestions.json") }
 
         // Require at least one test to be run
         XCTAssertGreaterThan(files.count, 0)
@@ -49,9 +49,9 @@ class Place_CodableTests: XCTestCase {
         try files.forEach { file in
             let content = try Data(contentsOf: file)
 
-            XCTAssertNoThrow(try jsonDecoder.decode(Array<Place>.self, from: content)) { places in
+            XCTAssertNoThrow(try jsonDecoder.decode(Suggestions.self, from: content)) { suggestions in
                 // Test empty properties to be nilled
-                XCTAssertGreaterThan(places.count, 0)
+                XCTAssertGreaterThan(suggestions.places.count, 0)
             }
         }
     }

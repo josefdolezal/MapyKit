@@ -28,6 +28,8 @@
 		D253360A2168BAC20031635C /* FastRPCDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25336092168BAC20031635C /* FastRPCDecoder.swift */; };
 		D258E9D42165617D009F752B /* ArbitraryObject+FastRPCSerializableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258E9D32165617D009F752B /* ArbitraryObject+FastRPCSerializableTests.swift */; };
 		D258E9D7216562E4009F752B /* String+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258E9D6216562E4009F752B /* String+Random.swift */; };
+		D258E9D9216AAC29009F752B /* Suggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258E9D8216AAC29009F752B /* Suggestions.swift */; };
+		D258E9DD216AAE1A009F752B /* Container+ConvenienceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258E9DC216AAE1A009F752B /* Container+ConvenienceAPI.swift */; };
 		D28554142141A61000C7E423 /* MapyLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554132141A61000C7E423 /* MapyLayer.swift */; };
 		D28554162141B3A300C7E423 /* ExtendedMapType+Titles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554152141B3A300C7E423 /* ExtendedMapType+Titles.swift */; };
 		D28554182141B5EB00C7E423 /* MapTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554172141B5EB00C7E423 /* MapTypeCell.swift */; };
@@ -78,8 +80,8 @@
 		D2C3B05D216A7A7400B1F257 /* Place+CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B05C216A7A7400B1F257 /* Place+CodableTests.swift */; };
 		D2C3B061216A7D8800B1F257 /* 00-place.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C3B060216A7D8800B1F257 /* 00-place.json */; };
 		D2C3B063216A7E3B00B1F257 /* 01-place.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C3B062216A7E3B00B1F257 /* 01-place.json */; };
-		D2C3B065216A8A7A00B1F257 /* 00-places.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C3B064216A8A7A00B1F257 /* 00-places.json */; };
-		D2C3B067216A8A8700B1F257 /* 01-places.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C3B066216A8A8700B1F257 /* 01-places.json */; };
+		D2C3B065216A8A7A00B1F257 /* 00-suggestions.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C3B064216A8A7A00B1F257 /* 00-suggestions.json */; };
+		D2C3B067216A8A8700B1F257 /* 01-suggestions.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C3B066216A8A8700B1F257 /* 01-suggestions.json */; };
 		D2C3B06B216AA2C900B1F257 /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B06A216AA2C900B1F257 /* Asserts.swift */; };
 		D2C3B06C216AA2C900B1F257 /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B06A216AA2C900B1F257 /* Asserts.swift */; };
 		D2C3B06F216AA37C00B1F257 /* BundledFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B06E216AA37C00B1F257 /* BundledFiles.swift */; };
@@ -188,6 +190,8 @@
 		D25336092168BAC20031635C /* FastRPCDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCDecoder.swift; sourceTree = "<group>"; };
 		D258E9D32165617D009F752B /* ArbitraryObject+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbitraryObject+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
 		D258E9D6216562E4009F752B /* String+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
+		D258E9D8216AAC29009F752B /* Suggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suggestions.swift; sourceTree = "<group>"; };
+		D258E9DC216AAE1A009F752B /* Container+ConvenienceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+ConvenienceAPI.swift"; sourceTree = "<group>"; };
 		D28554132141A61000C7E423 /* MapyLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyLayer.swift; sourceTree = "<group>"; };
 		D28554152141B3A300C7E423 /* ExtendedMapType+Titles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExtendedMapType+Titles.swift"; sourceTree = "<group>"; };
 		D28554172141B5EB00C7E423 /* MapTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeCell.swift; sourceTree = "<group>"; };
@@ -220,8 +224,8 @@
 		D2C3B05C216A7A7400B1F257 /* Place+CodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Place+CodableTests.swift"; sourceTree = "<group>"; };
 		D2C3B060216A7D8800B1F257 /* 00-place.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "00-place.json"; sourceTree = "<group>"; };
 		D2C3B062216A7E3B00B1F257 /* 01-place.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "01-place.json"; sourceTree = "<group>"; };
-		D2C3B064216A8A7A00B1F257 /* 00-places.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "00-places.json"; sourceTree = "<group>"; };
-		D2C3B066216A8A8700B1F257 /* 01-places.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "01-places.json"; sourceTree = "<group>"; };
+		D2C3B064216A8A7A00B1F257 /* 00-suggestions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "00-suggestions.json"; sourceTree = "<group>"; };
+		D2C3B066216A8A8700B1F257 /* 01-suggestions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "01-suggestions.json"; sourceTree = "<group>"; };
 		D2C3B06A216AA2C900B1F257 /* Asserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asserts.swift; sourceTree = "<group>"; };
 		D2C3B06E216AA37C00B1F257 /* BundledFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledFiles.swift; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
@@ -521,6 +525,7 @@
 				D2877705215805650007C378 /* NavigationPoint.swift */,
 				D2C25BC82159814D00A78896 /* Location.swift */,
 				D2C3B0582169FEC400B1F257 /* Place.swift */,
+				D258E9D8216AAC29009F752B /* Suggestions.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -538,6 +543,7 @@
 		D2A370BE215E5FBF0096D219 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D258E9DC216AAE1A009F752B /* Container+ConvenienceAPI.swift */,
 				D2A370C3215E60F50096D219 /* TransportType+FastRPCSerializable.swift */,
 				D2A370C1215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift */,
 				D2A370BF215E5FF00096D219 /* Location+FastRPCSerializable.swift */,
@@ -568,8 +574,8 @@
 			children = (
 				D2C3B060216A7D8800B1F257 /* 00-place.json */,
 				D2C3B062216A7E3B00B1F257 /* 01-place.json */,
-				D2C3B064216A8A7A00B1F257 /* 00-places.json */,
-				D2C3B066216A8A8700B1F257 /* 01-places.json */,
+				D2C3B064216A8A7A00B1F257 /* 00-suggestions.json */,
+				D2C3B066216A8A8700B1F257 /* 01-suggestions.json */,
 			);
 			path = Place;
 			sourceTree = "<group>";
@@ -810,9 +816,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2C3B067216A8A8700B1F257 /* 01-places.json in Resources */,
+				D2C3B067216A8A8700B1F257 /* 01-suggestions.json in Resources */,
 				D2C3B063216A7E3B00B1F257 /* 01-place.json in Resources */,
-				D2C3B065216A8A7A00B1F257 /* 00-places.json in Resources */,
+				D2C3B065216A8A7A00B1F257 /* 00-suggestions.json in Resources */,
 				D2C3B061216A7D8800B1F257 /* 00-place.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -863,6 +869,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D28776F22156DA8E0007C378 /* MapyAPIService.swift in Sources */,
+				D258E9D9216AAC29009F752B /* Suggestions.swift in Sources */,
 				D2A370C2215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift in Sources */,
 				D2A370C4215E60F50096D219 /* TransportType+FastRPCSerializable.swift in Sources */,
 				D2C3B0592169FEC400B1F257 /* Place.swift in Sources */,
@@ -871,6 +878,7 @@
 				D2C25BC92159814D00A78896 /* Location.swift in Sources */,
 				D28776F72156DEB60007C378 /* TransportType.swift in Sources */,
 				D2C3B05B216A0DF100B1F257 /* Place+Codable.swift in Sources */,
+				D258E9DD216AAE1A009F752B /* Container+ConvenienceAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

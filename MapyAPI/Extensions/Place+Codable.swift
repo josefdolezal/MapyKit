@@ -65,35 +65,3 @@ extension Place: Decodable {
         )
     }
 }
-
-/// Custom encoding for array of places, which is not located on toplevel but under key in object.
-public extension Array where Element == Place {
-    /// Wraps key for structured array of places.
-    private enum CodingKeys: String, CodingKey {
-        case result
-    }
-
-    public init(from decoder: Decoder) throws {
-        // Get unkeyed container from outer object
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        var unkeyedContainer = try container.nestedUnkeyedContainer(forKey: .result)
-
-        // Create empty array
-        self.init()
-
-        // Decode elements one-by-one
-        while unkeyedContainer.isAtEnd {
-            try append(unkeyedContainer.decode(Place.self))
-        }
-    }
-}
-
-extension KeyedDecodingContainer {
-    func decodeNonEmpty(_ type: String.Type, forKey key: Key) throws -> String? {
-        let value = try decode(String.self, forKey: key)
-
-        return value.isEmpty
-            ? nil
-            : value
-    }
-}
