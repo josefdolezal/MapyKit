@@ -12,11 +12,10 @@ import Foundation
 
 class Place_CodableTests: XCTestCase {
     func testDecodesSingleObjectFromJSON() throws {
-        let filemanager = FileManager.default
         let jsonDecoder = JSONDecoder()
 
         // Get all files from testing bundle
-        let files = try filemanager.contentsOfDirectory(at: Bundle(for: type(of: self)).bundleURL, includingPropertiesForKeys: [.isRegularFileKey], options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
+        let files = try bundledFiles()
             // Get only json files with single place object
             .filter { $0.lastPathComponent.hasSuffix("place.json") }
 
@@ -36,11 +35,10 @@ class Place_CodableTests: XCTestCase {
     }
 
     func testDecodesCollectionFromJSON() throws {
-        let filemanager = FileManager.default
         let jsonDecoder = JSONDecoder()
 
         // Get all files from testing bundle
-        let files = try filemanager.contentsOfDirectory(at: Bundle(for: type(of: self)).bundleURL, includingPropertiesForKeys: [.isRegularFileKey], options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
+        let files = try bundledFiles()
             // Get only json files with single place object
             .filter { $0.lastPathComponent.hasSuffix("places.json") }
 
@@ -56,16 +54,5 @@ class Place_CodableTests: XCTestCase {
                 XCTAssertGreaterThan(places.count, 0)
             }
         }
-    }
-}
-
-public func XCTAssertNoThrow<T>(_ expression: @autoclosure () throws -> T, _ message: String = "", file: StaticString = #file, line: UInt = #line, also validateResult: (T) -> Void) {
-    func executeAndAssignResult(_ expression: @autoclosure () throws -> T, to: inout T?) rethrows {
-        to = try expression()
-    }
-    var result: T?
-    XCTAssertNoThrow(try executeAndAssignResult(expression, to: &result), message, file: file, line: line)
-    if let r = result {
-        validateResult(r)
     }
 }

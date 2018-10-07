@@ -80,6 +80,10 @@
 		D2C3B063216A7E3B00B1F257 /* 01-place.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C3B062216A7E3B00B1F257 /* 01-place.json */; };
 		D2C3B065216A8A7A00B1F257 /* 00-places.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C3B064216A8A7A00B1F257 /* 00-places.json */; };
 		D2C3B067216A8A8700B1F257 /* 01-places.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C3B066216A8A8700B1F257 /* 01-places.json */; };
+		D2C3B06B216AA2C900B1F257 /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B06A216AA2C900B1F257 /* Asserts.swift */; };
+		D2C3B06C216AA2C900B1F257 /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B06A216AA2C900B1F257 /* Asserts.swift */; };
+		D2C3B06F216AA37C00B1F257 /* BundledFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B06E216AA37C00B1F257 /* BundledFiles.swift */; };
+		D2C3B070216AA37C00B1F257 /* BundledFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B06E216AA37C00B1F257 /* BundledFiles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -218,6 +222,8 @@
 		D2C3B062216A7E3B00B1F257 /* 01-place.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "01-place.json"; sourceTree = "<group>"; };
 		D2C3B064216A8A7A00B1F257 /* 00-places.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "00-places.json"; sourceTree = "<group>"; };
 		D2C3B066216A8A8700B1F257 /* 01-places.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "01-places.json"; sourceTree = "<group>"; };
+		D2C3B06A216AA2C900B1F257 /* Asserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asserts.swift; sourceTree = "<group>"; };
+		D2C3B06E216AA37C00B1F257 /* BundledFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledFiles.swift; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
 		D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+FastRPCSerializable.swift"; sourceTree = "<group>"; };
@@ -283,6 +289,7 @@
 				D2385228214E90DD000087DD /* MapyAPI */,
 				D28776B4215512300007C378 /* FastRPCSwift */,
 				D227AD6C213F0F120003DE4C /* Example */,
+				D2C3B068216AA25600B1F257 /* TestHelpers */,
 				D23975F721503B17000C6AD8 /* MapyAPITests */,
 				D28776C4215512450007C378 /* FastRPCSwiftTests */,
 				D215D89F213EFBB100296D74 /* Products */,
@@ -565,6 +572,15 @@
 				D2C3B066216A8A8700B1F257 /* 01-places.json */,
 			);
 			path = Place;
+			sourceTree = "<group>";
+		};
+		D2C3B068216AA25600B1F257 /* TestHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				D2C3B06A216AA2C900B1F257 /* Asserts.swift */,
+				D2C3B06E216AA37C00B1F257 /* BundledFiles.swift */,
+			);
+			path = TestHelpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -864,6 +880,8 @@
 			files = (
 				D2C3B05D216A7A7400B1F257 /* Place+CodableTests.swift in Sources */,
 				D2A370BD215E4FD70096D219 /* Location+FastRPCSerializableTests.swift in Sources */,
+				D2C3B06F216AA37C00B1F257 /* BundledFiles.swift in Sources */,
+				D2C3B06B216AA2C900B1F257 /* Asserts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -906,10 +924,12 @@
 				D258E9D42165617D009F752B /* ArbitraryObject+FastRPCSerializableTests.swift in Sources */,
 				D28776D5215513820007C378 /* Optional+FastRPCSerializable.swift in Sources */,
 				D28776D0215513820007C378 /* Int+FastRPCSerializableTests.swift in Sources */,
+				D2C3B06C216AA2C900B1F257 /* Asserts.swift in Sources */,
 				D28776D1215513820007C378 /* String+FastRPCSerializableTests.swift in Sources */,
 				D28776D3215513820007C378 /* Bool+FastRPCSerializationTests.swift in Sources */,
 				D28776D4215513820007C378 /* Array+FastRPCSerializable.swift in Sources */,
 				D258E9D7216562E4009F752B /* String+Random.swift in Sources */,
+				D2C3B070216AA37C00B1F257 /* BundledFiles.swift in Sources */,
 				D28776D6215513820007C378 /* Date+FastRPCSerializableTests.swift in Sources */,
 				D28776D2215513820007C378 /* Double+FastRPCSerializable.swift in Sources */,
 			);
