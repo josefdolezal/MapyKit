@@ -73,6 +73,7 @@
 		D2A370C2215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370C1215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift */; };
 		D2A370C4215E60F50096D219 /* TransportType+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370C3215E60F50096D219 /* TransportType+FastRPCSerializable.swift */; };
 		D2C25BC92159814D00A78896 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C25BC82159814D00A78896 /* Location.swift */; };
+		D2C3B0592169FEC400B1F257 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B0582169FEC400B1F257 /* Place.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -204,6 +205,7 @@
 		D2A370C3215E60F50096D219 /* TransportType+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransportType+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2A370C6215ED2BA0096D219 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D2C25BC82159814D00A78896 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		D2C3B0582169FEC400B1F257 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
 		D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+FastRPCSerializable.swift"; sourceTree = "<group>"; };
@@ -498,6 +500,7 @@
 				D28776F62156DEB60007C378 /* TransportType.swift */,
 				D2877705215805650007C378 /* NavigationPoint.swift */,
 				D2C25BC82159814D00A78896 /* Location.swift */,
+				D2C3B0582169FEC400B1F257 /* Place.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -808,6 +811,7 @@
 				D28776F22156DA8E0007C378 /* MapyAPIService.swift in Sources */,
 				D2A370C2215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift in Sources */,
 				D2A370C4215E60F50096D219 /* TransportType+FastRPCSerializable.swift in Sources */,
+				D2C3B0592169FEC400B1F257 /* Place.swift in Sources */,
 				D2877706215805650007C378 /* NavigationPoint.swift in Sources */,
 				D2A370C0215E5FF00096D219 /* Location+FastRPCSerializable.swift in Sources */,
 				D2C25BC92159814D00A78896 /* Location.swift in Sources */,
