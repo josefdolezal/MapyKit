@@ -12,22 +12,30 @@ import FastRPCSwift
 public final class MapyAPIService {
     // MARK: Structure
 
-    public typealias SuccessCallback = (Data) -> Void
-    public typealias FailureCallback = (FastRPCError) -> Void
+    public typealias Callback<T> = (T) -> Void
+
+    public typealias SuccessDataCallback = Callback<Data>
+    public typealias SuccessPlacesCallback = Callback<[Place]>
+
+    public typealias FRPCFailureCallback = Callback<FastRPCError>
+    public typealias JSONFailureCallback = Callback<JSONAPIError>
 
     // MARK: Properties
 
-    /// Base API url
-    private let baseURL: URL
     /// Internal service handling FRPC communication
     private let frpcService: FastRPCService
+    /// Internal service handling JSON API communication
+    private let jsonService: JSONService
 
     // MARK: Initializers
 
     /// Creates new API service.
     public init() {
-        self.baseURL = URL(string: "https://pro.mapy.cz/tplanner")!
-        self.frpcService = FastRPCService(url: baseURL)
+        let frpcBaseURL = URL(string: "https://pro.mapy.cz/tplanner")!
+        let jsonBaseURL = URL(string: "https://api.mapy.cz")!
+
+        self.frpcService = FastRPCService(url: frpcBaseURL)
+        self.jsonService = JSONService(baseURL: jsonBaseURL)
     }
 
     // MARK: Public API
@@ -37,12 +45,27 @@ public final class MapyAPIService {
     /// - Parameters:
     ///   - success: Request success callback
     ///   - failure: Request failure callback
-    public func navigate(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint] = [], success: @escaping SuccessCallback, failure: @escaping FailureCallback) {
+    public func navigate(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint] = [], success: @escaping SuccessDataCallback, failure: @escaping FRPCFailureCallback) {
         // Create procedure from given parameters
         let procedure = MapyAPIService.createNavigationProcedure(from: from, to: to, through: through)
 
         // Call remote procedure
         frpcService.call(procedure: procedure, success: success, failure: failure)
+    }
+
+    public func suggestions(forPhrase phrase: String, count: Int, success: @escaping SuccessPlacesCallback, failure: @escaping JSONFailureCallback) {
+        // Create request parameters
+        let parameters = [
+            "count": "\(count)",
+            "phrase": phrase,
+            "enableCategories": "1"
+            ]
+
+        // Unwrap returned value using custom success callback
+        let callback: (Suggestions) -> Void = { suggestions in success(suggestions.places) }
+
+        // Run the request
+        jsonService.request(Suggestions.self, path: "suggest", parameters: parameters, success: callback, failure: failure)
     }
 
     // MARK: Private API
