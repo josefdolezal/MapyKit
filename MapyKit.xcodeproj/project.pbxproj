@@ -30,6 +30,7 @@
 		D258E9D7216562E4009F752B /* String+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258E9D6216562E4009F752B /* String+Random.swift */; };
 		D258E9D9216AAC29009F752B /* Suggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258E9D8216AAC29009F752B /* Suggestions.swift */; };
 		D258E9DD216AAE1A009F752B /* Container+ConvenienceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258E9DC216AAE1A009F752B /* Container+ConvenienceAPI.swift */; };
+		D258E9E0216AAFD3009F752B /* JSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258E9DF216AAFD3009F752B /* JSONService.swift */; };
 		D28554142141A61000C7E423 /* MapyLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554132141A61000C7E423 /* MapyLayer.swift */; };
 		D28554162141B3A300C7E423 /* ExtendedMapType+Titles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554152141B3A300C7E423 /* ExtendedMapType+Titles.swift */; };
 		D28554182141B5EB00C7E423 /* MapTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28554172141B5EB00C7E423 /* MapTypeCell.swift */; };
@@ -192,6 +193,7 @@
 		D258E9D6216562E4009F752B /* String+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
 		D258E9D8216AAC29009F752B /* Suggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suggestions.swift; sourceTree = "<group>"; };
 		D258E9DC216AAE1A009F752B /* Container+ConvenienceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+ConvenienceAPI.swift"; sourceTree = "<group>"; };
+		D258E9DF216AAFD3009F752B /* JSONService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONService.swift; sourceTree = "<group>"; };
 		D28554132141A61000C7E423 /* MapyLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyLayer.swift; sourceTree = "<group>"; };
 		D28554152141B3A300C7E423 /* ExtendedMapType+Titles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExtendedMapType+Titles.swift"; sourceTree = "<group>"; };
 		D28554172141B5EB00C7E423 /* MapTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeCell.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				D2385233214E90E9000087DD /* Supporting Files */,
 				D2A370BE215E5FBF0096D219 /* Extensions */,
 				D28776F52156DE720007C378 /* Model */,
+				D258E9DE216AAFB7009F752B /* Services */,
 				D28776F12156DA8E0007C378 /* MapyAPIService.swift */,
 			);
 			path = MapyAPI;
@@ -423,6 +426,14 @@
 				D258E9D6216562E4009F752B /* String+Random.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D258E9DE216AAFB7009F752B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D258E9DF216AAFD3009F752B /* JSONService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		D285541B2141C8AD00C7E423 /* Supporting Files */ = {
@@ -871,6 +882,7 @@
 				D28776F22156DA8E0007C378 /* MapyAPIService.swift in Sources */,
 				D258E9D9216AAC29009F752B /* Suggestions.swift in Sources */,
 				D2A370C2215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift in Sources */,
+				D258E9E0216AAFD3009F752B /* JSONService.swift in Sources */,
 				D2A370C4215E60F50096D219 /* TransportType+FastRPCSerializable.swift in Sources */,
 				D2C3B0592169FEC400B1F257 /* Place.swift in Sources */,
 				D2877706215805650007C378 /* NavigationPoint.swift in Sources */,
