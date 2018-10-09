@@ -87,6 +87,7 @@
 		D2C3B06C216AA2C900B1F257 /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B06A216AA2C900B1F257 /* Asserts.swift */; };
 		D2C3B06F216AA37C00B1F257 /* BundledFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B06E216AA37C00B1F257 /* BundledFiles.swift */; };
 		D2C3B070216AA37C00B1F257 /* BundledFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B06E216AA37C00B1F257 /* BundledFiles.swift */; };
+		D2C5565B216D1E2A00451CF8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C5565A216D1E2A00451CF8 /* SearchViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -230,6 +231,7 @@
 		D2C3B066216A8A8700B1F257 /* 01-suggestions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "01-suggestions.json"; sourceTree = "<group>"; };
 		D2C3B06A216AA2C900B1F257 /* Asserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asserts.swift; sourceTree = "<group>"; };
 		D2C3B06E216AA37C00B1F257 /* BundledFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledFiles.swift; sourceTree = "<group>"; };
+		D2C5565A216D1E2A00451CF8 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
 		D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+FastRPCSerializable.swift"; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				D285541E2141C92800C7E423 /* Extensions */,
 				D227AD6F213F0F120003DE4C /* ViewController.swift */,
 				D28554172141B5EB00C7E423 /* MapTypeCell.swift */,
+				D2C5565A216D1E2A00451CF8 /* SearchViewController.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -868,6 +871,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2C5565B216D1E2A00451CF8 /* SearchViewController.swift in Sources */,
 				D28554182141B5EB00C7E423 /* MapTypeCell.swift in Sources */,
 				D28554162141B3A300C7E423 /* ExtendedMapType+Titles.swift in Sources */,
 				D227AD70213F0F120003DE4C /* ViewController.swift in Sources */,
