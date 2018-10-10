@@ -34,11 +34,10 @@ final class JSONService {
 
     // MARK: Public API
 
-    func request<T: Decodable>(_ type: T.Type, path: String, parameters: [String: String] = [:], success: @escaping (T) -> Void, failure: @escaping (JSONAPIError) -> Void) {
+    func request<T: Decodable>(_ type: T.Type, path: String, parameters: [String: String] = [:], success: @escaping (T) -> Void, failure: @escaping (JSONAPIError) -> Void) -> URLSessionTask? {
         let request = JSONService.buildRequest(url: baseURL, path: path, parameters: parameters)
-        let task = session.dataTask(with: request)
 
-        session.dataTask(with: request) { [weak self] data, response, error in
+        let task = session.dataTask(with: request) { [weak self] data, response, error in
             guard let self = self else { return }
 
             // Check for network error
@@ -66,7 +65,10 @@ final class JSONService {
             }
         }
 
+        // Run request and return the task
         task.resume()
+
+        return task
     }
 
     // MARK: Private API

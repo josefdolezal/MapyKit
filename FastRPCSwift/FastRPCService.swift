@@ -41,7 +41,7 @@ public final class FastRPCService {
     ///   - procedure: The procedure to be called on remote URL
     ///   - success: Callback called on procedure call success
     ///   - failure: Callback called on procedure call failure
-    public func call<Response: FastRPCSerializable>(procedure: Procedure<Response>, success: @escaping (Data) -> Void, failure: @escaping (FastRPCError) -> Void) {
+    public func call<Response: FastRPCSerializable>(procedure: Procedure<Response>, success: @escaping (Data) -> Void, failure: @escaping (FastRPCError) -> Void) -> URLSessionTask? {
         do {
             let request = try procedureRequest(for: procedure)
             let task = session.dataTask(with: request) { data, _, error in
@@ -59,11 +59,17 @@ public final class FastRPCService {
                 success(data)
             }
 
+            // Run the URL request
             task.resume()
+
+            return task
         } catch {
             let frpcError = error as? FastRPCError ?? .unknown(error)
 
             failure(frpcError)
+
+            // We are not able to construct request task, return nil
+            return nil
         }
     }
 

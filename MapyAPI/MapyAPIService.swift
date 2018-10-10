@@ -45,15 +45,17 @@ public final class MapyAPIService {
     /// - Parameters:
     ///   - success: Request success callback
     ///   - failure: Request failure callback
-    public func navigate(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint] = [], success: @escaping SuccessDataCallback, failure: @escaping FRPCFailureCallback) {
+    @discardableResult
+    public func navigate(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint] = [], success: @escaping SuccessDataCallback, failure: @escaping FRPCFailureCallback) -> URLSessionTask? {
         // Create procedure from given parameters
         let procedure = MapyAPIService.createNavigationProcedure(from: from, to: to, through: through)
 
         // Call remote procedure
-        frpcService.call(procedure: procedure, success: success, failure: failure)
+        return frpcService.call(procedure: procedure, success: success, failure: failure)
     }
 
-    public func suggestions(forPhrase phrase: String, count: Int, success: @escaping SuccessPlacesCallback, failure: @escaping JSONFailureCallback) {
+    @discardableResult
+    public func suggestions(forPhrase phrase: String, count: Int, success: @escaping SuccessPlacesCallback, failure: @escaping JSONFailureCallback) -> URLSessionTask? {
         // Create request parameters
         let parameters = [
             "count": "\(count)",
@@ -65,7 +67,7 @@ public final class MapyAPIService {
         let callback: (Suggestions) -> Void = { suggestions in success(suggestions.places) }
 
         // Run the request
-        jsonService.request(Suggestions.self, path: "suggest", parameters: parameters, success: callback, failure: failure)
+        return jsonService.request(Suggestions.self, path: "suggest/", parameters: parameters, success: callback, failure: failure)
     }
 
     // MARK: Private API
