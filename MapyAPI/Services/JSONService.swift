@@ -78,7 +78,7 @@ final class JSONService {
         let baseURL: URL
 
         // If the URL is not malformed, get and update it's components
-        if var components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
+        if var components = URLComponents(url: url.appendingPathComponent(path), resolvingAgainstBaseURL: false) {
             // Store old items (if any)
             let oldItems = components.queryItems ?? []
             // Create new query items from given parameters
