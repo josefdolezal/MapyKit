@@ -65,7 +65,7 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="X0L-Fu-Z9Y" detailTextLabel="Eg1-tp-bye" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="BkM-h9-7Bh">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" textLabel="X0L-Fu-Z9Y" detailTextLabel="Eg1-tp-bye" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="BkM-h9-7Bh">
                                 <rect key="frame" x="0.0" y="72" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BkM-h9-7Bh" id="yHA-Vc-kZC">
