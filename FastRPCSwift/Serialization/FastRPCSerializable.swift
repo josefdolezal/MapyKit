@@ -57,7 +57,7 @@ private class FastRPCUnboxer {
         case .double: return try unbox(Double.self)
         case .int, .int8p, .int8n: return try unbox(Int.self)
         case .string: return try unbox(String.self)
-        case .dateTime: fatalError()
+        case .dateTime: return try unbox(Date.self)
         case .binary: return try unbox(Data.self)
 
         case .nonDataType: fatalError()
@@ -214,6 +214,22 @@ private class FastRPCUnboxer {
         let data = try expectBytes(count: size)
 
         return data
+    }
+
+    private func unbox(_ type: Date.Type) throws -> Date {
+        // We don't need any additional info, just remove the info byte from queue
+        _ = try expectTypeAdditionalInfo()
+        // Remove the timezone info
+        _ = try Int(data: expectBytes(count: 1))
+        // Get the unix timestamps
+        let timestamp = Int(data: try expectBytes(count: 4))
+        let timeInterval = TimeInterval(timestamp)
+        // Remove additional data informations (year, day of week, ...)
+        _ = try expectBytes(count: 5)
+
+        // We can ignore timezone and additional date data since
+        // we use unix timestamp which is standardized in UTC timezone
+        return Date(timeIntervalSince1970: timeInterval)
     }
 
     // MARK: Private API
