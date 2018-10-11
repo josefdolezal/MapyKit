@@ -25,6 +25,11 @@ public enum FastRPCDecodingError: Error {
 }
 
 public class FastRPCSerialization {
+
+    private init () {
+        
+    }
+
     static func object(with data: Data) throws -> Any {
         let unboxer = FastRPCUnboxer(data: data)
 
