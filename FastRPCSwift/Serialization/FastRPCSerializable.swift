@@ -23,6 +23,7 @@ public enum FastRPCDecodingError: Error {
     case unknownTypeIdentifier
     case corruptedData
     case unexpectedTopLevelObject
+    case unsupportedNonDataType
 }
 
 public class FastRPCSerialization {
@@ -231,6 +232,32 @@ private class FastRPCUnboxer {
         // We can ignore timezone and additional date data since
         // we use unix timestamp which is standardized in UTC timezone
         return Date(timeIntervalSince1970: timeInterval)
+    }
+
+    // MARK: Non-data types
+
+    private func unboxNonDataType() throws -> Any {
+        // Ignore the non-data type multi-byte identifier
+        _ = try expectBytes(count: 2)
+        // Check for the inner type
+        let type = try validateType()
+
+        // We only support subset of types as inner object
+        switch type {
+        case .response: return try unboxResponse()
+        case .procedure: return try unboxProcedure()
+        case .fault: return try unbox(Fault.self)
+        default:
+            throw FastRPCDecodingError.unsupportedNonDataType
+        }
+    }
+
+    private func unboxResponse() throws -> Any {
+        fatalError()
+    }
+
+    private func unboxProcedure() throws -> Any {
+        fatalError()
     }
 
     private func unbox(_ type: Fault.Type) throws -> Fault {
