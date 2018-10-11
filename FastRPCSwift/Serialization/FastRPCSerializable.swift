@@ -58,12 +58,12 @@ private class FastRPCUnboxer {
         case .int, .int8p, .int8n: return try unbox(Int.self)
         case .string: return try unbox(String.self)
         case .dateTime: fatalError()
+        case .binary: return try unbox(Data.self)
 
-        case .procedure: fatalError()
-        case .binary: fatalError()
-        case .fault: fatalError()
         case .nonDataType: fatalError()
+        case .procedure: fatalError()
         case .response: fatalError()
+        case .fault: fatalError()
 
         case .array: return try unbox(NSArray.self)
         case .struct: return try unbox(NSDictionary.self)
@@ -203,6 +203,17 @@ private class FastRPCUnboxer {
 
         // Represent nil using objc
         return NSNull()
+    }
+
+    private func unbox(_ type: Data.Type) throws -> Data {
+        // Get bytes size of data count
+        let info = try expectTypeAdditionalInfo()
+        // Get info + 1 bytes which represents raw data count
+        let size = try Int(data: expectBytes(count: Int(info + 1)))
+        // Get the raw data
+        let data = try expectBytes(count: size)
+
+        return data
     }
 
     // MARK: Private API
