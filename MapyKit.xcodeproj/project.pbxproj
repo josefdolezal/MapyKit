@@ -88,6 +88,7 @@
 		D2C3B06F216AA37C00B1F257 /* BundledFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B06E216AA37C00B1F257 /* BundledFiles.swift */; };
 		D2C3B070216AA37C00B1F257 /* BundledFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B06E216AA37C00B1F257 /* BundledFiles.swift */; };
 		D2C5565B216D1E2A00451CF8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C5565A216D1E2A00451CF8 /* SearchViewController.swift */; };
+		D2C5565D216F581100451CF8 /* Fault.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C5565C216F581100451CF8 /* Fault.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -232,6 +233,7 @@
 		D2C3B06A216AA2C900B1F257 /* Asserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asserts.swift; sourceTree = "<group>"; };
 		D2C3B06E216AA37C00B1F257 /* BundledFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledFiles.swift; sourceTree = "<group>"; };
 		D2C5565A216D1E2A00451CF8 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		D2C5565C216F581100451CF8 /* Fault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fault.swift; sourceTree = "<group>"; };
 		D2CD64942151772E0038014A /* Bool+FastRPCSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FastRPCSerializationTests.swift"; sourceTree = "<group>"; };
 		D2CD6496215181FC0038014A /* Array+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+FastRPCSerializable.swift"; sourceTree = "<group>"; };
@@ -488,6 +490,7 @@
 				D2CD649A21519F8F0038014A /* FastRPCService.swift */,
 				D28776EF215561480007C378 /* Procedure.swift */,
 				D28776FC215709610007C378 /* FastRPCProtocolVersion.swift */,
+				D2C5565C216F581100451CF8 /* Fault.swift */,
 			);
 			path = FastRPCSwift;
 			sourceTree = "<group>";
@@ -923,6 +926,7 @@
 				D28776EC215531CD0007C378 /* Data+FastRPCSerializable.swift in Sources */,
 				D28776E521551A7A0007C378 /* KeyedSerializationContainer.swift in Sources */,
 				D28776E1215513920007C378 /* SerializationBuffer.swift in Sources */,
+				D2C5565D216F581100451CF8 /* Fault.swift in Sources */,
 				D2877702215800D70007C378 /* HTTPContentType.swift in Sources */,
 				D2877704215800F40007C378 /* HTTPMethod.swift in Sources */,
 				D2877700215800C00007C378 /* HTTPHeaderField.swift in Sources */,

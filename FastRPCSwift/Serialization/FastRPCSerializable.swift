@@ -22,13 +22,12 @@ public enum FastRPCDecodingError: Error {
     case missingTypeIdentifier
     case unknownTypeIdentifier
     case corruptedData
+    case unexpectedTopLevelObject
 }
 
 public class FastRPCSerialization {
 
-    private init () {
-        
-    }
+    private init () { }
 
     static func object(with data: Data) throws -> Any {
         let unboxer = FastRPCUnboxer(data: data)
@@ -61,12 +60,14 @@ private class FastRPCUnboxer {
         case .binary: return try unbox(Data.self)
 
         case .nonDataType: fatalError()
-        case .procedure: fatalError()
-        case .response: fatalError()
-        case .fault: fatalError()
 
         case .array: return try unbox(NSArray.self)
         case .struct: return try unbox(NSDictionary.self)
+
+        // These must be wrapped inside non-data type
+        case .procedure: throw FastRPCDecodingError.unexpectedTopLevelObject
+        case .response: throw FastRPCDecodingError.unexpectedTopLevelObject
+        case .fault: throw FastRPCDecodingError.unexpectedTopLevelObject
         }
     }
 
@@ -232,14 +233,40 @@ private class FastRPCUnboxer {
         return Date(timeIntervalSince1970: timeInterval)
     }
 
+    private func unbox(_ type: Fault.Type) throws -> Fault {
+        // Try to decode fault content
+        do {
+            let code = try unbox(Int.self)
+            let message = try unbox(String.self)
+
+            return Fault(code: code, message: message)
+        } catch {
+            // Throw custom error if either code or messae decoding fails
+            throw FastRPCDecodingError.corruptedData
+        }
+    }
+
     // MARK: Private API
 
     private func validateType() throws -> FastRPCObejectType {
-        guard let typeInfo = data.first else {
+        // Make the type info mutable so we can replace it with multibyte
+        // representation later.
+        guard var typeInfo = data.first.map({ Int($0) }) else {
             throw FastRPCDecodingError.missingTypeIdentifier
         }
 
-        guard let type = FastRPCObejectType(rawValue: Int(typeInfo)) else {
+        // Extend type to multibyte representation
+        let extendedTypeInfo = (typeInfo << 8) + 0x11
+
+        // Explicitly check for non-data type information, which uses two
+        // bytes instead of typical one.
+        if extendedTypeInfo == FastRPCObejectType.nonDataType.identifier {
+            typeInfo = extendedTypeInfo
+        }
+
+        // Continue with original `typeInfo` property since multibyte encoding is
+        // handled before.
+        guard let type = FastRPCObejectType(rawValue: typeInfo) else {
             throw FastRPCDecodingError.unknownTypeIdentifier
         }
 
