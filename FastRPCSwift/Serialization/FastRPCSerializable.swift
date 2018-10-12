@@ -25,6 +25,9 @@ public enum FastRPCDecodingError: Error {
     case unexpectedTopLevelObject
     case unsupportedNonDataType
     case unsupportedProtocolVersion(major: Int, minor: Int)
+    case keyNotFound(CodingKey)
+    case typeMismatch(expected: Any, actual: Any)
+    case unsupportedType(Any, replacement: Any)
 }
 
 public class FastRPCSerialization {
