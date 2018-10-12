@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D20AF654216F9DBC00156AA8 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF653216F9DBC00156AA8 /* Response.swift */; };
+		D20AF66221710BBF00156AA8 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF66021710B4200156AA8 /* Random.swift */; };
+		D20AF66321710BC000156AA8 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF66021710B4200156AA8 /* Random.swift */; };
 		D215D8A3213EFBB100296D74 /* MapyKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D215D8A1213EFBB100296D74 /* MapyKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D215D8AA213EFBF400296D74 /* MapyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8A9213EFBF400296D74 /* MapyView.swift */; };
 		D215D8AC213EFC3000296D74 /* MapyTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8AB213EFC3000296D74 /* MapyTileOverlay.swift */; };
@@ -157,6 +159,7 @@
 		D202ADCA2152DC91004A6838 /* Date+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D202ADCC2152EF44004A6838 /* Date+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
 		D20AF653216F9DBC00156AA8 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		D20AF66021710B4200156AA8 /* Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		D215D89E213EFBB100296D74 /* MapyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D215D8A1213EFBB100296D74 /* MapyKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapyKit.h; sourceTree = "<group>"; };
 		D215D8A2213EFBB100296D74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -605,6 +608,7 @@
 			children = (
 				D2C3B06A216AA2C900B1F257 /* Asserts.swift */,
 				D2C3B06E216AA37C00B1F257 /* BundledFiles.swift */,
+				D20AF66021710B4200156AA8 /* Random.swift */,
 			);
 			path = TestHelpers;
 			sourceTree = "<group>";
@@ -910,6 +914,7 @@
 			files = (
 				D2C3B05D216A7A7400B1F257 /* Place+CodableTests.swift in Sources */,
 				D2A370BD215E4FD70096D219 /* Location+FastRPCSerializableTests.swift in Sources */,
+				D20AF66221710BBF00156AA8 /* Random.swift in Sources */,
 				D2C3B06F216AA37C00B1F257 /* BundledFiles.swift in Sources */,
 				D2C3B06B216AA2C900B1F257 /* Asserts.swift in Sources */,
 			);
@@ -962,6 +967,7 @@
 				D28776D4215513820007C378 /* Array+FastRPCSerializable.swift in Sources */,
 				D258E9D7216562E4009F752B /* String+Random.swift in Sources */,
 				D2C3B070216AA37C00B1F257 /* BundledFiles.swift in Sources */,
+				D20AF66321710BC000156AA8 /* Random.swift in Sources */,
 				D28776D6215513820007C378 /* Date+FastRPCSerializableTests.swift in Sources */,
 				D28776D2215513820007C378 /* Double+FastRPCSerializable.swift in Sources */,
 			);
