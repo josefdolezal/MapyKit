@@ -28,6 +28,7 @@ public enum FastRPCDecodingError: Error {
     case keyNotFound(CodingKey)
     case typeMismatch(expected: Any, actual: Any)
     case unsupportedType(Any, replacement: Any)
+    case containerIsAtEnd
 }
 
 public class FastRPCSerialization {
