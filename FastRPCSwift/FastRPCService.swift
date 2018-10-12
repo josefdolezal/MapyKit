@@ -10,12 +10,18 @@ import Foundation
 
 /// FastRPC API service. Takes care of HTTP communication and data serialization / deserialization.
 public final class FastRPCService {
+    // MARK: Structure
+
+    public typealias FailureCallback = (FastRPCError) -> Void
+
     // MARK: Properties
 
     /// FRPC method endpoint URL.
     private let url: URL
     /// HTTP session.
     private let session: URLSession
+    private let encoder: JSONEncoder
+    private let decoder: FastRPCDecoder
 
     // MARK: Initializers
 
@@ -27,66 +33,51 @@ public final class FastRPCService {
     public init(url: URL, sessionConfiguration: URLSessionConfiguration = .default) {
         self.url = url
         self.session = URLSession(configuration: sessionConfiguration)
+        self.encoder = JSONEncoder()
+        self.decoder = FastRPCDecoder()
     }
 
     // MARK: Public API
 
-    /// Calls remote procedure on base URL. The procedure associated type is used
-    /// as method response serialization hint. Based on procedure call result uses
-    /// either `success` or `failure` callback. Failure callback is called either synchronously
-    /// (the call failed before making async HTTP request) or asynchronously on failure during
-    /// HTTP request.
-    ///
-    /// - Parameters:
-    ///   - procedure: The procedure to be called on remote URL
-    ///   - success: Callback called on procedure call success
-    ///   - failure: Callback called on procedure call failure
-    public func call<Response: FastRPCSerializable>(procedure: Procedure<Response>, success: @escaping (Data) -> Void, failure: @escaping (FastRPCError) -> Void) -> URLSessionTask? {
-        do {
-            let request = try procedureRequest(for: procedure)
-            let task = session.dataTask(with: request) { data, _, error in
-                guard let data = data else {
-                    failure(.unknown(error))
+    @discardableResult
+    public func call<Response: Decodable>(path: String, procedure: Procedure0, success: @escaping (Response) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
+        return frpcCall(path: path, procedure: procedure, success: success, failure: failure)
+    }
 
-                    return
-                }
-
-                if let error = error {
-                    failure(.unknown(error))
-                    return
-                }
-
-                success(data)
-            }
-
-            // Run the URL request
-            task.resume()
-
-            return task
-        } catch {
-            let frpcError = error as? FastRPCError ?? .unknown(error)
-
-            failure(frpcError)
-
-            // We are not able to construct request task, return nil
-            return nil
-        }
+    @discardableResult
+    public func call<Response: Decodable, A: Encodable>(path: String, procedure: Procedure1<A>, success: @escaping (Response) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
+        return frpcCall(path: path, procedure: procedure, success: success, failure: failure)
     }
 
     // MARK: Private API
 
-    /// Helper function for creating procedure call HTTP requset. Takes care
-    /// data serialization and common request configuration.
-    ///
-    /// - Parameter procedure: The procedure associated with request
-    /// - Returns: New request for given remote procedure call
-    /// - Throws: FastRPCError on procedure serialization error
-    private func procedureRequest<Response: FastRPCSerializable>(for procedure: Procedure<Response>) throws -> URLRequest {
+    private func frpcCall<Procedure: Encodable, Response: Decodable>(path: String, procedure: Procedure, success: @escaping (Response) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
+        do {
+            // Compose the final rpc call URL
+            let url = self.url.appendingPathComponent(path)
+            // Configure request, serialize procedure call
+            let request = try prepare(url: url, procedure: procedure, response: Response.self)
+            // Request configuration is ready, make the actual HTTP call
+            return self.request(request, success: success, failure: failure)
+        } catch {
+            guard let frpcerror = error as? FastRPCDecodingError else {
+                failure(.unknown(error))
+
+                return nil
+            }
+
+            failure(.requestEncoding(procedure, frpcerror))
+        }
+
+        return nil
+    }
+
+    private func prepare<P: Encodable, R: Decodable>(url: URL, procedure: P, response: R.Type) throws -> URLRequest {
         // Create mutable request and serialize procedure
         var request = URLRequest(url: url)
-        let rpc = try procedure.serialize()
+        let rpc = try encoder.encode(procedure)
         // Encode data using base64
-        let body = rpc.data.base64EncodedData()
+        let body = rpc.base64EncodedData()
 
         // Configure request
         request.httpMethod = HTTPMethod.post.type
@@ -95,5 +86,47 @@ public final class FastRPCService {
         request.httpBody = body
 
         return request
+    }
+
+    private func request<T: Decodable>(_ request: URLRequest, success: @escaping (T) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
+        // Keep strong reference to decoder inside task callback
+        let decoder = self.decoder
+        // Create request task
+        let task = session.dataTask(with: request) { data, _, error in
+            // If there was an error, introspect it and finish the call
+            guard error == nil else {
+                failure(.unknown(error))
+
+                return
+            }
+
+            // No error occured, the data must be set
+            guard let data = data else {
+                // Undefined behavior: The request didn't fail but there is no response
+                failure(.unknown(error))
+
+                return
+            }
+
+            // We have a response, decode it
+            do {
+                // Decode the data as remote procedure response with return type of `T`
+                let response = try decoder.decode(Response<T>.self, from: data)
+
+                // Finish the request with response value
+                success(response.body)
+            } catch {
+                // Oops, the response has an invalid format, report it
+                failure(.responseDecoding(data, error))
+
+                return
+            }
+        }
+
+        // Run the URL request
+        task.resume()
+
+        // The task is created successfully, pass it to the caller
+        return task
     }
 }

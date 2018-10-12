@@ -55,7 +55,7 @@ public final class SerializationContainer {
     public func serialize(value: FastRPCSerializable, for key: String) throws {
         // Encode the value name using .utf8
         guard let keyData = key.data(using: .utf8) else {
-            throw FastRPCError.serialization(key, nil)
+            throw FastRPCError.requestEncoding(key, nil)
         }
 
         // Create initial data from encoded key length

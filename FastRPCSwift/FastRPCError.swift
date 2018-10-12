@@ -13,6 +13,7 @@ import Foundation
 /// - serialization: Error which occured during serialization. First argument is object which could not be serialized, second contains underlying error (if any).
 /// - unknown: Unknown error. May occure due unexpected internal inconsistency.
 public enum FastRPCError: Error {
-    case serialization(Any, Error?)
+    case requestEncoding(Any, Error?)
+    case responseDecoding(Data, Error?)
     case unknown(Error?)
 }

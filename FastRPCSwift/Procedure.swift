@@ -39,17 +39,25 @@ public struct Procedure1<A: Codable> {
     }
 }
 
-extension Procedure1 {
+extension Procedure1: Codable {
     private enum CodingKeys: String, CodingKey {
         case name
         case arguments
     }
 
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
+        // Get
         let container = try decoder.container(keyedBy: CodingKeys.self)
         var args = try container.nestedUnkeyedContainer(forKey: .arguments)
 
         self.name = try container.decode(String.self, forKey: .name)
         self.a = try args.decode(A.self)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(name, forKey: .name)
+        try container.encode(a, forKey: .arguments)
     }
 }

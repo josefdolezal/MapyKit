@@ -13,7 +13,7 @@ extension String: FastRPCSerializable {
         // Try ot convert UTF8 string into data
         guard let stringData = self.data(using: .utf8) else {
             // Throw error on failure
-            throw FastRPCError.serialization(self, nil)
+            throw FastRPCError.requestEncoding(self, nil)
         }
 
         // Encode data size into bytes

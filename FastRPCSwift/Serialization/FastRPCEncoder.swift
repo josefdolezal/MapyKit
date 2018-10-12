@@ -168,7 +168,7 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
         // Try ot convert UTF8 string into data
         guard let stringData = value.data(using: .utf8) else {
             // Throw error on failure
-            throw FastRPCError.serialization(self, nil)
+            throw FastRPCError.requestEncoding(self, nil)
         }
 
         // Encode data size into bytes
