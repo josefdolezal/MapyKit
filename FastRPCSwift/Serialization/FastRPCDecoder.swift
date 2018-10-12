@@ -51,7 +51,11 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
     }
 
     public func unkeyedContainer() throws -> UnkeyedDecodingContainer {
-        fatalError()
+        guard let nestedContainer = container as? [Any] else {
+            throw FastRPCDecodingError.typeMismatch(expected: [Any].self, actual: container)
+        }
+
+        return FRPCUnkeyedDecodingContainer(decoder: self, container: nestedContainer)
     }
 
     public func singleValueContainer() throws -> SingleValueDecodingContainer {
@@ -270,6 +274,8 @@ fileprivate struct FRPCUnkeyedDecodingContainer: UnkeyedDecodingContainer {
     // MARK: Super decoder
 
     mutating func superDecoder() throws -> Decoder {
+        currentIndex += 1
+        
         return _FastRPCDecoder(container: container[currentIndex], at: codingPath)
     }
 
@@ -299,6 +305,7 @@ fileprivate struct FRPCUnkeyedDecodingContainer: UnkeyedDecodingContainer {
         }
 
         let nestedDecoder = _FastRPCDecoder(container: container[currentIndex], at: decoder.codingPath)
+        currentIndex += 1
 
         return try T(from: nestedDecoder)
     }
@@ -315,6 +322,7 @@ fileprivate struct FRPCUnkeyedDecodingContainer: UnkeyedDecodingContainer {
         }
 
         let nestedContainer = FRPCKeyedDecodingContainer<NestedKey>(decoder: decoder, container: container)
+        currentIndex += 1
 
         return KeyedDecodingContainer(nestedContainer)
     }
@@ -327,6 +335,8 @@ fileprivate struct FRPCUnkeyedDecodingContainer: UnkeyedDecodingContainer {
         guard let container = self.container[currentIndex] as? [Any] else {
             throw FastRPCDecodingError.typeMismatch(expected: [Any].self, actual: self.container[currentIndex])
         }
+
+        currentIndex += 1
 
         return FRPCUnkeyedDecodingContainer(decoder: decoder, container: container)
     }
@@ -346,13 +356,14 @@ fileprivate struct FRPCUnkeyedDecodingContainer: UnkeyedDecodingContainer {
 
     // MARK: Private API
 
-    private func unbox<T: Decodable>(_ type: T.Type) throws -> T {
+    private mutating func unbox<T: Decodable>(_ type: T.Type) throws -> T {
         guard !isAtEnd else {
             throw FastRPCDecodingError.containerIsAtEnd
         }
 
         let nestedDecoder = _FastRPCDecoder(container: container[currentIndex], at: decoder.codingPath)
 
+        currentIndex += 1
         return try T(from: nestedDecoder)
     }
 
