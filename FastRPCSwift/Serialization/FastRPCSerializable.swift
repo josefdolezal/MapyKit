@@ -24,6 +24,7 @@ public enum FastRPCDecodingError: Error {
     case corruptedData
     case unexpectedTopLevelObject
     case unsupportedNonDataType
+    case unsupportedProtocolVersion(major: Int, minor: Int)
 }
 
 public class FastRPCSerialization {
@@ -239,6 +240,18 @@ private class FastRPCUnboxer {
     private func unboxNonDataType() throws -> Any {
         // Ignore the non-data type multi-byte identifier
         _ = try expectBytes(count: 2)
+        // Get FRPC version
+        let major = try Int(data: expectBytes(count: 1))
+        let minor = try Int(data: expectBytes(count: 1))
+
+        // Get FRPC protocol version
+        guard
+            major == FastRPCProtocolVersion.major,
+            minor == FastRPCProtocolVersion.minor
+        else {
+            throw FastRPCDecodingError.unsupportedProtocolVersion(major: major, minor: minor)
+        }
+
         // Check for the inner type
         let type = try validateType()
 
@@ -252,12 +265,35 @@ private class FastRPCUnboxer {
         }
     }
 
-    private func unboxResponse() throws -> Any {
-        fatalError()
+    private func unboxProcedure() throws -> Any {
+        // Ignore the additional type info
+        _ = try expectTypeAdditionalInfo()
+        // Get number of procedure name bytes count
+        let size = try Int(data: expectBytes(count: 1))
+        // Get the procedure data and convert it to string
+        let nameData = try expectBytes(count: size)
+
+        guard let name = String(data: nameData, encoding: .utf8) else {
+            throw FastRPCDecodingError.corruptedData
+        }
+
+        // Procedures does not match the standard structure of data since it's not
+        // neither single value, key-value container or collection container.
+        // Therefore we internaly have to create procedure structured and decode it
+        // as structured data.
+        switch size {
+        case 0:
+            return Procedure0(name: name)
+        default:
+            throw FastRPCDecodingError.corruptedData
+        }
     }
 
-    private func unboxProcedure() throws -> Any {
-        fatalError()
+    private func unboxResponse() throws -> Any {
+        // Remove the unused type information
+        _ = try expectTypeAdditionalInfo()
+        // Ignore the Response container, return it's content only
+        return try unbox()
     }
 
     private func unbox(_ type: Fault.Type) throws -> Fault {
@@ -271,6 +307,22 @@ private class FastRPCUnboxer {
             // Throw custom error if either code or messae decoding fails
             throw FastRPCDecodingError.corruptedData
         }
+    }
+
+    // MARK: Procedures unboxing
+
+    private func unboxProcedure1(name: String) throws -> Any {
+        return try structurizeProcedure(name: name, args: unbox())
+    }
+
+    private func structurizeProcedure(name: String, args: Any...) -> Any {
+        // Create fake structure
+        let structure = NSDictionary(dictionary: [
+            "name": name,
+            "arguments": args
+        ])
+
+        return structure
     }
 
     // MARK: Private API

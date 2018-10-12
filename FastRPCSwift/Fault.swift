@@ -11,7 +11,7 @@ import Foundation
 /// Represents FRPC call error response.
 public struct Fault: Decodable {
     /// Error number
-    var code: Int
+    public var code: Int
     /// Error description
-    var message: String
+    public var message: String
 }

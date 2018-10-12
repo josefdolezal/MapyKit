@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D20AF654216F9DBC00156AA8 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF653216F9DBC00156AA8 /* Response.swift */; };
 		D215D8A3213EFBB100296D74 /* MapyKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D215D8A1213EFBB100296D74 /* MapyKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D215D8AA213EFBF400296D74 /* MapyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8A9213EFBF400296D74 /* MapyView.swift */; };
 		D215D8AC213EFC3000296D74 /* MapyTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8AB213EFC3000296D74 /* MapyTileOverlay.swift */; };
@@ -155,6 +156,7 @@
 /* Begin PBXFileReference section */
 		D202ADCA2152DC91004A6838 /* Date+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D202ADCC2152EF44004A6838 /* Date+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
+		D20AF653216F9DBC00156AA8 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		D215D89E213EFBB100296D74 /* MapyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D215D8A1213EFBB100296D74 /* MapyKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapyKit.h; sourceTree = "<group>"; };
 		D215D8A2213EFBB100296D74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -491,6 +493,7 @@
 				D28776EF215561480007C378 /* Procedure.swift */,
 				D28776FC215709610007C378 /* FastRPCProtocolVersion.swift */,
 				D2C5565C216F581100451CF8 /* Fault.swift */,
+				D20AF653216F9DBC00156AA8 /* Response.swift */,
 			);
 			path = FastRPCSwift;
 			sourceTree = "<group>";
@@ -940,6 +943,7 @@
 				D28776DB2155138E0007C378 /* Bool+FastRPCSerializable.swift in Sources */,
 				D28776D72155138E0007C378 /* Int+FastRPCSerializable.swift in Sources */,
 				D28776DD2155138E0007C378 /* Date+FastRPCSerializable.swift in Sources */,
+				D20AF654216F9DBC00156AA8 /* Response.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

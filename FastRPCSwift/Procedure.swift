@@ -8,15 +8,23 @@
 
 import Foundation
 
-/// Represents remote procedure. Is called with serialized `parameters`, the generic parameter
-/// `Output` is used for call return type.
-public struct Procedure<Output: FastRPCSerializable>: FastRPCSerializable {
+/// Represents remote procedure without arguments.
+public struct Procedure0: Codable {
+    public var name: String
+
+    public init(name: String) {
+        self.name = name
+    }
+}
+
+/// Represents remote procedure. Is called with serialized `parameters`.
+public struct Procedure1<A: Codable> {
     // MARK: Properties
 
     /// The procedure name
     public var name: String
-    /// Procedure parameters
-    public var parameters: [FastRPCSerializable]
+    /// First procedure parameter
+    public var a: A
 
     // MARK: Initializers
 
@@ -25,36 +33,23 @@ public struct Procedure<Output: FastRPCSerializable>: FastRPCSerializable {
     /// - Parameters:
     ///   - name: Name of remote procedure
     ///   - parameters: Remote procedure parameters
-    public init(name: String, parameters: [FastRPCSerializable]) {
+    public init(name: String, _ a: A) {
         self.name = name
-        self.parameters = parameters
+        self.a = a
+    }
+}
+
+extension Procedure1 {
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case arguments
     }
 
-    // MARK: FastRPCSerializable
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        var args = try container.nestedUnkeyedContainer(forKey: .arguments)
 
-    public func serialize() throws -> SerializationBuffer {
-        /// Encode procedure name using .utf8
-        guard let nameData = name.data(using: .utf8) else {
-            throw FastRPCError.serialization(name, nil)
-        }
-
-        // Serialize procedure parameters
-        let parametersData = try parameters
-            .map { try $0.serialize().data }
-            .reduce(Data(), +)
-
-        // We are making call, use non data-type structure for that
-        var data = FastRPCObejectType.nonDataType.identifier.usedBytes
-        // Append protocol version info
-        data.append(FastRPCProtocolVersion.major.usedBytes)
-        data.append(FastRPCProtocolVersion.minor.usedBytes)
-
-        // Combine procedure data (id, name length and parameters)
-        data.append(FastRPCObejectType.procedure.identifier.usedBytes)
-        data.append(nameData.count.truncatedBytes(to: 1))
-        data.append(nameData)
-        data.append(parametersData)
-
-        return SerializationBuffer(data: data)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.a = try args.decode(A.self)
     }
 }
