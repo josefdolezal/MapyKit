@@ -24,7 +24,7 @@ public struct Procedure1<A: Codable> {
     /// The procedure name
     public var name: String
     /// First procedure parameter
-    public var a: A
+    public var arg1: A
 
     // MARK: Initializers
 
@@ -33,9 +33,9 @@ public struct Procedure1<A: Codable> {
     /// - Parameters:
     ///   - name: Name of remote procedure
     ///   - parameters: Remote procedure parameters
-    public init(name: String, _ a: A) {
+    public init(name: String, arg1: A) {
         self.name = name
-        self.a = a
+        self.arg1 = arg1
     }
 }
 
@@ -51,13 +51,13 @@ extension Procedure1: Codable {
         var args = try container.nestedUnkeyedContainer(forKey: .arguments)
 
         self.name = try container.decode(String.self, forKey: .name)
-        self.a = try args.decode(A.self)
+        self.arg1 = try args.decode(A.self)
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encode(name, forKey: .name)
-        try container.encode(a, forKey: .arguments)
+        try container.encode(arg1, forKey: .arguments)
     }
 }

@@ -31,7 +31,7 @@ public final class MapyAPIService {
 
     /// Creates new API service.
     public init() {
-        let frpcBaseURL = URL(string: "https://pro.mapy.cz/tplanner")!
+        let frpcBaseURL = URL(string: "https://pro.mapy.cz")!
         let jsonBaseURL = URL(string: "https://api.mapy.cz")!
 
         self.frpcService = FastRPCService(url: frpcBaseURL)
@@ -46,22 +46,21 @@ public final class MapyAPIService {
     ///   - success: Request success callback
     ///   - failure: Request failure callback
     @discardableResult
-    public func navigate(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint] = [], success: @escaping SuccessDataCallback, failure: @escaping FRPCFailureCallback) -> URLSessionTask? {
+    public func navigate(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint] = [], success: @escaping (Int) -> Void, failure: @escaping FRPCFailureCallback) -> URLSessionTask? {
         // Create procedure from given parameters
         let procedure = MapyAPIService.createNavigationProcedure(from: from, to: to, through: through)
 
-        // Call remote procedure
-        return frpcService.call(procedure: procedure, success: success, failure: failure)
+        return frpcService.call(path: "tplanner", procedure: procedure, success: success, failure: failure)
     }
 
     @discardableResult
-    public func suggestions(forPhrase phrase: String, count: Int, success: @escaping SuccessPlacesCallback, failure: @escaping JSONFailureCallback) -> URLSessionTask? {
+    public func suggestions(forPhrase phrase: String, count: Int, success: @escaping ([Place]) -> Void, failure: @escaping JSONFailureCallback) -> URLSessionTask? {
         // Create request parameters
         let parameters = [
             "count": "\(count)",
             "phrase": phrase,
             "enableCategories": "1"
-            ]
+        ]
 
         // Unwrap returned value using custom success callback
         let callback: (Suggestions) -> Void = { suggestions in success(suggestions.places) }
@@ -72,11 +71,11 @@ public final class MapyAPIService {
 
     // MARK: Private API
 
-    private static func createNavigationProcedure(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint]) -> Procedure<Int> {
+    private static func createNavigationProcedure(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint]) -> Procedure1<[NavigationPoint]> {
         // Merge serialiable points
         let locations = [from] + through + [to]
-
-        let procedure: Procedure<Int> = Procedure(name: "route", parameters: [locations])
+        // Create the procedure call representation
+        let procedure = Procedure1(name: "route", arg1: locations)
 
         return procedure
     }
