@@ -8,8 +8,14 @@
 
 import Foundation
 
-struct FastRPCDecoder {
-    func decode<T>(_ type: T.Type, from data: Data) throws -> T  where T: Decodable {
+public struct FastRPCDecoder {
+    // MARK: Initializers
+
+    public init() { }
+
+    // MARK: Public API
+
+    public func decode<T>(_ type: T.Type, from data: Data) throws -> T  where T: Decodable {
         let object = try FastRPCSerialization.object(with: data)
 
         return try _FastRPCDecoder(container: object, at: []).decode(type)
@@ -17,6 +23,8 @@ struct FastRPCDecoder {
 }
 
 class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
+    // MARK: Properties
+
     var codingPath: [CodingKey] = []
 
     var userInfo: [CodingUserInfoKey : Any] = [:]
