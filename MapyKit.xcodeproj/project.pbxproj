@@ -8,8 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		D20AF654216F9DBC00156AA8 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF653216F9DBC00156AA8 /* Response.swift */; };
+		D20AF6572170EE7F00156AA8 /* FastRPCDecoder+StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6562170EE7F00156AA8 /* FastRPCDecoder+StringTests.swift */; };
+		D20AF6592170FFD200156AA8 /* FastRPCDecoder+IntTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6582170FFD200156AA8 /* FastRPCDecoder+IntTests.swift */; };
+		D20AF65B2171004400156AA8 /* FastRPCDecoder+DoubleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF65A2171004400156AA8 /* FastRPCDecoder+DoubleTests.swift */; };
+		D20AF65D2171008600156AA8 /* FastRPCDecoder+BoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF65C2171008600156AA8 /* FastRPCDecoder+BoolTests.swift */; };
+		D20AF65F217100D600156AA8 /* FastRPCDecoder+ArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF65E217100D600156AA8 /* FastRPCDecoder+ArrayTests.swift */; };
 		D20AF66221710BBF00156AA8 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF66021710B4200156AA8 /* Random.swift */; };
 		D20AF66321710BC000156AA8 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF66021710B4200156AA8 /* Random.swift */; };
+		D20AF66521710CF500156AA8 /* FastRPCDecoder+OptionalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF66421710CF500156AA8 /* FastRPCDecoder+OptionalTests.swift */; };
+		D20AF66721710E3D00156AA8 /* FastRPCDecoder+DateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF66621710E3D00156AA8 /* FastRPCDecoder+DateTests.swift */; };
+		D20AF66921710F5F00156AA8 /* FastRPCDecoder+DataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF66821710F5F00156AA8 /* FastRPCDecoder+DataTests.swift */; };
 		D215D8A3213EFBB100296D74 /* MapyKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D215D8A1213EFBB100296D74 /* MapyKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D215D8AA213EFBF400296D74 /* MapyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8A9213EFBF400296D74 /* MapyView.swift */; };
 		D215D8AC213EFC3000296D74 /* MapyTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8AB213EFC3000296D74 /* MapyTileOverlay.swift */; };
@@ -29,7 +37,6 @@
 		D2488A85214276E30032D382 /* MapyKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D25336082168BAAE0031635C /* FastRPCEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25336072168BAAE0031635C /* FastRPCEncoder.swift */; };
 		D253360A2168BAC20031635C /* FastRPCDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25336092168BAC20031635C /* FastRPCDecoder.swift */; };
-		D258E9D42165617D009F752B /* ArbitraryObject+FastRPCSerializableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258E9D32165617D009F752B /* ArbitraryObject+FastRPCSerializableTests.swift */; };
 		D258E9D7216562E4009F752B /* String+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258E9D6216562E4009F752B /* String+Random.swift */; };
 		D258E9D9216AAC29009F752B /* Suggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258E9D8216AAC29009F752B /* Suggestions.swift */; };
 		D258E9DD216AAE1A009F752B /* Container+ConvenienceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258E9DC216AAE1A009F752B /* Container+ConvenienceAPI.swift */; };
@@ -73,7 +80,6 @@
 		D2877704215800F40007C378 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877703215800F40007C378 /* HTTPMethod.swift */; };
 		D2877706215805650007C378 /* NavigationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877705215805650007C378 /* NavigationPoint.swift */; };
 		D28777082158084F0007C378 /* Dictionary+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28777072158084F0007C378 /* Dictionary+FastRPCSerializable.swift */; };
-		D287770A215810AA0007C378 /* Dictionary+FastRPCSerializableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877709215810AA0007C378 /* Dictionary+FastRPCSerializableTests.swift */; };
 		D2A370BD215E4FD70096D219 /* Location+FastRPCSerializableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370BC215E4FD70096D219 /* Location+FastRPCSerializableTests.swift */; };
 		D2A370C0215E5FF00096D219 /* Location+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370BF215E5FF00096D219 /* Location+FastRPCSerializable.swift */; };
 		D2A370C2215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370C1215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift */; };
@@ -159,7 +165,15 @@
 		D202ADCA2152DC91004A6838 /* Date+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D202ADCC2152EF44004A6838 /* Date+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
 		D20AF653216F9DBC00156AA8 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		D20AF6562170EE7F00156AA8 /* FastRPCDecoder+StringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCDecoder+StringTests.swift"; sourceTree = "<group>"; };
+		D20AF6582170FFD200156AA8 /* FastRPCDecoder+IntTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCDecoder+IntTests.swift"; sourceTree = "<group>"; };
+		D20AF65A2171004400156AA8 /* FastRPCDecoder+DoubleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCDecoder+DoubleTests.swift"; sourceTree = "<group>"; };
+		D20AF65C2171008600156AA8 /* FastRPCDecoder+BoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCDecoder+BoolTests.swift"; sourceTree = "<group>"; };
+		D20AF65E217100D600156AA8 /* FastRPCDecoder+ArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCDecoder+ArrayTests.swift"; sourceTree = "<group>"; };
 		D20AF66021710B4200156AA8 /* Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
+		D20AF66421710CF500156AA8 /* FastRPCDecoder+OptionalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCDecoder+OptionalTests.swift"; sourceTree = "<group>"; };
+		D20AF66621710E3D00156AA8 /* FastRPCDecoder+DateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCDecoder+DateTests.swift"; sourceTree = "<group>"; };
+		D20AF66821710F5F00156AA8 /* FastRPCDecoder+DataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCDecoder+DataTests.swift"; sourceTree = "<group>"; };
 		D215D89E213EFBB100296D74 /* MapyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D215D8A1213EFBB100296D74 /* MapyKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapyKit.h; sourceTree = "<group>"; };
 		D215D8A2213EFBB100296D74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -196,7 +210,6 @@
 		D239760B21505781000C6AD8 /* Double+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D25336072168BAAE0031635C /* FastRPCEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCEncoder.swift; sourceTree = "<group>"; };
 		D25336092168BAC20031635C /* FastRPCDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCDecoder.swift; sourceTree = "<group>"; };
-		D258E9D32165617D009F752B /* ArbitraryObject+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbitraryObject+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
 		D258E9D6216562E4009F752B /* String+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
 		D258E9D8216AAC29009F752B /* Suggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suggestions.swift; sourceTree = "<group>"; };
 		D258E9DC216AAE1A009F752B /* Container+ConvenienceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+ConvenienceAPI.swift"; sourceTree = "<group>"; };
@@ -221,7 +234,6 @@
 		D2877703215800F40007C378 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		D2877705215805650007C378 /* NavigationPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPoint.swift; sourceTree = "<group>"; };
 		D28777072158084F0007C378 /* Dictionary+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+FastRPCSerializable.swift"; sourceTree = "<group>"; };
-		D2877709215810AA0007C378 /* Dictionary+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
 		D2A370BC215E4FD70096D219 /* Location+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
 		D2A370BF215E5FF00096D219 /* Location+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+FastRPCSerializable.swift"; sourceTree = "<group>"; };
 		D2A370C1215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationPoint+FastRPCSerializable.swift"; sourceTree = "<group>"; };
@@ -296,6 +308,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D20AF6552170EE4C00156AA8 /* Serialization */ = {
+			isa = PBXGroup;
+			children = (
+				D20AF6562170EE7F00156AA8 /* FastRPCDecoder+StringTests.swift */,
+				D20AF6582170FFD200156AA8 /* FastRPCDecoder+IntTests.swift */,
+				D20AF65A2171004400156AA8 /* FastRPCDecoder+DoubleTests.swift */,
+				D20AF65C2171008600156AA8 /* FastRPCDecoder+BoolTests.swift */,
+				D20AF65E217100D600156AA8 /* FastRPCDecoder+ArrayTests.swift */,
+				D20AF66421710CF500156AA8 /* FastRPCDecoder+OptionalTests.swift */,
+				D20AF66621710E3D00156AA8 /* FastRPCDecoder+DateTests.swift */,
+				D20AF66821710F5F00156AA8 /* FastRPCDecoder+DataTests.swift */,
+			);
+			path = Serialization;
+			sourceTree = "<group>";
+		};
 		D215D894213EFBB100296D74 = {
 			isa = PBXGroup;
 			children = (
@@ -424,8 +451,6 @@
 				D2CD6498215197CF0038014A /* Optional+FastRPCSerializable.swift */,
 				D202ADCC2152EF44004A6838 /* Date+FastRPCSerializableTests.swift */,
 				D28776ED2155333F0007C378 /* Data+FastRPCSerializableTests.swift */,
-				D2877709215810AA0007C378 /* Dictionary+FastRPCSerializableTests.swift */,
-				D258E9D32165617D009F752B /* ArbitraryObject+FastRPCSerializableTests.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -504,6 +529,7 @@
 		D28776C4215512450007C378 /* FastRPCSwiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				D20AF6552170EE4C00156AA8 /* Serialization */,
 				D258E9D5216562CE009F752B /* Helpers */,
 				D28776CF2155125D0007C378 /* Supporting Files */,
 				D239760421503BE0000C6AD8 /* Extensions */,
@@ -956,19 +982,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D287770A215810AA0007C378 /* Dictionary+FastRPCSerializableTests.swift in Sources */,
+				D20AF66721710E3D00156AA8 /* FastRPCDecoder+DateTests.swift in Sources */,
+				D20AF65F217100D600156AA8 /* FastRPCDecoder+ArrayTests.swift in Sources */,
 				D28776EE2155333F0007C378 /* Data+FastRPCSerializableTests.swift in Sources */,
-				D258E9D42165617D009F752B /* ArbitraryObject+FastRPCSerializableTests.swift in Sources */,
 				D28776D5215513820007C378 /* Optional+FastRPCSerializable.swift in Sources */,
+				D20AF6572170EE7F00156AA8 /* FastRPCDecoder+StringTests.swift in Sources */,
 				D28776D0215513820007C378 /* Int+FastRPCSerializableTests.swift in Sources */,
 				D2C3B06C216AA2C900B1F257 /* Asserts.swift in Sources */,
 				D28776D1215513820007C378 /* String+FastRPCSerializableTests.swift in Sources */,
 				D28776D3215513820007C378 /* Bool+FastRPCSerializationTests.swift in Sources */,
 				D28776D4215513820007C378 /* Array+FastRPCSerializable.swift in Sources */,
+				D20AF65D2171008600156AA8 /* FastRPCDecoder+BoolTests.swift in Sources */,
+				D20AF65B2171004400156AA8 /* FastRPCDecoder+DoubleTests.swift in Sources */,
+				D20AF66921710F5F00156AA8 /* FastRPCDecoder+DataTests.swift in Sources */,
 				D258E9D7216562E4009F752B /* String+Random.swift in Sources */,
+				D20AF6592170FFD200156AA8 /* FastRPCDecoder+IntTests.swift in Sources */,
 				D2C3B070216AA37C00B1F257 /* BundledFiles.swift in Sources */,
 				D20AF66321710BC000156AA8 /* Random.swift in Sources */,
 				D28776D6215513820007C378 /* Date+FastRPCSerializableTests.swift in Sources */,
+				D20AF66521710CF500156AA8 /* FastRPCDecoder+OptionalTests.swift in Sources */,
 				D28776D2215513820007C378 /* Double+FastRPCSerializable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

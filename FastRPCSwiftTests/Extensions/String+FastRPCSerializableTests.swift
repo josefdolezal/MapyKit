@@ -83,21 +83,4 @@ class String_FastRPCSerializableTests: XCTestCase {
             XCTAssertEqual(subject, stringData)
         }
     }
-
-    func testSerializeSpecialCases() {
-        XCTAssertEqual([UInt8](try " ".serialize().data), [32, 1, 32])
-        XCTAssertEqual([UInt8](try "".serialize().data), [32, 0])
-    }
-
-    func testDecodesCorrectly() throws {
-        let decoder = FastRPCDecoder()
-
-        for _ in 0 ... 100 {
-            let length = Int.random(in: 0 ... 300)
-            let string = String.random(maxLength: length)
-            let data = try string.serialize().data
-
-            try XCTAssertEqual(decoder.decode(String.self, from: data), string)
-        }
-    }
 }

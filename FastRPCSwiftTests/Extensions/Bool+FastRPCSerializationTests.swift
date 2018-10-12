@@ -14,11 +14,4 @@ class Bool_FastRPCSerializationTests: XCTestCase {
         XCTAssertEqual(try [UInt8](true.serialize().data), [17])
         XCTAssertEqual(try [UInt8](false.serialize().data), [16])
     }
-
-    func testDecodeCorrectly() throws {
-        let decoder = FastRPCDecoder()
-
-        try XCTAssertEqual(decoder.decode(Bool.self, from: true.serialize().data), true)
-        try XCTAssertEqual(decoder.decode(Bool.self, from: false.serialize().data), false)
-    }
 }
