@@ -18,11 +18,32 @@ import FastRPCSwift
 /// - skiing: Cross country skiing navigation
 /// - boat: Canoeing navigation
 public enum TransportType {
+    // MARK: Structure
+
     case car(PreferredAttributes)
     case bike(BikeType)
     case foot(TourType)
     case skiing
     case boat
+
+    // MARK: Initializers
+
+    init?(rawValue: Int) {
+        switch rawValue {
+        case 111: self = .car(.fast)
+        case 113: self = .car(.short)
+        case 121: self = .bike(.mountain)
+        case 122: self = .bike(.road)
+        case 131: self = .foot(.short)
+        case 132: self = .foot(.touristic)
+        case 141: self = .skiing
+        case 143: self = .boat
+        default:
+            return nil
+        }
+    }
+
+    // MARK: Public API
 
     /// Remote API transport type identifier
     var identifier: Int {

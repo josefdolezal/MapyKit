@@ -17,6 +17,7 @@ public struct NavigationPoint {
         case source
         case coordinates = "geometry"
         case transportType = "routeParams"
+        case transportCriterio = "criterion"
         case descriptionParameters = "descParams"
     }
 
