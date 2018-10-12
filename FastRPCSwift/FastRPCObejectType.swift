@@ -29,35 +29,32 @@ import Foundation
 public enum FastRPCObejectType: Int, CaseIterable {
     // MARK: Meta
 
-    case `nil` = 12
-    case procedure = 13
-    case binary = 6
-    case fault = 15
+    case `nil` = 96
+    case procedure = 104
+    case binary = 48
+    case fault = 120
     case nonDataType = 0x11CA
-    case response = 14
+    case response = 112
 
     // MARK: Primitive
 
-    case bool = 2
-    case dateTime = 5
-    case double = 3
-    case int = 1
-    case int8n = 8
-    case int8p = 7
-    case string = 4
+    case bool = 16
+    case dateTime = 40
+    case double = 24
+    case int = 8
+    case int8n = 64
+    case int8p = 56
+    case string = 32
 
     // MARK: Composite
 
-    case array = 11
-    case `struct` = 10
+    case array = 88
+    case `struct` = 80
 
     // MARK: Properties
 
     /// FastRPC data serialization format.
     var identifier: Int {
-        switch self {
-        case .nonDataType: return rawValue
-        default: return rawValue << 3
-        }
+        return rawValue
     }
 }

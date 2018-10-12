@@ -65,7 +65,7 @@ private class FastRPCUnboxer {
         case .dateTime: return try unbox(Date.self)
         case .binary: return try unbox(Data.self)
 
-        case .nonDataType: fatalError()
+        case .nonDataType: return try unboxNonDataType()
 
         case .array: return try unbox(NSArray.self)
         case .struct: return try unbox(NSDictionary.self)
@@ -100,7 +100,7 @@ private class FastRPCUnboxer {
 
     private func unbox(_ type: Int.Type) throws -> Int {
         // Check first for type information (without last 3 additional info bits)
-        let type = Int(data.removeFirst() & 0xF8)
+        let type = Int(data.first! & 0xF8)
 
         // Switch over int identifier
         switch type {
@@ -288,6 +288,8 @@ private class FastRPCUnboxer {
         switch size {
         case 0:
             return Procedure0(name: name)
+        case 1:
+            return try unboxProcedure1(name: name)
         default:
             throw FastRPCDecodingError.corruptedData
         }
@@ -334,7 +336,7 @@ private class FastRPCUnboxer {
     private func validateType() throws -> FastRPCObejectType {
         // Make the type info mutable so we can replace it with multibyte
         // representation later.
-        guard var typeInfo = data.first.map({ Int($0) }) else {
+        guard var typeInfo = data.first.map({ Int($0 & 0xF8) }) else {
             throw FastRPCDecodingError.missingTypeIdentifier
         }
 
