@@ -72,6 +72,10 @@ fileprivate class CollectionContainer: Container {
 }
 
 public struct FastRPCEncoder {
+    // MARK: Initializers
+
+    public init() { }
+
     // MARK: Public API
 
     public func encode<T: Encodable>(_ value: T) throws -> Data {
