@@ -1,5 +1,5 @@
 //
-//  NavigationPoint+FastRPCSerializable.swift
+//  NavigationPoint+Codable.swift
 //  MapyAPI
 //
 //  Created by Josef Dolezal on 28/09/2018.

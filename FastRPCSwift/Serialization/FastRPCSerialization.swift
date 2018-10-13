@@ -1,5 +1,5 @@
 //
-//  FastRPCSerializable.swift
+//  FastRPCSerialization.swift
 //  MapyAPI
 //
 //  Created by Josef Dolezal on 16/09/2018.
@@ -7,16 +7,6 @@
 //
 
 import Foundation
-
-/// Object which is able to be serialized through FastRPC protocol.
-public protocol FastRPCSerializable {
-    /// Returns raw data representing object in FastRPC protocol.
-    /// Throws FastRPC error if object is not serializable.
-    ///
-    /// - Returns: Raw data representing structure
-    /// - Throws: FastRPCError on failure
-    func serialize() throws -> SerializationBuffer
-}
 
 public enum FastRPCDecodingError: Error {
     case missingTypeIdentifier
@@ -38,7 +28,11 @@ public class FastRPCSerialization {
     static func object(with data: Data) throws -> Any {
         let unboxer = FastRPCUnboxer(data: data)
 
-        return try unboxer.unbox()
+        let any = try unboxer.unbox()
+
+        dump(any)
+
+        return any
     }
 
     static func data(withObject object: Any) throws -> Data {
