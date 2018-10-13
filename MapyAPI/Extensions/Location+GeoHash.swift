@@ -1,32 +1,29 @@
 //
-//  Location+FastRPCSerializable.swift
+//  Location+GeoHash.swift
 //  MapyAPI
 //
-//  Created by Josef Dolezal on 28/09/2018.
+//  Created by Josef Dolezal on 13/10/2018.
 //  Copyright © 2018 Josef Dolezal. All rights reserved.
 //
 
-import FastRPCSwift
+import Foundation
 
-extension Location: FastRPCSerializable {
-    /// Serialization alphabet for converting number into string
-    private static let alphabet = "0ABCD2EFGH4IJKLMN6OPQRST8UVWXYZ-1abcd3efgh5ijklmn7opqrst9uvwxyz."
+extension Location {
+    // MARK: Public API
 
-    // MARK: FastRPCSerializable
-
-    public func serialize() throws -> SerializationBuffer {
+    func coordinatesGeoHash() -> String {
         // Prepare coordinates for serialization
         let x = Int((latitude + 180) * Double(1 << 28) / 360)
         let y = Int((longitude + 90) * Double(1 << 28) / 180)
 
         // Serialize each coordiante separately, merge the result
-        let encoded = Location.serialize(coords: x) + Location.serialize(coords: y)
-
-        // Serialize coordinates result
-        return try encoded.serialize()
+        return Location.serialize(coords: x) + Location.serialize(coords: y)
     }
 
     // MARK: Private API
+
+    /// Serialization alphabet for converting number into string
+    private static let alphabet = "0ABCD2EFGH4IJKLMN6OPQRST8UVWXYZ-1abcd3efgh5ijklmn7opqrst9uvwxyz."
 
     /// Serializes given coordinate into ASCII string. Given integer number is serialized using
     /// some kind of geohashing algorithm.
@@ -66,4 +63,3 @@ fileprivate extension String {
         return self[self.index(startIndex, offsetBy: index)]
     }
 }
-

@@ -42,16 +42,10 @@ extension Place: Decodable {
         // Get category from outer container
         let category = try outerContainer.decode(String.self, forKey: .category)
 
-        // Structurize coordinates from flat representation
-        let coordinates = try Location(
-            latitude: innerContainer.decode(Double.self, forKey: .latitude),
-            longitude: innerContainer.decode(Double.self, forKey: .longitude)
-        )
-
         // Decode place
         try self.init(
             category: category,
-            coordinates: coordinates,
+            coordinates: outerContainer.decode(Location.self, forKey: .data),
             country: innerContainer.decodeNonEmpty(String.self, forKey: .country),
             region: innerContainer.decodeNonEmpty(String.self, forKey: .region),
             municipality: innerContainer.decodeNonEmpty(String.self, forKey: .municipality),

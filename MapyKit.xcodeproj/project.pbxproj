@@ -25,6 +25,11 @@
 		D20AF6732171E40C00156AA8 /* FastRPCEncoder+OptionalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6722171E40C00156AA8 /* FastRPCEncoder+OptionalTests.swift */; };
 		D20AF6752171E49900156AA8 /* FastRPCEncoder+DateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6742171E49900156AA8 /* FastRPCEncoder+DateTests.swift */; };
 		D20AF6772171E54C00156AA8 /* FastRPCEncoder+DataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6762171E54C00156AA8 /* FastRPCEncoder+DataTests.swift */; };
+		D20AF6792171E72900156AA8 /* Location+CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6782171E72900156AA8 /* Location+CodableTests.swift */; };
+		D20AF67B2171E7C100156AA8 /* TransportType+CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF67A2171E7C100156AA8 /* TransportType+CodableTests.swift */; };
+		D20AF67F2171E8C100156AA8 /* Location+GeoHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF67E2171E8C100156AA8 /* Location+GeoHash.swift */; };
+		D20AF6812171E8D600156AA8 /* Location+GeoHashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6802171E8D600156AA8 /* Location+GeoHashTests.swift */; };
+		D20AF6852171F04800156AA8 /* NavigationPoint+CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6842171F04800156AA8 /* NavigationPoint+CodableTests.swift */; };
 		D215D8A3213EFBB100296D74 /* MapyKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D215D8A1213EFBB100296D74 /* MapyKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D215D8AA213EFBF400296D74 /* MapyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8A9213EFBF400296D74 /* MapyView.swift */; };
 		D215D8AC213EFC3000296D74 /* MapyTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8AB213EFC3000296D74 /* MapyTileOverlay.swift */; };
@@ -78,10 +83,9 @@
 		D2877704215800F40007C378 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877703215800F40007C378 /* HTTPMethod.swift */; };
 		D2877706215805650007C378 /* NavigationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2877705215805650007C378 /* NavigationPoint.swift */; };
 		D28777082158084F0007C378 /* Dictionary+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28777072158084F0007C378 /* Dictionary+FastRPCSerializable.swift */; };
-		D2A370BD215E4FD70096D219 /* Location+FastRPCSerializableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370BC215E4FD70096D219 /* Location+FastRPCSerializableTests.swift */; };
-		D2A370C0215E5FF00096D219 /* Location+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370BF215E5FF00096D219 /* Location+FastRPCSerializable.swift */; };
-		D2A370C2215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370C1215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift */; };
-		D2A370C4215E60F50096D219 /* TransportType+FastRPCSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370C3215E60F50096D219 /* TransportType+FastRPCSerializable.swift */; };
+		D2A370C0215E5FF00096D219 /* Location+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370BF215E5FF00096D219 /* Location+Codable.swift */; };
+		D2A370C2215E607A0096D219 /* NavigationPoint+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370C1215E607A0096D219 /* NavigationPoint+Codable.swift */; };
+		D2A370C4215E60F50096D219 /* TransportType+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370C3215E60F50096D219 /* TransportType+Codable.swift */; };
 		D2C25BC92159814D00A78896 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C25BC82159814D00A78896 /* Location.swift */; };
 		D2C3B0592169FEC400B1F257 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B0582169FEC400B1F257 /* Place.swift */; };
 		D2C3B05B216A0DF100B1F257 /* Place+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B05A216A0DF100B1F257 /* Place+Codable.swift */; };
@@ -178,6 +182,11 @@
 		D20AF6722171E40C00156AA8 /* FastRPCEncoder+OptionalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCEncoder+OptionalTests.swift"; sourceTree = "<group>"; };
 		D20AF6742171E49900156AA8 /* FastRPCEncoder+DateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCEncoder+DateTests.swift"; sourceTree = "<group>"; };
 		D20AF6762171E54C00156AA8 /* FastRPCEncoder+DataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCEncoder+DataTests.swift"; sourceTree = "<group>"; };
+		D20AF6782171E72900156AA8 /* Location+CodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CodableTests.swift"; sourceTree = "<group>"; };
+		D20AF67A2171E7C100156AA8 /* TransportType+CodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransportType+CodableTests.swift"; sourceTree = "<group>"; };
+		D20AF67E2171E8C100156AA8 /* Location+GeoHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+GeoHash.swift"; sourceTree = "<group>"; };
+		D20AF6802171E8D600156AA8 /* Location+GeoHashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+GeoHashTests.swift"; sourceTree = "<group>"; };
+		D20AF6842171F04800156AA8 /* NavigationPoint+CodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationPoint+CodableTests.swift"; sourceTree = "<group>"; };
 		D215D89E213EFBB100296D74 /* MapyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D215D8A1213EFBB100296D74 /* MapyKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapyKit.h; sourceTree = "<group>"; };
 		D215D8A2213EFBB100296D74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -233,10 +242,9 @@
 		D2877703215800F40007C378 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		D2877705215805650007C378 /* NavigationPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPoint.swift; sourceTree = "<group>"; };
 		D28777072158084F0007C378 /* Dictionary+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+FastRPCSerializable.swift"; sourceTree = "<group>"; };
-		D2A370BC215E4FD70096D219 /* Location+FastRPCSerializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+FastRPCSerializableTests.swift"; sourceTree = "<group>"; };
-		D2A370BF215E5FF00096D219 /* Location+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+FastRPCSerializable.swift"; sourceTree = "<group>"; };
-		D2A370C1215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationPoint+FastRPCSerializable.swift"; sourceTree = "<group>"; };
-		D2A370C3215E60F50096D219 /* TransportType+FastRPCSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransportType+FastRPCSerializable.swift"; sourceTree = "<group>"; };
+		D2A370BF215E5FF00096D219 /* Location+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+Codable.swift"; sourceTree = "<group>"; };
+		D2A370C1215E607A0096D219 /* NavigationPoint+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationPoint+Codable.swift"; sourceTree = "<group>"; };
+		D2A370C3215E60F50096D219 /* TransportType+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransportType+Codable.swift"; sourceTree = "<group>"; };
 		D2A370C6215ED2BA0096D219 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D2C25BC82159814D00A78896 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D2C3B0582169FEC400B1F257 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
@@ -324,6 +332,13 @@
 				D20AF6762171E54C00156AA8 /* FastRPCEncoder+DataTests.swift */,
 			);
 			path = Serialization;
+			sourceTree = "<group>";
+		};
+		D20AF6862171F2EF00156AA8 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 		D215D894213EFBB100296D74 = {
@@ -571,10 +586,11 @@
 			isa = PBXGroup;
 			children = (
 				D258E9DC216AAE1A009F752B /* Container+ConvenienceAPI.swift */,
-				D2A370C3215E60F50096D219 /* TransportType+FastRPCSerializable.swift */,
-				D2A370C1215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift */,
-				D2A370BF215E5FF00096D219 /* Location+FastRPCSerializable.swift */,
+				D2A370C3215E60F50096D219 /* TransportType+Codable.swift */,
+				D2A370C1215E607A0096D219 /* NavigationPoint+Codable.swift */,
+				D2A370BF215E5FF00096D219 /* Location+Codable.swift */,
 				D2C3B05A216A0DF100B1F257 /* Place+Codable.swift */,
+				D20AF67E2171E8C100156AA8 /* Location+GeoHash.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -582,8 +598,11 @@
 		D2A370C5215E61350096D219 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D2A370BC215E4FD70096D219 /* Location+FastRPCSerializableTests.swift */,
+				D20AF67A2171E7C100156AA8 /* TransportType+CodableTests.swift */,
+				D20AF6842171F04800156AA8 /* NavigationPoint+CodableTests.swift */,
+				D20AF6782171E72900156AA8 /* Location+CodableTests.swift */,
 				D2C3B05C216A7A7400B1F257 /* Place+CodableTests.swift */,
+				D20AF6802171E8D600156AA8 /* Location+GeoHashTests.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -591,6 +610,7 @@
 		D2C3B05E216A7D6900B1F257 /* Stub */ = {
 			isa = PBXGroup;
 			children = (
+				D20AF6862171F2EF00156AA8 /* Location */,
 				D2C3B05F216A7D7200B1F257 /* Place */,
 			);
 			path = Stub;
@@ -899,14 +919,15 @@
 			files = (
 				D28776F22156DA8E0007C378 /* MapyAPIService.swift in Sources */,
 				D258E9D9216AAC29009F752B /* Suggestions.swift in Sources */,
-				D2A370C2215E607A0096D219 /* NavigationPoint+FastRPCSerializable.swift in Sources */,
+				D2A370C2215E607A0096D219 /* NavigationPoint+Codable.swift in Sources */,
 				D258E9E0216AAFD3009F752B /* JSONService.swift in Sources */,
-				D2A370C4215E60F50096D219 /* TransportType+FastRPCSerializable.swift in Sources */,
+				D2A370C4215E60F50096D219 /* TransportType+Codable.swift in Sources */,
 				D2C3B0592169FEC400B1F257 /* Place.swift in Sources */,
 				D2877706215805650007C378 /* NavigationPoint.swift in Sources */,
-				D2A370C0215E5FF00096D219 /* Location+FastRPCSerializable.swift in Sources */,
+				D2A370C0215E5FF00096D219 /* Location+Codable.swift in Sources */,
 				D2C25BC92159814D00A78896 /* Location.swift in Sources */,
 				D28776F72156DEB60007C378 /* TransportType.swift in Sources */,
+				D20AF67F2171E8C100156AA8 /* Location+GeoHash.swift in Sources */,
 				D2C3B05B216A0DF100B1F257 /* Place+Codable.swift in Sources */,
 				D258E9DD216AAE1A009F752B /* Container+ConvenienceAPI.swift in Sources */,
 			);
@@ -917,10 +938,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2C3B05D216A7A7400B1F257 /* Place+CodableTests.swift in Sources */,
-				D2A370BD215E4FD70096D219 /* Location+FastRPCSerializableTests.swift in Sources */,
 				D20AF66221710BBF00156AA8 /* Random.swift in Sources */,
 				D2C3B06F216AA37C00B1F257 /* BundledFiles.swift in Sources */,
+				D20AF6852171F04800156AA8 /* NavigationPoint+CodableTests.swift in Sources */,
+				D20AF6812171E8D600156AA8 /* Location+GeoHashTests.swift in Sources */,
+				D20AF67B2171E7C100156AA8 /* TransportType+CodableTests.swift in Sources */,
 				D2C3B06B216AA2C900B1F257 /* Asserts.swift in Sources */,
+				D20AF6792171E72900156AA8 /* Location+CodableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

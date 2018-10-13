@@ -1,5 +1,5 @@
 //
-//  TransportType+FastRPCSerializable.swift
+//  TransportType+Codable.swift
 //  MapyAPI
 //
 //  Created by Josef Dolezal on 28/09/2018.
@@ -8,13 +8,9 @@
 
 import FastRPCSwift
 
-extension TransportType: FastRPCSerializable {
-    public func serialize() throws -> SerializationBuffer {
-        return try identifier.serialize()
-    }
-}
-
 extension TransportType: Codable {
+    // MARK: Decodable
+
     public init(from decoder: Decoder) throws {
         // Create decoding container and decode raw value
         let container = try decoder.singleValueContainer()
@@ -29,6 +25,8 @@ extension TransportType: Codable {
         // Initialize `self` based on raw value
         self = value
     }
+
+    // MARK: Encodable
 
     public func encode(to encoder: Encoder) throws {
         // Decode type as single int value
