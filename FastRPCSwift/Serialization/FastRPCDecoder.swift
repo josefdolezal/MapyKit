@@ -88,18 +88,22 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
 
     // MARK: SingleValueDecodingContainer (Unsupported types)
 
-    func decode(_ type: Float.Type)  throws -> Float  { fatalError() }
-    func decode(_ type: Int8.Type)   throws -> Int8   { fatalError() }
-    func decode(_ type: Int16.Type)  throws -> Int16  { fatalError() }
-    func decode(_ type: Int32.Type)  throws -> Int32  { fatalError() }
-    func decode(_ type: Int64.Type)  throws -> Int64  { fatalError() }
-    func decode(_ type: UInt.Type)   throws -> UInt   { fatalError() }
-    func decode(_ type: UInt8.Type)  throws -> UInt8  { fatalError() }
-    func decode(_ type: UInt16.Type) throws -> UInt16 { fatalError() }
-    func decode(_ type: UInt32.Type) throws -> UInt32 { fatalError() }
-    func decode(_ type: UInt64.Type) throws -> UInt64 { fatalError() }
+    func decode(_ type: Float.Type)  throws -> Float  { throw unsupportedTypeError(Float.self, replacement: Double.self) }
+    func decode(_ type: Int8.Type)   throws -> Int8   { throw unsupportedTypeError(Int8.self, replacement: Int.self) }
+    func decode(_ type: Int16.Type)  throws -> Int16  { throw unsupportedTypeError(Int16.self, replacement: Int.self) }
+    func decode(_ type: Int32.Type)  throws -> Int32  { throw unsupportedTypeError(Int32.self, replacement: Int.self) }
+    func decode(_ type: Int64.Type)  throws -> Int64  { throw unsupportedTypeError(Int64.self, replacement: Int.self) }
+    func decode(_ type: UInt.Type)   throws -> UInt   { throw unsupportedTypeError(UInt.self, replacement: Int.self) }
+    func decode(_ type: UInt8.Type)  throws -> UInt8  { throw unsupportedTypeError(UInt8.self, replacement: Int.self) }
+    func decode(_ type: UInt16.Type) throws -> UInt16 { throw unsupportedTypeError(UInt16.self, replacement: Int.self) }
+    func decode(_ type: UInt32.Type) throws -> UInt32 { throw unsupportedTypeError(UInt32.self, replacement: Int.self) }
+    func decode(_ type: UInt64.Type) throws -> UInt64 { throw unsupportedTypeError(UInt64.self, replacement: Int.self) }
 
     // MARK: Private API
+
+    fileprivate func unsupportedTypeError<A, R>(_ actual: A.Type, replacement: R.Type) -> FastRPCDecodingError {
+        return FastRPCDecodingError.unsupportedType(actual, replacement: replacement)
+    }
 
     private func unbox<T>(_ type: T.Type) throws -> T {
         guard let value = container as? T else {
@@ -207,16 +211,16 @@ fileprivate struct FRPCKeyedDecodingContainer<Key: CodingKey>: KeyedDecodingCont
 
     // MARK: Unsupported types
 
-    func decode(_ type: Int8.Type, forKey key: Key)   throws -> Int8   { throw unsupportedTypeError(Int8.self, replacement: Int.self) }
-    func decode(_ type: Int16.Type, forKey key: Key)  throws -> Int16  { throw unsupportedTypeError(Int16.self, replacement: Int.self) }
-    func decode(_ type: Int32.Type, forKey key: Key)  throws -> Int32  { throw unsupportedTypeError(Int32.self, replacement: Int.self) }
-    func decode(_ type: Int64.Type, forKey key: Key)  throws -> Int64  { throw unsupportedTypeError(Int64.self, replacement: Int.self) }
-    func decode(_ type: UInt.Type, forKey key: Key)   throws -> UInt   { throw unsupportedTypeError(UInt.self, replacement: Int.self) }
-    func decode(_ type: UInt8.Type, forKey key: Key)  throws -> UInt8  { throw unsupportedTypeError(UInt8.self, replacement: Int.self) }
-    func decode(_ type: UInt16.Type, forKey key: Key) throws -> UInt16 { throw unsupportedTypeError(UInt16.self, replacement: Int.self) }
-    func decode(_ type: UInt32.Type, forKey key: Key) throws -> UInt32 { throw unsupportedTypeError(UInt32.self, replacement: Int.self) }
-    func decode(_ type: UInt64.Type, forKey key: Key) throws -> UInt64 { throw unsupportedTypeError(UInt64.self, replacement: Int.self) }
-    func decode(_ type: Float.Type, forKey key: Key)  throws -> Float  { throw unsupportedTypeError(UInt64.self, replacement: Float.self) }
+    func decode(_ type: Int8.Type, forKey key: Key)   throws -> Int8   { throw decoder.unsupportedTypeError(Int8.self, replacement: Int.self) }
+    func decode(_ type: Int16.Type, forKey key: Key)  throws -> Int16  { throw decoder.unsupportedTypeError(Int16.self, replacement: Int.self) }
+    func decode(_ type: Int32.Type, forKey key: Key)  throws -> Int32  { throw decoder.unsupportedTypeError(Int32.self, replacement: Int.self) }
+    func decode(_ type: Int64.Type, forKey key: Key)  throws -> Int64  { throw decoder.unsupportedTypeError(Int64.self, replacement: Int.self) }
+    func decode(_ type: UInt.Type, forKey key: Key)   throws -> UInt   { throw decoder.unsupportedTypeError(UInt.self, replacement: Int.self) }
+    func decode(_ type: UInt8.Type, forKey key: Key)  throws -> UInt8  { throw decoder.unsupportedTypeError(UInt8.self, replacement: Int.self) }
+    func decode(_ type: UInt16.Type, forKey key: Key) throws -> UInt16 { throw decoder.unsupportedTypeError(UInt16.self, replacement: Int.self) }
+    func decode(_ type: UInt32.Type, forKey key: Key) throws -> UInt32 { throw decoder.unsupportedTypeError(UInt32.self, replacement: Int.self) }
+    func decode(_ type: UInt64.Type, forKey key: Key) throws -> UInt64 { throw decoder.unsupportedTypeError(UInt64.self, replacement: Int.self) }
+    func decode(_ type: Float.Type, forKey key: Key)  throws -> Float  { throw decoder.unsupportedTypeError(UInt64.self, replacement: Float.self) }
 
     // MARK: Private API
 
@@ -236,10 +240,6 @@ fileprivate struct FRPCKeyedDecodingContainer<Key: CodingKey>: KeyedDecodingCont
         }
 
         return t
-    }
-
-    private func unsupportedTypeError<A, R>(_ type: A.Type, replacement: R.Type) -> FastRPCDecodingError {
-        return FastRPCDecodingError.unsupportedType(type, replacement: replacement)
     }
 }
 
@@ -343,16 +343,16 @@ fileprivate struct FRPCUnkeyedDecodingContainer: UnkeyedDecodingContainer {
 
     // MARK: Unsupported types
 
-    mutating func decode(_ type: Int8.Type)   throws -> Int8   { throw unsupportedTypeError(Int8.self, replacement: Int.self) }
-    mutating func decode(_ type: Int16.Type)  throws -> Int16  { throw unsupportedTypeError(Int16.self, replacement: Int.self) }
-    mutating func decode(_ type: Int32.Type)  throws -> Int32  { throw unsupportedTypeError(Int32.self, replacement: Int.self) }
-    mutating func decode(_ type: Int64.Type)  throws -> Int64  { throw unsupportedTypeError(Int64.self, replacement: Int.self) }
-    mutating func decode(_ type: UInt.Type)   throws -> UInt   { throw unsupportedTypeError(UInt.self, replacement: Int.self) }
-    mutating func decode(_ type: UInt8.Type)  throws -> UInt8  { throw unsupportedTypeError(UInt8.self, replacement: Int.self) }
-    mutating func decode(_ type: UInt16.Type) throws -> UInt16 { throw unsupportedTypeError(UInt16.self, replacement: Int.self) }
-    mutating func decode(_ type: UInt32.Type) throws -> UInt32 { throw unsupportedTypeError(UInt32.self, replacement: Int.self) }
-    mutating func decode(_ type: UInt64.Type) throws -> UInt64 { throw unsupportedTypeError(UInt64.self, replacement: Int.self) }
-    mutating func decode(_ type: Float.Type)  throws -> Float  { throw unsupportedTypeError(Float.self, replacement: Double.self) }
+    mutating func decode(_ type: Int8.Type)   throws -> Int8   { throw decoder.unsupportedTypeError(Int8.self, replacement: Int.self) }
+    mutating func decode(_ type: Int16.Type)  throws -> Int16  { throw decoder.unsupportedTypeError(Int16.self, replacement: Int.self) }
+    mutating func decode(_ type: Int32.Type)  throws -> Int32  { throw decoder.unsupportedTypeError(Int32.self, replacement: Int.self) }
+    mutating func decode(_ type: Int64.Type)  throws -> Int64  { throw decoder.unsupportedTypeError(Int64.self, replacement: Int.self) }
+    mutating func decode(_ type: UInt.Type)   throws -> UInt   { throw decoder.unsupportedTypeError(UInt.self, replacement: Int.self) }
+    mutating func decode(_ type: UInt8.Type)  throws -> UInt8  { throw decoder.unsupportedTypeError(UInt8.self, replacement: Int.self) }
+    mutating func decode(_ type: UInt16.Type) throws -> UInt16 { throw decoder.unsupportedTypeError(UInt16.self, replacement: Int.self) }
+    mutating func decode(_ type: UInt32.Type) throws -> UInt32 { throw decoder.unsupportedTypeError(UInt32.self, replacement: Int.self) }
+    mutating func decode(_ type: UInt64.Type) throws -> UInt64 { throw decoder.unsupportedTypeError(UInt64.self, replacement: Int.self) }
+    mutating func decode(_ type: Float.Type)  throws -> Float  { throw decoder.unsupportedTypeError(Float.self, replacement: Double.self) }
 
     // MARK: Private API
 
@@ -365,9 +365,5 @@ fileprivate struct FRPCUnkeyedDecodingContainer: UnkeyedDecodingContainer {
 
         currentIndex += 1
         return try T(from: nestedDecoder)
-    }
-
-    private func unsupportedTypeError<A, R>(_ actual: A.Type, replacement: R.Type) -> FastRPCDecodingError {
-        return FastRPCDecodingError.unsupportedType(actual, replacement: replacement)
     }
 }
