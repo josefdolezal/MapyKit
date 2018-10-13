@@ -22,8 +22,9 @@ class ViewController: UIViewController {
         CLLocationCoordinate2D(latitude: 50.068706, longitude: 14.710968)
     ]
 
-    private let mapyView = MapyView()
-    private let tableView = UITableView()
+    @IBOutlet weak var mapyView: MapyView!
+    @IBOutlet weak var tableView: UITableView!
+    
     private let service = MapyAPIService()
 
     private var currentMapType = ExtendedMapType.standard
@@ -32,28 +33,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Add views to view hierarchy
-        view.addSubview(mapyView)
-        view.addSubview(tableView)
-
-        mapyView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-
-        // Layout view to edges of superview
-        NSLayoutConstraint.activate([
-            mapyView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mapyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mapyView.topAnchor.constraint(equalTo: view.topAnchor),
-        ])
-
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: mapyView.bottomAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
-        ])
 
         // Setup table view
         tableView.dataSource = self

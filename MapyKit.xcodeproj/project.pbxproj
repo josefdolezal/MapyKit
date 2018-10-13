@@ -30,6 +30,7 @@
 		D20AF67F2171E8C100156AA8 /* Location+GeoHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF67E2171E8C100156AA8 /* Location+GeoHash.swift */; };
 		D20AF6812171E8D600156AA8 /* Location+GeoHashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6802171E8D600156AA8 /* Location+GeoHashTests.swift */; };
 		D20AF6852171F04800156AA8 /* NavigationPoint+CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6842171F04800156AA8 /* NavigationPoint+CodableTests.swift */; };
+		D20AF6882171F39000156AA8 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6872171F39000156AA8 /* NavigationViewController.swift */; };
 		D215D8A3213EFBB100296D74 /* MapyKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D215D8A1213EFBB100296D74 /* MapyKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D215D8AA213EFBF400296D74 /* MapyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8A9213EFBF400296D74 /* MapyView.swift */; };
 		D215D8AC213EFC3000296D74 /* MapyTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8AB213EFC3000296D74 /* MapyTileOverlay.swift */; };
@@ -187,6 +188,7 @@
 		D20AF67E2171E8C100156AA8 /* Location+GeoHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+GeoHash.swift"; sourceTree = "<group>"; };
 		D20AF6802171E8D600156AA8 /* Location+GeoHashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+GeoHashTests.swift"; sourceTree = "<group>"; };
 		D20AF6842171F04800156AA8 /* NavigationPoint+CodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationPoint+CodableTests.swift"; sourceTree = "<group>"; };
+		D20AF6872171F39000156AA8 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		D215D89E213EFBB100296D74 /* MapyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D215D8A1213EFBB100296D74 /* MapyKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapyKit.h; sourceTree = "<group>"; };
 		D215D8A2213EFBB100296D74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -389,9 +391,10 @@
 			children = (
 				D285541D2141C90C00C7E423 /* Supporting Files */,
 				D285541E2141C92800C7E423 /* Extensions */,
-				D227AD6F213F0F120003DE4C /* ViewController.swift */,
 				D28554172141B5EB00C7E423 /* MapTypeCell.swift */,
+				D227AD6F213F0F120003DE4C /* ViewController.swift */,
 				D2C5565A216D1E2A00451CF8 /* SearchViewController.swift */,
+				D20AF6872171F39000156AA8 /* NavigationViewController.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -905,6 +908,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D20AF6882171F39000156AA8 /* NavigationViewController.swift in Sources */,
 				D2C5565B216D1E2A00451CF8 /* SearchViewController.swift in Sources */,
 				D28554182141B5EB00C7E423 /* MapTypeCell.swift in Sources */,
 				D28554162141B3A300C7E423 /* ExtendedMapType+Titles.swift in Sources */,
