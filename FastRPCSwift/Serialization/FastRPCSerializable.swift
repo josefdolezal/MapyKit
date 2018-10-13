@@ -100,7 +100,9 @@ private class FastRPCUnboxer {
 
     private func unbox(_ type: Int.Type) throws -> Int {
         // Check first for type information (without last 3 additional info bits)
-        let type = Int(data.first! & 0xF8)
+        guard let type = data.first.map({ Int($0 & 0xF8) }) else {
+            throw FastRPCDecodingError.corruptedData
+        }
 
         // Switch over int identifier
         switch type {
@@ -303,6 +305,8 @@ private class FastRPCUnboxer {
     }
 
     private func unbox(_ type: Fault.Type) throws -> Fault {
+        // Throw out fault response signature
+        _ = try expectTypeAdditionalInfo()
         // Try to decode fault content
         do {
             let code = try unbox(Int.self)
@@ -340,8 +344,8 @@ private class FastRPCUnboxer {
             throw FastRPCDecodingError.missingTypeIdentifier
         }
 
-        // Extend type to multibyte representation
-        let extendedTypeInfo = (typeInfo << 8) + 0x11
+        // Extend type to multibyte representation, add last three bytes by adding '2'
+        let extendedTypeInfo = ((typeInfo + 2) << 8) + 0x11
 
         // Explicitly check for non-data type information, which uses two
         // bytes instead of typical one.
