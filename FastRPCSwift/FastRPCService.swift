@@ -108,10 +108,18 @@ public final class FastRPCService {
                 return
             }
 
+            // The response comes encoded using base64, decode it before decoding response
+            guard let decoded = Data(base64Encoded: data) else {
+                // The response was not a valid base64 representation
+                failure(.unknown(error))
+
+                return
+            }
+
             // We have a response, decode it
             do {
                 // Decode the data as remote procedure response with return type of `T`
-                let response = try decoder.decode(Response<T>.self, from: data)
+                let response = try decoder.decode(Response<T>.self, from: decoded)
 
                 // Finish the request with response value
                 success(response.body)
