@@ -1,15 +1,17 @@
 //
-//  Data+FastRPCSerializableTests.swift
+//  FastRPCEncoder+DataTests.swift
 //  FastRPCSwiftTests
 //
-//  Created by Josef Dolezal on 21/09/2018.
+//  Created by Josef Dolezal on 13/10/2018.
 //  Copyright © 2018 Josef Dolezal. All rights reserved.
 //
 
 import XCTest
 @testable import FastRPCSwift
 
-class Data_FastRPCSerializableTests: XCTestCase {
+class FastRPCEncoder_DataTests: XCTestCase {
+    let encoder = FastRPCEncoder()
+
     func testSerializeRawData() {
         // Run random tests
         for _ in 0..<10 {
@@ -18,7 +20,7 @@ class Data_FastRPCSerializableTests: XCTestCase {
             let identifier = UInt8(FastRPCObejectType.binary.identifier + bytes.count.nonTrailingBytesCount - 1)
             let data = Data(bytes: bytes)
 
-            XCTAssertEqual(try [UInt8](data.serialize().data), [identifier, UInt8(bytes.count)] + bytes)
+            XCTAssertEqual(try [UInt8](encoder.encode(data)), [identifier, UInt8(bytes.count)] + bytes)
         }
     }
 }
