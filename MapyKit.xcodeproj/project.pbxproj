@@ -31,6 +31,8 @@
 		D20AF6812171E8D600156AA8 /* Location+GeoHashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6802171E8D600156AA8 /* Location+GeoHashTests.swift */; };
 		D20AF6852171F04800156AA8 /* NavigationPoint+CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6842171F04800156AA8 /* NavigationPoint+CodableTests.swift */; };
 		D20AF6882171F39000156AA8 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6872171F39000156AA8 /* NavigationViewController.swift */; };
+		D212C7CE2175367D00E3CF14 /* Directions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212C7CD2175367D00E3CF14 /* Directions.swift */; };
+		D212C7D0217539EF00E3CF14 /* Directions+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212C7CF217539EF00E3CF14 /* Directions+Codable.swift */; };
 		D215D8A3213EFBB100296D74 /* MapyKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D215D8A1213EFBB100296D74 /* MapyKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D215D8AA213EFBF400296D74 /* MapyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8A9213EFBF400296D74 /* MapyView.swift */; };
 		D215D8AC213EFC3000296D74 /* MapyTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D215D8AB213EFC3000296D74 /* MapyTileOverlay.swift */; };
@@ -180,6 +182,8 @@
 		D20AF6802171E8D600156AA8 /* Location+GeoHashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+GeoHashTests.swift"; sourceTree = "<group>"; };
 		D20AF6842171F04800156AA8 /* NavigationPoint+CodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationPoint+CodableTests.swift"; sourceTree = "<group>"; };
 		D20AF6872171F39000156AA8 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
+		D212C7CD2175367D00E3CF14 /* Directions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Directions.swift; sourceTree = "<group>"; };
+		D212C7CF217539EF00E3CF14 /* Directions+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Directions+Codable.swift"; sourceTree = "<group>"; };
 		D215D89E213EFBB100296D74 /* MapyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D215D8A1213EFBB100296D74 /* MapyKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapyKit.h; sourceTree = "<group>"; };
 		D215D8A2213EFBB100296D74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -541,6 +545,7 @@
 			children = (
 				D28776F62156DEB60007C378 /* TransportType.swift */,
 				D2877705215805650007C378 /* NavigationPoint.swift */,
+				D212C7CD2175367D00E3CF14 /* Directions.swift */,
 				D2C25BC82159814D00A78896 /* Location.swift */,
 				D2C3B0582169FEC400B1F257 /* Place.swift */,
 				D258E9D8216AAC29009F752B /* Suggestions.swift */,
@@ -567,6 +572,7 @@
 				D2A370BF215E5FF00096D219 /* Location+Codable.swift */,
 				D2C3B05A216A0DF100B1F257 /* Place+Codable.swift */,
 				D20AF67E2171E8C100156AA8 /* Location+GeoHash.swift */,
+				D212C7CF217539EF00E3CF14 /* Directions+Codable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -895,6 +901,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D28776F22156DA8E0007C378 /* MapyAPIService.swift in Sources */,
+				D212C7CE2175367D00E3CF14 /* Directions.swift in Sources */,
+				D212C7D0217539EF00E3CF14 /* Directions+Codable.swift in Sources */,
 				D258E9D9216AAC29009F752B /* Suggestions.swift in Sources */,
 				D2A370C2215E607A0096D219 /* NavigationPoint+Codable.swift in Sources */,
 				D258E9E0216AAFD3009F752B /* JSONService.swift in Sources */,
