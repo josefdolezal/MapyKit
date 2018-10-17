@@ -206,7 +206,18 @@ fileprivate struct FRPCKeyedDecodingContainer<Key: CodingKey>: KeyedDecodingCont
     }
 
     func nestedUnkeyedContainer(forKey key: Key) throws -> UnkeyedDecodingContainer {
-        fatalError()
+        decoder.codingPath.append(key)
+        defer { _ = decoder.codingPath.popLast() }
+
+        guard let value = container[key.stringValue] else {
+            throw FastRPCDecodingError.keyNotFound(key)
+        }
+
+        guard let nestedContainer = value as? [Any] else {
+            throw FastRPCDecodingError.typeMismatch(expected: [Any].self, actual: value)
+        }
+
+        return FRPCUnkeyedDecodingContainer(decoder: decoder, container: nestedContainer)
     }
 
     // MARK: Unsupported types
