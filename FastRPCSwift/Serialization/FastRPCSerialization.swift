@@ -55,8 +55,20 @@ private class FastRPCBoxer {
 
     public func box() throws -> Data {
         switch container {
+        case let null as NSNull:
+            return try box(null)
         case let bool as Bool:
             return try box(bool)
+        case let string as String:
+            return try box(string)
+        case let double as Double:
+            return try box(double)
+        case let int as Int:
+            return try box(int)
+        case let data as Data:
+            return try box(data)
+        case let date as Date:
+            return try box(date)
         default:
             fatalError()
         }
