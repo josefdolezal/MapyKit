@@ -40,6 +40,165 @@ public class FastRPCSerialization {
     }
 }
 
+private class FastRPCBoxer {
+    // MARK: Properties
+
+    private var container: Any
+
+    // MARK: Initializers
+
+    init(container: Any) {
+        self.container = container
+    }
+
+    // MARK: Public API
+
+    public func box() throws -> Data {
+        switch container {
+        case let bool as Bool:
+            return try box(bool)
+        default:
+            fatalError()
+        }
+    }
+
+    // MARK: Private API
+
+    private func box(_ value: NSNull) throws -> Data {
+        let nilIdentifier = FastRPCObejectType.nil.identifier
+
+        return nilIdentifier.usedBytes
+    }
+
+    private func box(_ value: Bool) throws -> Data {
+        let identifier = FastRPCObejectType.bool.identifier
+
+        // Increase identifier if current value is `true`
+        let data = value
+            ? identifier + 1
+            : identifier
+
+        return data.usedBytes
+    }
+
+    private func box(_ value: String) throws -> Data {
+        // Try ot convert UTF8 string into data
+        guard let stringData = value.data(using: .utf8) else {
+            // Throw error on failure
+            throw FastRPCError.requestEncoding(self, nil)
+        }
+
+        // Encode data size into bytes
+        let dataBytesSize = stringData.count.usedBytes
+        // Create identifier (id + encoded data size)
+        let identifier = FastRPCObejectType.string.identifier + (dataBytesSize.count - 1)
+        // Create data container for final encoded value
+        var data = identifier.usedBytes
+
+        // Combine identifier, content length and content
+        data.append(dataBytesSize)
+        data.append(stringData)
+
+        // Return converted data
+        return data
+    }
+
+    private func box(_ value: Double) throws -> Data {
+        // Create identifier exactly 1B in length
+        var data = FastRPCObejectType.double.identifier.usedBytes
+        // Serialize double using IEEE 754 standard (exactly 8B)
+        var bitRepresentation = value.bitPattern
+        data.append(Data(bytes: &bitRepresentation, count: bitRepresentation.bitWidth / 8))
+
+        // Combbine identifier with number data
+        return data
+    }
+
+    private func box(_ value: Int) throws -> Data {
+        // Determine the type of current value
+        let type: FastRPCObejectType = value < 0
+            ? .int8n
+            : .int8p
+        // Create copy of `self` and ignore it's sign
+        var copy = abs(value)
+        // Create identifier using type ID increased by NLEN
+        var identifier = type.identifier + (copy.nonTrailingBytesCount - 1)
+
+        // Create data from identifier (alway 1B lenght)
+        var identifierData = Data(bytes: &identifier, count: 1)
+        let intData = Data(bytes: &copy, count: copy.nonTrailingBytesCount)
+
+        // Concat data (type + value)
+        identifierData.append(intData)
+
+        // Stored encoded value
+        return identifierData
+    }
+
+    private func box(_ value: Data) throws -> Data {
+        // Create data buffer
+        var data = Data()
+        // Create identifier based on binary length
+        let identifier = FastRPCObejectType.binary.identifier + min(0, value.count.nonTrailingBytesCount - 1)
+
+        // Serialize identifier and raw data
+        data.append(identifier.usedBytes)
+        data.append(value.count.usedBytes)
+        data.append(value)
+
+        return data
+    }
+
+    private func box(_ value: Date) throws -> Data {
+        let calendar = Calendar.current
+        let identifier = FastRPCObejectType.dateTime.identifier
+        let dateComponents = calendar.dateComponents([.year, .month, .day, .weekday, .hour, .minute, .second], from: value)
+        // Timezone is represented using hour quarters -> so we convert seconds
+        // to minutes (by dividing by 60) and then to hour quartes (by dividing by 15)
+        // which for short is dividing by 900
+        let timezoneDifference = TimeZone.current.secondsFromGMT() / 900
+        // Since timezone difference is always positive, we have to explicitly check
+        // whether the timezone is before/after GMT. Advance negative values by 256.
+        let timezone = value.isTimezoneAfterGMT()
+            // Advance negative values by 256
+            ? 256 - timezoneDifference
+                // Keep positive values as is
+            : timezoneDifference
+        let timestamp = Int(value.timeIntervalSince1970)
+
+        // Get components
+        let year = max(0, min(dateComponents.year! - 1600, 2047))
+        let month = dateComponents.month!
+        let day = dateComponents.day!
+        // Week starts at sunday and it's ordinal number is '1', we want the sunday to be '0'
+        let weekday = dateComponents.weekday! - 1
+        let hour = dateComponents.hour!
+        let minute = dateComponents.minute!
+        let second = dateComponents.second!
+
+        // Define data structure
+        let bytes = [
+            identifier.truncatedBytes(to: 1),
+            timezone.truncatedBytes(to: 1),
+            timestamp.truncatedBytes(to: 4),
+            ((second & 31) << 3 | weekday & 7).truncatedBytes(to: 1),
+            ((minute & 63) << 1 | (second & 32) >> 5 | (hour & 1) << 7).truncatedBytes(to: 1),
+            ((hour & 30) >> 1 | (day & 15) << 4).truncatedBytes(to: 1),
+            ((day & 31) >> 4 | (month & 15) << 1 | (year & 7) << 5).truncatedBytes(to: 1),
+            ((year & 2040) >> 3).truncatedBytes(to: 1)
+        ]
+
+        // Combine the data into single result
+        let data = bytes.reduce(Data(), +)
+
+        return data
+    }
+
+    private func box(_ type: Procedure0) throws -> Data {
+        fatalError()
+    }
+}
+
 private class FastRPCUnboxer {
     private var data: Data
 
