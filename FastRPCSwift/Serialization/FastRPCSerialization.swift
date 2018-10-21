@@ -28,15 +28,13 @@ public class FastRPCSerialization {
     static func object(with data: Data) throws -> Any {
         let unboxer = FastRPCUnboxer(data: data)
 
-        let any = try unboxer.unbox()
-
-        dump(any)
-
-        return any
+        return try unboxer.unbox()
     }
 
     static func data(withObject object: Any) throws -> Data {
-        fatalError()
+        let boxer = FastRPCBoxer(container: object)
+
+        return try boxer.box()
     }
 }
 
