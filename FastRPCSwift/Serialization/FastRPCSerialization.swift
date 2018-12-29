@@ -38,6 +38,66 @@ public class FastRPCSerialization {
     }
 }
 
+class Procedure: Codable {
+    var name: String
+    var arguments: [Any]
+
+    init(name: String, arguments: [Any]) {
+        self.name = name
+        self.arguments = arguments
+    }
+
+    required init(from decoder: Decoder) throws {
+        // Due to limitations of type system, we do not support 3rd party decoders
+        assert(decoder is FastRPCDecoder, "FastRPC Procedure is only decodable from internal FastRPCDecoder.")
+
+        // Decode procedure as temporary variable and initialize `self` using this var.
+        // This workaround due to usage of [Any] as arguments list, the initializer cannot
+        // be synthetized by compiler.
+        let container = try decoder.singleValueContainer()
+        let procedure = try container.decode(Procedure.self)
+
+        self.name = procedure.name
+        self.arguments = procedure.arguments
+    }
+
+    func encode(to encoder: Encoder) throws {
+        // Due to limitations of type system, we do not support 3rd party encoders.
+        // This workaround due to usage of [Any] as arguments list, the encoding method cannot
+        // be synthetized by compiler.
+        assert(encoder is FastRPCEncoder, "FastRPC Procedure is only encodable using internal FastRPCEncoder.")
+
+        var container = encoder.unkeyedContainer()
+
+        try container.encode(self)
+    }
+}
+
+class UntypedResponse: Codable {
+    var value: Any
+
+    init(value: Any) {
+        self.value = value
+    }
+
+    required init(from decoder: Decoder) throws {
+        assert(decoder is FastRPCDecoder, "FastRPC Response is only decodable from internal FastRPCDecoder.")
+
+        let container = try decoder.singleValueContainer()
+        let response = try container.decode(UntypedResponse.self)
+
+        self.value = response.value
+    }
+
+    func encode(to encoder: Encoder) throws {
+        assert(encoder is FastRPCEncoder, "FastRPC Response is only encodable using internal FastRPCEncoder.")
+
+        var container = encoder.singleValueContainer()
+
+        try container.encode(self)
+    }
+}
+
 private class FastRPCBoxer {
     // MARK: Properties
 
@@ -52,6 +112,64 @@ private class FastRPCBoxer {
     // MARK: Public API
 
     public func box() throws -> Data {
+        // FRPC standard allows only certain objects to be at top-level, check for these
+        // before boxing potential nested containers.
+        switch container {
+        case let fault as Fault:
+            return try box(fault)
+        case let procedure as Procedure:
+            return try box(procedure)
+        case let response as UntypedResponse:
+            return try box(response)
+        default:
+            fatalError("Unsupported top-level type")
+        }
+    }
+
+    // MARK: Private API
+
+    // MARK: Top level non-data types
+
+    private func box(_ value: Procedure) throws -> Data {
+        let identifier = FastRPCObejectType.procedure.identifier.usedBytes
+
+        // Encode procedure data using utf8
+        guard let nameData = value.name.data(using: .utf8) else {
+            throw FastRPCError.requestEncoding(self, nil)
+        }
+
+        // Get bytes representation of encoded name length
+        let nameSize = nameData.count.usedBytes
+        // Encode arguments one-by-one as linear data
+        let arguments = try value.arguments
+            // Encode each argument separately
+            .map { argument in
+                try box(argument)
+            }
+            // Combine array of arguments into flat data structure
+            .reduce(Data(), +)
+
+        // Combine all procedure calls informations
+        return identifier + nameSize + nameData + arguments
+    }
+
+    private func box(_ value: Fault) throws -> Data {
+        let identifier = FastRPCObejectType.fault.identifier.usedBytes
+
+        let codeData = value.code.usedBytes
+
+        guard let nameData = value.message.data(using: .utf8) else {
+            throw FastRPCError.requestEncoding(self, nil)
+        }
+
+        return identifier + codeData + nameData
+    }
+
+    private func box(_ value: UntypedResponse) throws -> Data { fatalError() }
+
+    // MARK: Box type evaluation
+
+    func box(_ value: Any) throws -> Data {
         switch container {
         case let null as NSNull:
             return try box(null)
@@ -72,7 +190,7 @@ private class FastRPCBoxer {
         }
     }
 
-    // MARK: Private API
+    // MARK: Box specific types
 
     private func box(_ value: NSNull) throws -> Data {
         let nilIdentifier = FastRPCObejectType.nil.identifier
@@ -202,10 +320,6 @@ private class FastRPCBoxer {
         let data = bytes.reduce(Data(), +)
 
         return data
-    }
-
-    private func box(_ type: Procedure0) throws -> Data {
-        fatalError()
     }
 }
 
@@ -437,27 +551,24 @@ private class FastRPCUnboxer {
     private func unboxProcedure() throws -> Any {
         // Ignore the additional type info
         _ = try expectTypeAdditionalInfo()
-        // Get number of procedure name bytes count
+        // Get number of bytes used by procedure name
         let size = try Int(data: expectBytes(count: 1))
-        // Get the procedure data and convert it to string
+        // Get the procedure name data and convert it to string
         let nameData = try expectBytes(count: size)
 
+        // The name must be encoded using UTF8
         guard let name = String(data: nameData, encoding: .utf8) else {
             throw FastRPCDecodingError.corruptedData
         }
 
-        // Procedures does not match the standard structure of data since it's not
-        // neither single value, key-value container or collection container.
-        // Therefore we internaly have to create procedure structured and decode it
-        // as structured data.
-        switch size {
-        case 0:
-            return Procedure0(name: name)
-        case 1:
-            return try unboxProcedure1(name: name)
-        default:
-            throw FastRPCDecodingError.corruptedData
+        fatalError("Check if the size used for encode parameters is the correct one.")
+
+        // We expect the parameters to be lineary aligned
+        let arguments = try (0..<size).map { _ -> Any in
+            try unbox()
         }
+
+        return Procedure(name: name, arguments: arguments)
     }
 
     private func unboxResponse() throws -> Any {
@@ -480,22 +591,6 @@ private class FastRPCUnboxer {
             // Throw custom error if either code or messae decoding fails
             throw FastRPCDecodingError.corruptedData
         }
-    }
-
-    // MARK: Procedures unboxing
-
-    private func unboxProcedure1(name: String) throws -> Any {
-        return try structurizeProcedure(name: name, args: unbox())
-    }
-
-    private func structurizeProcedure(name: String, args: Any...) -> Any {
-        // Create fake structure
-        let structure = NSDictionary(dictionary: [
-            "name": name,
-            "arguments": args
-        ])
-
-        return structure
     }
 
     // MARK: Private API
