@@ -165,7 +165,15 @@ private class FastRPCBoxer {
         return identifier + codeData + nameData
     }
 
-    private func box(_ value: UntypedResponse) throws -> Data { fatalError() }
+    private func box(_ value: UntypedResponse) throws -> Data {
+        // Encode static identifier
+        let identifier = FastRPCObejectType.response.identifier.usedBytes
+        // Encode arbitrary (encodable) value
+        let valueData = try box(value.value)
+
+        // Combine identifier and its data
+        return identifier + valueData
+    }
 
     // MARK: Box type evaluation
 
@@ -185,6 +193,16 @@ private class FastRPCBoxer {
             return try box(data)
         case let date as Date:
             return try box(date)
+        case let fault as Fault:
+            return try box(fault)
+        case let procedure as Procedure:
+            return try box(procedure)
+        case let response as UntypedResponse:
+            return try box(response)
+        case let array as NSArray:
+            fatalError()
+        case let structure as NSDictionary:
+            fatalError()
         default:
             fatalError()
         }
@@ -259,6 +277,8 @@ private class FastRPCBoxer {
         // Concat data (type + value)
         identifierData.append(intData)
 
+        #warning("Encode Int based on current frpc version specified by user")
+
         // Stored encoded value
         return identifierData
     }
@@ -320,6 +340,14 @@ private class FastRPCBoxer {
         let data = bytes.reduce(Data(), +)
 
         return data
+    }
+
+    private func box(_ value: NSArray) throws -> Data {
+        fatalError()
+    }
+
+    private func box(_ value: NSDictionary) throws -> Data {
+        fatalError()
     }
 }
 
