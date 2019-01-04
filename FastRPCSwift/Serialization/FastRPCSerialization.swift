@@ -343,7 +343,22 @@ private class FastRPCBoxer {
     }
 
     private func box(_ value: NSArray) throws -> Data {
-        fatalError()
+        let identifier = FastRPCObejectType.array.identifier
+        // Get raw representation of array length
+        let countData = value.count.usedBytes
+        // Encode the identifier
+        let identifierData = (identifier + countData.count).usedBytes
+        // Box all elements from collection
+        let elementsData = try value
+            // Box the elements
+            .map { element in
+                try box(element)
+            }
+            // Flatten the array of raw data
+            .reduce(Data(), +)
+
+        // Compose the final value using identifier, count and elements data
+        return identifierData + countData + elementsData
     }
 
     private func box(_ value: NSDictionary) throws -> Data {
