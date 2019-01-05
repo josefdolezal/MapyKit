@@ -200,9 +200,9 @@ private class FastRPCBoxer {
         case let response as UntypedResponse:
             return try box(response)
         case let array as NSArray:
-            fatalError()
+            return try box(array)
         case let structure as NSDictionary:
-            fatalError()
+            return try box(structure)
         default:
             fatalError()
         }
@@ -358,11 +358,36 @@ private class FastRPCBoxer {
             .reduce(Data(), +)
 
         // Compose the final value using identifier, count and elements data
-        return identifierData + countData + elementsData
+        return identifierData + value.count.usedBytes + elementsData
     }
 
     private func box(_ value: NSDictionary) throws -> Data {
-        fatalError()
+        let identifier = FastRPCObejectType.struct.identifier
+        // Get raw representation of number of fields
+        let nlen = self.nlen(forCount: value.count)
+        // Encode the identifier
+        let identifierData = (identifier + nlen).usedBytes
+        // Box all struct fields
+        let fields = try value
+            .map { key, value -> Data in
+                #warning("Should check safely for key type")
+                // Encode the field name
+                let keyData = (key as! String).data(using: .utf8)!
+                // Encode arbitrary field value
+                let valueData = try box(value)
+
+                // Combine key-value pair data
+                return keyData.count.usedBytes + keyData + valueData
+            }
+            // Flatten fields into linear data representation
+            .reduce(Data(), +)
+
+        // Combine the structure meta with fields data
+        return identifierData + value.count.usedBytes + fields
+    }
+
+    private func nlen(forCount count: Int) -> Int {
+        return max(0, count.usedBytes.count - 1)
     }
 }
 
