@@ -237,27 +237,21 @@ private class FastRPCBoxer {
         // Encode data size into bytes
         let dataBytesSize = stringData.count.usedBytes
         // Create identifier (id + encoded data size)
-        let identifier = FastRPCObejectType.string.identifier + (dataBytesSize.count - 1)
-        // Create data container for final encoded value
-        var data = identifier.usedBytes
-
-        // Combine identifier, content length and content
-        data.append(dataBytesSize)
-        data.append(stringData)
+        let identifier = FastRPCObejectType.string.identifier + nlen(forCount: dataBytesSize.count)
 
         // Return converted data
-        return data
+        return identifier.usedBytes + dataBytesSize + stringData
     }
 
     private func box(_ value: Double) throws -> Data {
         // Create identifier exactly 1B in length
-        var data = FastRPCObejectType.double.identifier.usedBytes
+        let identifierData = FastRPCObejectType.double.identifier.usedBytes
         // Serialize double using IEEE 754 standard (exactly 8B)
         var bitRepresentation = value.bitPattern
-        data.append(Data(bytes: &bitRepresentation, count: bitRepresentation.bitWidth / 8))
+        let valueData = Data(bytes: &bitRepresentation, count: bitRepresentation.bitWidth / 8)
 
-        // Combbine identifier with number data
-        return data
+        // Combine identifier with number data
+        return identifierData + valueData
     }
 
     private func box(_ value: Int) throws -> Data {
@@ -266,35 +260,24 @@ private class FastRPCBoxer {
             ? .int8n
             : .int8p
         // Create copy of `self` and ignore it's sign
-        var copy = abs(value)
+        let unsigned = abs(value)
         // Create identifier using type ID increased by NLEN
-        var identifier = type.identifier + (copy.nonTrailingBytesCount - 1)
-
-        // Create data from identifier (alway 1B lenght)
-        var identifierData = Data(bytes: &identifier, count: 1)
-        let intData = Data(bytes: &copy, count: copy.nonTrailingBytesCount)
-
-        // Concat data (type + value)
-        identifierData.append(intData)
+        let identifierData = (type.identifier + nlen(forCount: unsigned.nonTrailingBitsCount)).usedBytes
+        // Encode value itself
+        let intData = unsigned.usedBytes
 
         #warning("Encode Int based on current frpc version specified by user")
 
-        // Stored encoded value
-        return identifierData
+        // Combine identifier with encoded value
+        return identifierData + intData
     }
 
     private func box(_ value: Data) throws -> Data {
-        // Create data buffer
-        var data = Data()
         // Create identifier based on binary length
-        let identifier = FastRPCObejectType.binary.identifier + min(0, value.count.nonTrailingBytesCount - 1)
+        let identifier = FastRPCObejectType.binary.identifier + nlen(forCount: value.count)
 
-        // Serialize identifier and raw data
-        data.append(identifier.usedBytes)
-        data.append(value.count.usedBytes)
-        data.append(value)
-
-        return data
+        // Combine meta info with value
+        return identifier.usedBytes + value.count.usedBytes + value
     }
 
     private func box(_ value: Date) throws -> Data {
@@ -345,9 +328,9 @@ private class FastRPCBoxer {
     private func box(_ value: NSArray) throws -> Data {
         let identifier = FastRPCObejectType.array.identifier
         // Get raw representation of array length
-        let countData = value.count.usedBytes
+        let nlen = self.nlen(forCount: value.count)
         // Encode the identifier
-        let identifierData = (identifier + countData.count).usedBytes
+        let identifierData = (identifier + nlen).usedBytes
         // Box all elements from collection
         let elementsData = try value
             // Box the elements
