@@ -50,7 +50,11 @@ public final class MapyAPIService {
         // Create procedure from given parameters
         let procedure = MapyAPIService.createNavigationProcedure(from: from, to: to, through: through)
 
-        return frpcService.call(path: "tplanner", procedure: procedure, success: success, failure: failure)
+        #warning("Implement procedure call")
+
+        fatalError()
+
+//        return frpcService.call(path: "tplanner", procedure: procedure, success: success, failure: failure)
     }
 
     @discardableResult
@@ -75,8 +79,11 @@ public final class MapyAPIService {
         // Merge serialiable points
         let locations = [from] + through + [to]
         // Create the procedure call representation
-        let procedure = Procedure1(name: "route", arg1: locations)
+//        let procedure = Procedure1(name: "route", arg1: locations)
 
-        return procedure
+        #warning("Implement procedure call")
+        fatalError()
+
+//        return procedure
     }
 }

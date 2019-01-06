@@ -38,30 +38,33 @@ public class FastRPCSerialization {
     }
 }
 
-class Procedure: Codable {
+public struct Procedure1<Arg: Codable>: Codable {
     var name: String
-    var arguments: [Any]
+    var arg: Arg
 
-    init(name: String, arguments: [Any]) {
+    public init(name: String, arg: Arg) {
         self.name = name
-        self.arguments = arguments
+        self.arg = arg
     }
 
-    required init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         // Due to limitations of type system, we do not support 3rd party decoders
-        assert(decoder is FastRPCDecoder, "FastRPC Procedure is only decodable from internal FastRPCDecoder.")
+        guard let decoder = decoder as? _FastRPCDecoder else {
+            assertionFailure("FastRPC Procedure is only decodable from internal FastRPCDecoder.")
+            #warning("Should not fatal error here")
+            fatalError()
+        }
 
         // Decode procedure as temporary variable and initialize `self` using this var.
         // This workaround due to usage of [Any] as arguments list, the initializer cannot
         // be synthetized by compiler.
-        let container = try decoder.singleValueContainer()
-        let procedure = try container.decode(Procedure.self)
+        var container = try decoder.procedureContainer()
 
-        self.name = procedure.name
-        self.arguments = procedure.arguments
+        self.name = try container.decode(String.self)
+        self.arg = try container.decode(Arg.self)
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         // Due to limitations of type system, we do not support 3rd party encoders.
         // This workaround due to usage of [Any] as arguments list, the encoding method cannot
         // be synthetized by compiler.
@@ -70,6 +73,43 @@ class Procedure: Codable {
         var container = encoder.unkeyedContainer()
 
         try container.encode(self)
+    }
+}
+
+public struct Procedure2<Arg1: Codable, Arg2: Codable>: Codable {
+    var name: String
+    var arg1: Arg1
+    var arg2: Arg2
+
+    public init(name: String, arg1: Arg1, arg2: Arg2) {
+        self.name = name
+        self.arg1 = arg1
+        self.arg2 = arg2
+    }
+
+    public init(drom decoder: Decoder) throws {
+        // Due to limitations of type system, we do not support 3rd party decoders
+        guard let decoder = decoder as? _FastRPCDecoder else {
+            assertionFailure("FastRPC Procedure is only decodable from internal FastRPCDecoder.")
+            #warning("Should not fatal error here")
+            fatalError()
+        }
+
+        var container = try decoder.procedureContainer()
+
+        self.name = try container.decode(String.self)
+        self.arg1 = try container.decode(Arg1.self)
+        self.arg2 = try container.decode(Arg2.self)
+    }
+}
+
+class UntypedProcedure {
+    var name: String
+    var arguments: [Any]
+
+    init(name: String, arguments: [Any]) {
+        self.name = name
+        self.arguments = arguments
     }
 }
 
@@ -117,7 +157,7 @@ private class FastRPCBoxer {
         switch container {
         case let fault as Fault:
             return try box(fault)
-        case let procedure as Procedure:
+        case let procedure as UntypedProcedure:
             return try box(procedure)
         case let response as UntypedResponse:
             return try box(response)
@@ -130,7 +170,7 @@ private class FastRPCBoxer {
 
     // MARK: Top level non-data types
 
-    private func box(_ value: Procedure) throws -> Data {
+    private func box(_ value: UntypedProcedure) throws -> Data {
         let identifier = FastRPCObejectType.procedure.identifier.usedBytes
 
         // Encode procedure data using utf8
@@ -195,7 +235,7 @@ private class FastRPCBoxer {
             return try box(date)
         case let fault as Fault:
             return try box(fault)
-        case let procedure as Procedure:
+        case let procedure as UntypedProcedure:
             return try box(procedure)
         case let response as UntypedResponse:
             return try box(response)
@@ -204,6 +244,7 @@ private class FastRPCBoxer {
         case let structure as NSDictionary:
             return try box(structure)
         default:
+            #warning("Should throw an error")
             fatalError()
         }
     }
@@ -619,7 +660,7 @@ private class FastRPCUnboxer {
             try unbox()
         }
 
-        return Procedure(name: name, arguments: arguments)
+        return UntypedProcedure(name: name, arguments: arguments)
     }
 
     private func unboxResponse() throws -> Any {

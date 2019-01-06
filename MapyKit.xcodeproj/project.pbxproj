@@ -69,7 +69,6 @@
 		D28776E0215513920007C378 /* FastRPCError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2385240214EA57F000087DD /* FastRPCError.swift */; };
 		D28776E3215513920007C378 /* FastRPCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CD649A21519F8F0038014A /* FastRPCService.swift */; };
 		D28776EC215531CD0007C378 /* Data+Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776EB215531CD0007C378 /* Data+Bytes.swift */; };
-		D28776F0215561480007C378 /* Procedure.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776EF215561480007C378 /* Procedure.swift */; };
 		D28776F22156DA8E0007C378 /* MapyAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776F12156DA8E0007C378 /* MapyAPIService.swift */; };
 		D28776F72156DEB60007C378 /* TransportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776F62156DEB60007C378 /* TransportType.swift */; };
 		D28776FD215709610007C378 /* FastRPCProtocolVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28776FC215709610007C378 /* FastRPCProtocolVersion.swift */; };
@@ -222,7 +221,6 @@
 		D28776C3215512450007C378 /* FastRPCSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FastRPCSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D28776C7215512450007C378 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D28776EB215531CD0007C378 /* Data+Bytes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Bytes.swift"; sourceTree = "<group>"; };
-		D28776EF215561480007C378 /* Procedure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Procedure.swift; sourceTree = "<group>"; };
 		D28776F12156DA8E0007C378 /* MapyAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapyAPIService.swift; sourceTree = "<group>"; };
 		D28776F62156DEB60007C378 /* TransportType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportType.swift; sourceTree = "<group>"; };
 		D28776FC215709610007C378 /* FastRPCProtocolVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCProtocolVersion.swift; sourceTree = "<group>"; };
@@ -496,7 +494,6 @@
 				D2385240214EA57F000087DD /* FastRPCError.swift */,
 				D2385235214E91AF000087DD /* FastRPCObejectType.swift */,
 				D2CD649A21519F8F0038014A /* FastRPCService.swift */,
-				D28776EF215561480007C378 /* Procedure.swift */,
 				D28776FC215709610007C378 /* FastRPCProtocolVersion.swift */,
 				D2C5565C216F581100451CF8 /* Fault.swift */,
 				D20AF653216F9DBC00156AA8 /* Response.swift */,
@@ -940,7 +937,6 @@
 				D253360A2168BAC20031635C /* FastRPCDecoder.swift in Sources */,
 				D25336082168BAAE0031635C /* FastRPCEncoder.swift in Sources */,
 				D28776E3215513920007C378 /* FastRPCService.swift in Sources */,
-				D28776F0215561480007C378 /* Procedure.swift in Sources */,
 				D28776EC215531CD0007C378 /* Data+Bytes.swift in Sources */,
 				D2C5565D216F581100451CF8 /* Fault.swift in Sources */,
 				D2877702215800D70007C378 /* HTTPContentType.swift in Sources */,

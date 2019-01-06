@@ -40,7 +40,7 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
 
     // MARK: Decoder
 
-    public func container<Key>(keyedBy type: Key.Type) throws -> KeyedDecodingContainer<Key> where Key : CodingKey {
+    func container<Key>(keyedBy type: Key.Type) throws -> KeyedDecodingContainer<Key> where Key : CodingKey {
         guard let nestedContainer = container as? [String: Any] else {
             throw FastRPCDecodingError.typeMismatch(expected: [String: Any].self, actual: container)
         }
@@ -50,7 +50,7 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
         return KeyedDecodingContainer(keyedContainer)
     }
 
-    public func unkeyedContainer() throws -> UnkeyedDecodingContainer {
+    func unkeyedContainer() throws -> UnkeyedDecodingContainer {
         guard let nestedContainer = container as? [Any] else {
             throw FastRPCDecodingError.typeMismatch(expected: [Any].self, actual: container)
         }
@@ -58,8 +58,18 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
         return FRPCUnkeyedDecodingContainer(decoder: self, container: nestedContainer)
     }
 
-    public func singleValueContainer() throws -> SingleValueDecodingContainer {
+    func singleValueContainer() throws -> SingleValueDecodingContainer {
         return self
+    }
+
+    func procedureContainer() throws -> UnkeyedDecodingContainer {
+        guard let nestedContainer = container as? UntypedProcedure else {
+            throw FastRPCDecodingError.typeMismatch(expected: UntypedProcedure.self, actual: container)
+        }
+
+        // We decode the FRPC Call (Procedure) using array, where method name is first element,
+        // followed by collection of procedure arguments
+        return FRPCUnkeyedDecodingContainer(decoder: self, container: [nestedContainer.name] + nestedContainer.arguments)
     }
 
     // MARK: SingleValueDecodingContainer (Primitives)

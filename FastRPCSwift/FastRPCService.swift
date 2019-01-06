@@ -39,15 +39,15 @@ public final class FastRPCService {
 
     // MARK: Public API
 
-    @discardableResult
-    public func call<Response: Decodable>(path: String, procedure: Procedure0, success: @escaping (Response) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
-        return frpcCall(path: path, procedure: procedure, success: success, failure: failure)
-    }
-
-    @discardableResult
-    public func call<Response: Decodable, A: Encodable>(path: String, procedure: Procedure1<A>, success: @escaping (Response) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
-        return frpcCall(path: path, procedure: procedure, success: success, failure: failure)
-    }
+//    @discardableResult
+//    public func call<Response: Decodable>(path: String, procedure: Procedure0, success: @escaping (Response) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
+//        return frpcCall(path: path, procedure: procedure, success: success, failure: failure)
+//    }
+//
+//    @discardableResult
+//    public func call<Response: Decodable, A: Encodable>(path: String, procedure: Procedure1<A>, success: @escaping (Response) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
+//        return frpcCall(path: path, procedure: procedure, success: success, failure: failure)
+//    }
 
     // MARK: Private API
 
