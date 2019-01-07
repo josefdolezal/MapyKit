@@ -82,16 +82,17 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
     func decode(_ type: String.Type) throws -> String { return try unbox(type) }
     func decode(_ type: Int.Type)    throws -> Int    { return try unbox(type) }
     func decode(_ type: Double.Type) throws -> Double { return try unbox(type) }
-    func decode(_ type: Data.Type)   throws -> Data   { return try unbox(type) }
-    func decode(_ type: Date.Type)   throws -> Date   { return try unbox(type) }
 
     func decode<T>(_ type: T.Type) throws -> T where T: Decodable {
+        // In addition to standard decodable types, we know how to unbox
+        // Date and Data types
         switch type {
         case is Date.Type:
-            return try decode(Date.self) as! T
+            return try unbox(Date.self) as! T
         case is Data.Type:
-            return try decode(Data.self) as! T
+            return try unbox(Data.self) as! T
         default:
+            // We don't know how to unbox this type, fallback to it's initializer
             return try T(from: self)
         }
     }
@@ -185,6 +186,15 @@ fileprivate struct FRPCKeyedDecodingContainer<Key: CodingKey>: KeyedDecodingCont
     func decode(_ type: Int.Type, forKey key: Key)    throws -> Int    { return try unbox(type, forKey: key) }
 
     func decode<T>(_ type: T.Type, forKey key: Key) throws -> T where T : Decodable {
+        switch type {
+        case is Date.Type:
+            return try unbox(Date.self, forKey: key) as! T
+        case is Data.Type:
+            return try unbox(Data.self, forKey: key) as! T
+        default:
+            break
+        }
+
         guard let value = container[key.stringValue] else {
             throw FastRPCDecodingError.keyNotFound(key)
         }
@@ -321,6 +331,15 @@ fileprivate struct FRPCUnkeyedDecodingContainer: UnkeyedDecodingContainer {
     mutating func decode(_ type: Int.Type)    throws -> Int    { return try unbox(type) }
 
     mutating func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
+        switch type {
+        case is Date.Type:
+            return try unbox(Date.self) as! T
+        case is Data.Type:
+            return try unbox(Data.self) as! T
+        default:
+            break
+        }
+
         guard !isAtEnd else {
             throw FastRPCDecodingError.containerIsAtEnd
         }

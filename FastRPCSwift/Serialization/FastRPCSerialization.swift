@@ -151,7 +151,7 @@ private class FastRPCBoxer {
 
     // MARK: Public API
 
-    public func box() throws -> Data {
+    func box() throws -> Data {
         // FRPC standard allows only certain objects to be at top-level, check for these
         // before boxing potential nested containers.
         switch container {
@@ -162,6 +162,7 @@ private class FastRPCBoxer {
         case let response as UntypedResponse:
             return try box(response)
         default:
+            #warning("Throw unsupported type")
             fatalError("Unsupported top-level type")
         }
     }
@@ -422,10 +423,27 @@ private class FastRPCUnboxer {
         self.data = data
     }
 
-    public func unbox() throws -> Any {
+    func unbox() throws -> Any {
+        // Get the data type
+        let type = try validateType()
+
+        // We only support subset of types at top level
+        guard type == .nonDataType else {
+            throw FastRPCDecodingError.unexpectedTopLevelObject
+        }
+
+        // Unbox the non-data type
+        return try unboxNonDataType()
+    }
+
+    // MARK: Unbox type evaluation
+
+    private func unboxNestedValue() throws -> Any {
+        // Get the data type
         let type = try validateType()
 
         switch type {
+        // Primitives
         case .nil: return try unboxNil()
         case .bool: return try unbox(Bool.self)
         case .double: return try unbox(Double.self)
@@ -434,10 +452,12 @@ private class FastRPCUnboxer {
         case .dateTime: return try unbox(Date.self)
         case .binary: return try unbox(Data.self)
 
-        case .nonDataType: return try unboxNonDataType()
-
+        // Composite data types
         case .array: return try unbox(NSArray.self)
         case .struct: return try unbox(NSDictionary.self)
+
+        // Non-data types wrapper identifier
+        case .nonDataType: return try unboxNonDataType()
 
         // These must be wrapped inside non-data type
         case .procedure: throw FastRPCDecodingError.unexpectedTopLevelObject
@@ -514,7 +534,7 @@ private class FastRPCUnboxer {
 
         // Extract exactly `size` elements
         for _ in 0 ..< size {
-            try array.add(unbox())
+            try array.add(unboxNestedValue())
         }
 
         return array
@@ -539,7 +559,7 @@ private class FastRPCUnboxer {
                 throw FastRPCDecodingError.corruptedData
             }
             // Unbox arbitrary value
-            let value = try unbox()
+            let value = try unboxNestedValue()
 
             // Save key-value pair into structure
             structure.setValue(value, forKey: name)
@@ -657,7 +677,7 @@ private class FastRPCUnboxer {
 
         // We expect the parameters to be lineary aligned
         let arguments = try (0..<size).map { _ -> Any in
-            try unbox()
+            try unboxNestedValue()
         }
 
         return UntypedProcedure(name: name, arguments: arguments)
@@ -667,7 +687,7 @@ private class FastRPCUnboxer {
         // Remove the unused type information
         _ = try expectTypeAdditionalInfo()
         // Ignore the Response container, return it's content only
-        return try unbox()
+        return try unboxNestedValue()
     }
 
     private func unbox(_ type: Fault.Type) throws -> Fault {
