@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D20AF654216F9DBC00156AA8 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF653216F9DBC00156AA8 /* Response.swift */; };
 		D20AF6572170EE7F00156AA8 /* FastRPCDecoder+StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6562170EE7F00156AA8 /* FastRPCDecoder+StringTests.swift */; };
 		D20AF6592170FFD200156AA8 /* FastRPCDecoder+IntTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6582170FFD200156AA8 /* FastRPCDecoder+IntTests.swift */; };
 		D20AF65B2171004400156AA8 /* FastRPCDecoder+DoubleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF65A2171004400156AA8 /* FastRPCDecoder+DoubleTests.swift */; };
@@ -158,7 +157,6 @@
 
 /* Begin PBXFileReference section */
 		D202ADCA2152DC91004A6838 /* Date+Timezones.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Timezones.swift"; sourceTree = "<group>"; };
-		D20AF653216F9DBC00156AA8 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		D20AF6562170EE7F00156AA8 /* FastRPCDecoder+StringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCDecoder+StringTests.swift"; sourceTree = "<group>"; };
 		D20AF6582170FFD200156AA8 /* FastRPCDecoder+IntTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCDecoder+IntTests.swift"; sourceTree = "<group>"; };
 		D20AF65A2171004400156AA8 /* FastRPCDecoder+DoubleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCDecoder+DoubleTests.swift"; sourceTree = "<group>"; };
@@ -496,7 +494,6 @@
 				D2CD649A21519F8F0038014A /* FastRPCService.swift */,
 				D28776FC215709610007C378 /* FastRPCProtocolVersion.swift */,
 				D2C5565C216F581100451CF8 /* Fault.swift */,
-				D20AF653216F9DBC00156AA8 /* Response.swift */,
 			);
 			path = FastRPCSwift;
 			sourceTree = "<group>";
@@ -948,7 +945,6 @@
 				D28776DF215513920007C378 /* FastRPCSerialization.swift in Sources */,
 				D28776D72155138E0007C378 /* Int+Bytes.swift in Sources */,
 				D28776DD2155138E0007C378 /* Date+Timezones.swift in Sources */,
-				D20AF654216F9DBC00156AA8 /* Response.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

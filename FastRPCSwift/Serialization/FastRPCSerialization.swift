@@ -101,6 +101,8 @@ public struct Procedure2<Arg1: Codable, Arg2: Codable>: Codable {
         self.arg1 = try container.decode(Arg1.self)
         self.arg2 = try container.decode(Arg2.self)
     }
+
+    #warning("Implement procedure encoding")
 }
 
 class UntypedProcedure {
@@ -110,6 +112,23 @@ class UntypedProcedure {
     init(name: String, arguments: [Any]) {
         self.name = name
         self.arguments = arguments
+    }
+}
+
+public struct Response<Value: Decodable>: Decodable {
+    public var value: Value
+
+    public init(value: Value) {
+        self.value = value
+    }
+
+    public init(from decoder: Decoder) throws {
+        fatalError()
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        #warning("Implement response encoding")
+        fatalError()
     }
 }
 

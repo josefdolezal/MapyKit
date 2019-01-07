@@ -43,11 +43,11 @@ public final class FastRPCService {
 //    public func call<Response: Decodable>(path: String, procedure: Procedure0, success: @escaping (Response) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
 //        return frpcCall(path: path, procedure: procedure, success: success, failure: failure)
 //    }
-//
-//    @discardableResult
-//    public func call<Response: Decodable, A: Encodable>(path: String, procedure: Procedure1<A>, success: @escaping (Response) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
-//        return frpcCall(path: path, procedure: procedure, success: success, failure: failure)
-//    }
+
+    @discardableResult
+    public func call<Response: Decodable, A: Encodable>(path: String, procedure: Procedure1<A>, success: @escaping (Response) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
+        return frpcCall(path: path, procedure: procedure, success: success, failure: failure)
+    }
 
     // MARK: Private API
 
@@ -122,7 +122,7 @@ public final class FastRPCService {
                 let response = try decoder.decode(Response<T>.self, from: decoded)
 
                 // Finish the request with response value
-                success(response.body)
+                success(response.value)
             } catch {
                 // Oops, the response has an invalid format, report it
                 failure(.responseDecoding(data, error))
