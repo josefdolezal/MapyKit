@@ -47,6 +47,8 @@
 		D238522E214E90DD000087DD /* MapyAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2385227214E90DD000087DD /* MapyAPI.framework */; };
 		D238522F214E90DD000087DD /* MapyAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D2385227214E90DD000087DD /* MapyAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D23975FB21503B17000C6AD8 /* MapyAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2385227214E90DD000087DD /* MapyAPI.framework */; };
+		D2477BCC21E5524900F3FA1F /* FastRPCUnboxerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2477BCB21E5524900F3FA1F /* FastRPCUnboxerTests.swift */; };
+		D2477BCE21E5574A00F3FA1F /* Stub in Resources */ = {isa = PBXBuildFile; fileRef = D2477BCD21E5574A00F3FA1F /* Stub */; };
 		D2488A84214276E30032D382 /* MapyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; };
 		D2488A85214276E30032D382 /* MapyKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D25336082168BAAE0031635C /* FastRPCEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25336072168BAAE0031635C /* FastRPCEncoder.swift */; };
@@ -205,6 +207,8 @@
 		D2385240214EA57F000087DD /* FastRPCError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCError.swift; sourceTree = "<group>"; };
 		D23975F621503B17000C6AD8 /* MapyAPITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapyAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D23975FA21503B17000C6AD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2477BCB21E5524900F3FA1F /* FastRPCUnboxerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCUnboxerTests.swift; sourceTree = "<group>"; };
+		D2477BCD21E5574A00F3FA1F /* Stub */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Stub; sourceTree = "<group>"; };
 		D25336072168BAAE0031635C /* FastRPCEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCEncoder.swift; sourceTree = "<group>"; };
 		D25336092168BAC20031635C /* FastRPCDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCDecoder.swift; sourceTree = "<group>"; };
 		D258E9D8216AAC29009F752B /* Suggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suggestions.swift; sourceTree = "<group>"; };
@@ -314,15 +318,9 @@
 				D20AF6722171E40C00156AA8 /* FastRPCEncoder+OptionalTests.swift */,
 				D20AF6742171E49900156AA8 /* FastRPCEncoder+DateTests.swift */,
 				D20AF6762171E54C00156AA8 /* FastRPCEncoder+DataTests.swift */,
+				D2477BCB21E5524900F3FA1F /* FastRPCUnboxerTests.swift */,
 			);
 			path = Serialization;
-			sourceTree = "<group>";
-		};
-		D20AF6862171F2EF00156AA8 /* Location */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Location;
 			sourceTree = "<group>";
 		};
 		D215D894213EFBB100296D74 = {
@@ -502,6 +500,7 @@
 			isa = PBXGroup;
 			children = (
 				D28776CF2155125D0007C378 /* Supporting Files */,
+				D2477BCD21E5574A00F3FA1F /* Stub */,
 				D20AF6552170EE4C00156AA8 /* Serialization */,
 			);
 			path = FastRPCSwiftTests;
@@ -586,7 +585,6 @@
 		D2C3B05E216A7D6900B1F257 /* Stub */ = {
 			isa = PBXGroup;
 			children = (
-				D20AF6862171F2EF00156AA8 /* Location */,
 				D2C3B05F216A7D7200B1F257 /* Place */,
 			);
 			path = Stub;
@@ -858,6 +856,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2477BCE21E5574A00F3FA1F /* Stub in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -961,6 +960,7 @@
 				D20AF6772171E54C00156AA8 /* FastRPCEncoder+DataTests.swift in Sources */,
 				D20AF65D2171008600156AA8 /* FastRPCDecoder+BoolTests.swift in Sources */,
 				D20AF66F2171E28F00156AA8 /* FastRPCEncoder+DoubleTests.swift in Sources */,
+				D2477BCC21E5524900F3FA1F /* FastRPCUnboxerTests.swift in Sources */,
 				D20AF65B2171004400156AA8 /* FastRPCDecoder+DoubleTests.swift in Sources */,
 				D20AF66921710F5F00156AA8 /* FastRPCDecoder+DataTests.swift in Sources */,
 				D20AF6732171E40C00156AA8 /* FastRPCEncoder+OptionalTests.swift in Sources */,
