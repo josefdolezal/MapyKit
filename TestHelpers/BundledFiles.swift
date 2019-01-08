@@ -14,15 +14,27 @@ extension XCTest {
     /// Returns list of all visible files located in test bundle.
     func bundledFiles() throws -> [URL] {
         let filemanager = FileManager.default
-        let options = FileManager.DirectoryEnumerationOptions.skipsHiddenFiles
 
         // Find the tests bundle
-        let bundleURL = Bundle(for: type(of: self)).bundleURL
+        let bundleURL = Bundle(for: BundleLocator.self).bundleURL
         // Get all files from testing bundle
-        return try filemanager.contentsOfDirectory(
-            at: bundleURL,
-            includingPropertiesForKeys: [.isRegularFileKey],
-            options: options
-        )
+        let files = filemanager
+            .enumerator(at: bundleURL, includingPropertiesForKeys: [.isRegularFileKey], options: .skipsHiddenFiles)?
+            .compactMap { $0 as? URL }
+
+        return files ?? []
+    }
+}
+
+extension Array where Element == URL {
+    func matching(_ pattern: String) -> [URL] {
+        let regex = try! NSRegularExpression(pattern: pattern, options: [])
+
+        return filter { url in
+            let filePath = url.absoluteString
+            let matches = regex.numberOfMatches(in: url.absoluteString, options: [], range: NSRange.init(filePath.startIndex..<filePath.endIndex, in: filePath))
+
+            return matches > 0
+        }
     }
 }
