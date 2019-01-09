@@ -105,9 +105,13 @@ public struct Procedure2<Arg1: Codable, Arg2: Codable>: Codable {
     #warning("Implement procedure encoding")
 }
 
-class UntypedProcedure {
+class UntypedProcedure: CustomStringConvertible {
     var name: String
     var arguments: [Any]
+
+    var description: String {
+        return "\(type(of: self)) =\t{\n\tname =\t\(name)\n\targuments =\t\(arguments)"
+    }
 
     init(name: String, arguments: [Any]) {
         self.name = name
@@ -132,8 +136,12 @@ public struct Response<Value: Decodable>: Decodable {
     }
 }
 
-class UntypedResponse: Codable {
+class UntypedResponse: Codable, CustomStringConvertible {
     var value: Any
+
+    var description: String {
+        return "\(type(of: self)) =\t\(value)"
+    }
 
     init(value: Any) {
         self.value = value
