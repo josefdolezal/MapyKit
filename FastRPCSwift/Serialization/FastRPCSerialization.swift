@@ -436,7 +436,10 @@ private class FastRPCBoxer {
 }
 
 private class FastRPCUnboxer {
+    /// Data representing FRPC encoded object
     private var data: Data
+    /// Version of the FRPC protocol used to decode stored object (default: 3.0)
+    private var version = FastRPCProtocolVersion.version3
 
     init(data: Data) {
         self.data = data
@@ -516,7 +519,17 @@ private class FastRPCUnboxer {
         switch type {
         case FastRPCObejectType.int8p.identifier: return try unboxPositiveInteger()
         case FastRPCObejectType.int8n.identifier: return try unboxNegativeInteger()
-        case FastRPCObejectType.int.identifier: return try unboxZigZagInteger()
+        case FastRPCObejectType.int.identifier:
+            switch version {
+            case .version1:
+                return try unboxUnifiedInteger()
+            case .version2:
+                // Version 2 does not specify Int identifier (it uses separate Int8+/-),
+                // so the identifier is unknown
+                throw FastRPCDecodingError.unknownTypeIdentifier
+            case .version3:
+                return try unboxZigZagInteger()
+            }
         default:
             throw FastRPCDecodingError.unknownTypeIdentifier
         }
@@ -611,7 +624,27 @@ private class FastRPCUnboxer {
     }
 
     private func unboxZigZagInteger() throws -> Int {
-        fatalError()
+        let info = try expectTypeAdditionalInfo()
+        // Get number of bytes encoding int
+        let dataSize = Int(info) + 1
+        // Get bytes representing the int
+        let bytes = try expectBytes(count: dataSize)
+        // Get the int value
+        let int = Int(data: bytes)
+
+        // Decode using zig zag
+        return (int >> 1) ^ (-(int & 1))
+    }
+
+    /// Unboxes unified signed integer (used by standard FRPC 1.0).
+    private func unboxUnifiedInteger() throws -> Int {
+        // Get number of bytes used by integer
+        let info = try expectTypeAdditionalInfo()
+        // Get bytes representing integer
+        let bytes = try expectBytes(count: Int(info))
+
+        // Simply convert data into integer
+        return Int(data: bytes)
     }
 
     private func unboxNil() throws -> NSObject {
@@ -658,13 +691,13 @@ private class FastRPCUnboxer {
         let major = try Int(data: expectBytes(count: 1))
         let minor = try Int(data: expectBytes(count: 1))
 
-        // Get FRPC protocol version
-        guard
-            major == FastRPCProtocolVersion.major,
-            minor == FastRPCProtocolVersion.minor
-        else {
+        // Identify the procol version from type meta
+        guard let version = FastRPCProtocolVersion(rawValue: major) else {
             throw FastRPCDecodingError.unsupportedProtocolVersion(major: major, minor: minor)
         }
+
+        // Override currently used protocol version
+        self.version = version
 
         // Check for the inner type
         let type = try validateType()
@@ -686,17 +719,17 @@ private class FastRPCUnboxer {
         let size = try Int(data: expectBytes(count: 1))
         // Get the procedure name data and convert it to string
         let nameData = try expectBytes(count: size)
+        // Create temporary container for arguments unboxing
+        var arguments = [Any]()
 
         // The name must be encoded using UTF8
         guard let name = String(data: nameData, encoding: .utf8) else {
             throw FastRPCDecodingError.corruptedData
         }
 
-        fatalError("Check if the size used for encode parameters is the correct one.")
-
         // We expect the parameters to be lineary aligned
-        let arguments = try (0..<size).map { _ -> Any in
-            try unboxNestedValue()
+        while !data.isEmpty {
+            arguments.append(try unboxNestedValue())
         }
 
         return UntypedProcedure(name: name, arguments: arguments)
@@ -705,8 +738,9 @@ private class FastRPCUnboxer {
     private func unboxResponse() throws -> Any {
         // Remove the unused type information
         _ = try expectTypeAdditionalInfo()
-        // Ignore the Response container, return it's content only
-        return try unboxNestedValue()
+
+        // Wrap remote response with internal type
+        return UntypedResponse(value: try unboxNestedValue())
     }
 
     private func unbox(_ type: Fault.Type) throws -> Fault {

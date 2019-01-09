@@ -9,11 +9,15 @@
 import Foundation
 
 /// Currently used FastRPC version standard.
-public enum FastRPCProtocolVersion {
+public enum FastRPCProtocolVersion: Int {
+    case version1 = 1
+    case version2 = 2
+    case version3 = 3
+
     /// FRPC major version
-    public static let major: Int = 2
+    var major: Int { return self.rawValue }
     /// FRPC minor version
-    public static let minor: Int = 1
+    var minor: Int { return 0 }
     /// FRPC version string
-    public static var versionString: String { return "\(major).\(minor)"}
+    var versionString: String { return "\(major).\(minor)"}
 }
