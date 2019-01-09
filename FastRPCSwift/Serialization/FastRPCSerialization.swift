@@ -536,11 +536,18 @@ private class FastRPCUnboxer {
     }
 
     private func unbox(_ type: String.Type) throws -> String {
+        // For version 1, we do not use implicit addition for
+        // count data size, with standard 2.0 and newer however
+        // we have to add 1.
+        let implicitCountAddition = version == .version1
+            ? 0
+            : 1
+
         // Get size of string data
         let info = try expectTypeAdditionalInfo()
         // Get string data length from additional data,
         // increase required count by one (FRPC standard)
-        let lengthDataSize = Int(info) + 1
+        let lengthDataSize = Int(info) + implicitCountAddition
         // Get data containing info about string data length
         let stringLengthData = try expectBytes(count: lengthDataSize)
         // Get string length
