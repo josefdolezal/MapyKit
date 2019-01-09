@@ -211,9 +211,11 @@ class FastRPCUnboxer {
         let bytes = try expectBytes(count: dataSize)
         // Get the int value
         let int = Int(data: bytes)
+        // Use unsigned int for logical bitwise shift
+        let uint = UInt64(int)
 
         // Decode using zig zag
-        return (int >> 1) ^ (-(int & 1))
+        return Int((uint >> 1)) ^ (-(int & 1))
     }
 
     /// Unboxes unified signed integer (used by standard FRPC 1.0).

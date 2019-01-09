@@ -12,11 +12,13 @@ class FastRPCBoxer {
     // MARK: Properties
 
     private var container: Any
+    private let version: FastRPCProtocolVersion
 
     // MARK: Initializers
 
-    init(container: Any) {
+    init(container: Any, version: FastRPCProtocolVersion = .version2) {
         self.container = container
+        self.version = version
     }
 
     // MARK: Public API
@@ -61,7 +63,7 @@ class FastRPCBoxer {
             .reduce(Data(), +)
 
         // Combine all procedure calls informations
-        return identifier + nameSize + nameData + arguments
+        return boxNonDataTypeMeta() + identifier + nameSize + nameData + arguments
     }
 
     private func box(_ value: Fault) throws -> Data {
@@ -73,7 +75,7 @@ class FastRPCBoxer {
             throw FastRPCError.requestEncoding(self, nil)
         }
 
-        return identifier + codeData + nameData
+        return boxNonDataTypeMeta() + identifier + codeData + nameData
     }
 
     private func box(_ value: UntypedResponse) throws -> Data {
@@ -83,7 +85,17 @@ class FastRPCBoxer {
         let valueData = try box(value.value)
 
         // Combine identifier and its data
-        return identifier + valueData
+        return boxNonDataTypeMeta() + identifier + valueData
+    }
+
+    private func boxNonDataTypeMeta() -> Data {
+        // Encode non-data type identifiex (0xCALL)
+        let identifier = FastRPCObejectType.nonDataType.identifier.usedBytes
+        // Encode FRPC version
+        let major = version.major.usedBytes
+        let minor = version.minor.usedBytes
+
+        return identifier + major + minor
     }
 
     // MARK: Box type evaluation
@@ -146,10 +158,17 @@ class FastRPCBoxer {
             throw FastRPCError.requestEncoding(self, nil)
         }
 
+        // For FRPC 1.0, we don't use nlen so we don't have to substract 1,
+        // for version above we have to substract 1 (nlen format)
+        let countModifier = version == .version1
+            ? 0
+            : -1
         // Encode data size into bytes
         let dataBytesSize = stringData.count.usedBytes
+        // Sanitize modified count so it's not off bounds
+        let sanitizedCount = max(0, dataBytesSize.count + countModifier)
         // Create identifier (id + encoded data size)
-        let identifier = FastRPCObejectType.string.identifier + nlen(forCount: dataBytesSize.count)
+        let identifier = FastRPCObejectType.string.identifier + sanitizedCount
 
         // Return converted data
         return identifier.usedBytes + dataBytesSize + stringData
@@ -167,6 +186,28 @@ class FastRPCBoxer {
     }
 
     private func box(_ value: Int) throws -> Data {
+        // Select encoding based on current FRPC protocol version
+        switch version {
+        case .version1:
+            return try boxUnifiedInt(value)
+        case .version2:
+            return try boxInteger8PosNeg(value)
+        case .version3:
+            return try boxZigZagInt(value)
+        }
+    }
+
+    private func boxUnifiedInt(_ value: Int) throws -> Data {
+        #warning("This may not be correct encoding")
+        // Encode value using raw bytes copy
+        let bytes = value.usedBytes
+        // Add bytes count as additional type info (!does not use nlen!)
+        let identifier = FastRPCObejectType.int.identifier + bytes.count
+
+        return identifier.usedBytes + bytes
+    }
+
+    private func boxInteger8PosNeg(_ value: Int) throws -> Data {
         // Determine the type of current value
         let type: FastRPCObejectType = value < 0
             ? .int8n
@@ -178,10 +219,17 @@ class FastRPCBoxer {
         // Encode value itself
         let intData = unsigned.usedBytes
 
-        #warning("Encode Int based on current frpc version specified by user")
-
         // Combine identifier with encoded value
         return identifierData + intData
+    }
+
+    private func boxZigZagInt(_ value: Int) throws -> Data {
+        // Encode int using zig-zag encoding
+        let int = (value >> MemoryLayout<Int>.size - 1) ^ (value << 1)
+        // Add data nlen to identifier
+        let identifier = FastRPCObejectType.int.identifier + nlen(forCount: int.usedBytes.count)
+
+        return identifier.usedBytes + int.usedBytes
     }
 
     private func box(_ value: Data) throws -> Data {
