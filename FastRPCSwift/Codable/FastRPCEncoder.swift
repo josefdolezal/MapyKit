@@ -8,69 +8,6 @@
 
 import Foundation
 
-fileprivate protocol Container: class {
-    var data: Data { get }
-}
-
-fileprivate class SingleValueContainer: Container {
-    // MARK: Properties
-
-    let data: Data
-
-    // MARK: Initializers
-
-    init(data: Data) {
-        self.data = data
-    }
-}
-
-fileprivate class StructuredContainer: Container {
-    // MARK: Properties
-
-    var data: Data {
-        return members
-            .map { $0.data }
-            .reduce(Data(), +)
-    }
-
-    private var members: [Container] = []
-
-    // MARK: Public API
-
-    func add(member: Container) {
-        members.append(member)
-    }
-
-    func add(data: Data) {
-        members.append(SingleValueContainer(data: data))
-    }
-}
-
-fileprivate class CollectionContainer: Container {
-    // MARK: Properties
-    var data: Data {
-        // Get the collection data identifier
-        let identifier = FastRPCObejectType.array.identifier + max(0, members.count - 1)
-        let membersData = members
-            // Get data for each member
-            .map { $0.data }
-            // Combine data
-            .reduce(Data(), +)
-        // Combine identifier, members count and elements itself
-        let combined = identifier.usedBytes + members.count.usedBytes + membersData
-
-        return combined
-    }
-
-    private var members: [Container] = []
-
-    // MARK: Public API
-
-    func add(member: Container) {
-        members.append(member)
-    }
-}
-
 public struct FastRPCEncoder {
     // MARK: Initializers
 
@@ -189,34 +126,42 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
         try requireEmptyContainer()
         container = Int(value)
     }
+
     func encode(_ value: Int32) throws {
         try requireEmptyContainer()
         container = Int(value)
     }
+
     func encode(_ value: Int64) throws {
         try requireEmptyContainer()
         container = Int(value)
     }
+
     func encode(_ value: UInt) throws {
         try requireEmptyContainer()
         container = Int(value)
     }
+
     func encode(_ value: UInt8) throws {
         try requireEmptyContainer()
         container = Int(value)
     }
+
     func encode(_ value: UInt16) throws {
         try requireEmptyContainer()
         container = Int(value)
     }
+
     func encode(_ value: UInt32) throws {
         try requireEmptyContainer()
         container = Int(value)
     }
+
     func encode(_ value: UInt64) throws {
         try requireEmptyContainer()
         container = Int(value)
     }
+
     func encode(_ value: Float) throws {
         try requireEmptyContainer()
         container = Double(value)
@@ -303,6 +248,7 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
         }
 
         func superEncoder() -> Encoder {
+            #warning("Superclass encoder is not fully implemented yet")
             return encoder
         }
     }
@@ -363,6 +309,9 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
         func nestedContainer<NestedKey>(keyedBy keyType: NestedKey.Type, forKey key: Key) -> KeyedEncodingContainer<NestedKey> where NestedKey : CodingKey {
             let container = NSMutableDictionary()
 
+            codingPath.append(key)
+            defer { codingPath.removeLast() }
+
             return KeyedEncodingContainer(FastRPCKeyedEncodingContainer<NestedKey>(encoder: encoder, container: container))
         }
 
@@ -370,16 +319,21 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
             let container = NSMutableArray()
 
             codingPath.append(key)
+            defer { codingPath.removeLast() }
 
             return FastRPCUnkeyedEncodingContainer(codingPath: codingPath, encoder: encoder, container: container)
         }
 
         func superEncoder() -> Encoder {
+            #warning("Superclass encoder is not fully implemented yet")
             return encoder
         }
 
         func superEncoder(forKey key: Key) -> Encoder {
             codingPath.append(key)
+            defer { codingPath.removeLast() }
+
+            #warning("Superclass encoder is not fully implemented yet")
 
             return encoder
         }
