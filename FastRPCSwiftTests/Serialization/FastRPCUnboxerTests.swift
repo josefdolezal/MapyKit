@@ -35,7 +35,6 @@ class FastRPCUnboxerTests: XCTestCase {
             .map { try Data(contentsOf: $0) }
             .forEach { data in
                 XCTAssertNoThrow(try FastRPCSerialization.object(with: data))
-                print(try FastRPCSerialization.object(with: data))
             }
     }
 }

@@ -100,8 +100,8 @@ class FastRPCBoxer {
 
     // MARK: Box type evaluation
 
-    func box(_ value: Any) throws -> Data {
-        switch container {
+    private func box(_ value: Any) throws -> Data {
+        switch value {
         case let null as NSNull:
             return try box(null)
         case let bool as Bool:
@@ -215,7 +215,7 @@ class FastRPCBoxer {
         // Create copy of `self` and ignore it's sign
         let unsigned = abs(value)
         // Create identifier using type ID increased by NLEN
-        let identifierData = (type.identifier + nlen(forCount: unsigned.nonTrailingBitsCount)).usedBytes
+        let identifierData = (type.identifier + nlen(forCount: unsigned)).usedBytes
         // Encode value itself
         let intData = unsigned.usedBytes
 

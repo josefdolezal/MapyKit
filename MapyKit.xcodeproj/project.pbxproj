@@ -53,6 +53,7 @@
 		D2477BD421E699AC00F3FA1F /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2477BD321E699AC00F3FA1F /* Response.swift */; };
 		D2477BD621E699E300F3FA1F /* FastRPCBoxer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2477BD521E699E300F3FA1F /* FastRPCBoxer.swift */; };
 		D2477BD821E69A1600F3FA1F /* FastRPCUnboxer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2477BD721E69A1600F3FA1F /* FastRPCUnboxer.swift */; };
+		D2477BDE21E9181200F3FA1F /* FastRPCBoxerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2477BDD21E9181200F3FA1F /* FastRPCBoxerTests.swift */; };
 		D2488A84214276E30032D382 /* MapyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; };
 		D2488A85214276E30032D382 /* MapyKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D215D89E213EFBB100296D74 /* MapyKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D25336082168BAAE0031635C /* FastRPCEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25336072168BAAE0031635C /* FastRPCEncoder.swift */; };
@@ -217,6 +218,7 @@
 		D2477BD321E699AC00F3FA1F /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		D2477BD521E699E300F3FA1F /* FastRPCBoxer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCBoxer.swift; sourceTree = "<group>"; };
 		D2477BD721E69A1600F3FA1F /* FastRPCUnboxer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCUnboxer.swift; sourceTree = "<group>"; };
+		D2477BDD21E9181200F3FA1F /* FastRPCBoxerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCBoxerTests.swift; sourceTree = "<group>"; };
 		D25336072168BAAE0031635C /* FastRPCEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCEncoder.swift; sourceTree = "<group>"; };
 		D25336092168BAC20031635C /* FastRPCDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCDecoder.swift; sourceTree = "<group>"; };
 		D258E9D8216AAC29009F752B /* Suggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suggestions.swift; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 				D20AF6742171E49900156AA8 /* FastRPCEncoder+DateTests.swift */,
 				D20AF6762171E54C00156AA8 /* FastRPCEncoder+DataTests.swift */,
 				D2477BCB21E5524900F3FA1F /* FastRPCUnboxerTests.swift */,
+				D2477BDD21E9181200F3FA1F /* FastRPCBoxerTests.swift */,
 			);
 			path = Serialization;
 			sourceTree = "<group>";
@@ -991,6 +994,7 @@
 				D20AF66D2171E1A200156AA8 /* FastRPCEncoder+StringTests.swift in Sources */,
 				D20AF6772171E54C00156AA8 /* FastRPCEncoder+DataTests.swift in Sources */,
 				D20AF65D2171008600156AA8 /* FastRPCDecoder+BoolTests.swift in Sources */,
+				D2477BDE21E9181200F3FA1F /* FastRPCBoxerTests.swift in Sources */,
 				D20AF66F2171E28F00156AA8 /* FastRPCEncoder+DoubleTests.swift in Sources */,
 				D2477BCC21E5524900F3FA1F /* FastRPCUnboxerTests.swift in Sources */,
 				D20AF65B2171004400156AA8 /* FastRPCDecoder+DoubleTests.swift in Sources */,
