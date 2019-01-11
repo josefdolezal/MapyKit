@@ -88,8 +88,10 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
     // MARK: - SingleValueEncodingContainer
 
     private func requireEmptyContainer() throws {
-        #warning("Throw an error informing about unsuccessful encoding")
-        fatalError()
+        if container != nil {
+            #warning("Throw an error informing about unsuccessful encoding")
+            fatalError()
+        }
     }
 
     func encodeNil() throws {
