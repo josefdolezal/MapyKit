@@ -21,10 +21,14 @@ extension Int {
         return (nonTrailingBitsCount + 7) / 8
     }
 
-    var usedBytes: Data {
+    var littleEndianData: Data {
         var copy = self
 
         return Data(bytes: &copy, count: copy.nonTrailingBytesCount)
+    }
+
+    var bigEndianData: Data {
+        return Data(littleEndianData.reversed())
     }
 
     func truncatedBytes(to length: Int) -> Data {

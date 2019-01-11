@@ -33,7 +33,7 @@ enum FastRPCObejectType: Int, CaseIterable {
     case procedure = 104
     case binary = 48
     case fault = 120
-    case nonDataType = 0x11CA
+    case nonDataType = 51729
     case response = 112
 
     // MARK: Primitive

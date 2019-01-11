@@ -44,7 +44,7 @@ class FastRPCBoxer {
     // MARK: Top level non-data types
 
     private func box(_ value: UntypedProcedure) throws -> Data {
-        let identifier = FastRPCObejectType.procedure.identifier.usedBytes
+        let identifier = FastRPCObejectType.procedure.identifier.bigEndianData
 
         // Encode procedure data using utf8
         guard let nameData = value.name.data(using: .utf8) else {
@@ -52,7 +52,7 @@ class FastRPCBoxer {
         }
 
         // Get bytes representation of encoded name length
-        let nameSize = nameData.count.usedBytes
+        let nameSize = nameData.count.bigEndianData
         // Encode arguments one-by-one as linear data
         let arguments = try value.arguments
             // Encode each argument separately
@@ -67,20 +67,16 @@ class FastRPCBoxer {
     }
 
     private func box(_ value: Fault) throws -> Data {
-        let identifier = FastRPCObejectType.fault.identifier.usedBytes
-
-        let codeData = value.code.usedBytes
-
-        guard let nameData = value.message.data(using: .utf8) else {
-            throw FastRPCError.requestEncoding(self, nil)
-        }
+        let identifier = FastRPCObejectType.fault.identifier.bigEndianData
+        let codeData = try box(value.code)
+        let nameData = try box(value.message)
 
         return boxNonDataTypeMeta() + identifier + codeData + nameData
     }
 
     private func box(_ value: UntypedResponse) throws -> Data {
         // Encode static identifier
-        let identifier = FastRPCObejectType.response.identifier.usedBytes
+        let identifier = FastRPCObejectType.response.identifier.bigEndianData
         // Encode arbitrary (encodable) value
         let valueData = try box(value.value)
 
@@ -90,10 +86,10 @@ class FastRPCBoxer {
 
     private func boxNonDataTypeMeta() -> Data {
         // Encode non-data type identifiex (0xCALL)
-        let identifier = FastRPCObejectType.nonDataType.identifier.usedBytes
+        let identifier = FastRPCObejectType.nonDataType.identifier.bigEndianData
         // Encode FRPC version
-        let major = version.major.usedBytes
-        let minor = version.minor.usedBytes
+        let major = version.major.bigEndianData
+        let minor = version.minor.bigEndianData
 
         return identifier + major + minor
     }
@@ -137,7 +133,7 @@ class FastRPCBoxer {
     private func box(_ value: NSNull) throws -> Data {
         let nilIdentifier = FastRPCObejectType.nil.identifier
 
-        return nilIdentifier.usedBytes
+        return nilIdentifier.bigEndianData
     }
 
     private func box(_ value: Bool) throws -> Data {
@@ -148,7 +144,7 @@ class FastRPCBoxer {
             ? identifier + 1
             : identifier
 
-        return data.usedBytes
+        return data.bigEndianData
     }
 
     private func box(_ value: String) throws -> Data {
@@ -164,19 +160,19 @@ class FastRPCBoxer {
             ? 0
             : -1
         // Encode data size into bytes
-        let dataBytesSize = stringData.count.usedBytes
+        let dataBytesSize = stringData.count.bigEndianData
         // Sanitize modified count so it's not off bounds
         let sanitizedCount = max(0, dataBytesSize.count + countModifier)
         // Create identifier (id + encoded data size)
         let identifier = FastRPCObejectType.string.identifier + sanitizedCount
 
         // Return converted data
-        return identifier.usedBytes + dataBytesSize + stringData
+        return identifier.bigEndianData + dataBytesSize + stringData
     }
 
     private func box(_ value: Double) throws -> Data {
         // Create identifier exactly 1B in length
-        let identifierData = FastRPCObejectType.double.identifier.usedBytes
+        let identifierData = FastRPCObejectType.double.identifier.bigEndianData
         // Serialize double using IEEE 754 standard (exactly 8B)
         var bitRepresentation = value.bitPattern
         let valueData = Data(bytes: &bitRepresentation, count: bitRepresentation.bitWidth / 8)
@@ -200,11 +196,11 @@ class FastRPCBoxer {
     private func boxUnifiedInt(_ value: Int) throws -> Data {
         #warning("This may not be correct encoding")
         // Encode value using raw bytes copy
-        let bytes = value.usedBytes
+        let bytes = value.littleEndianData
         // Add bytes count as additional type info (!does not use nlen!)
         let identifier = FastRPCObejectType.int.identifier + bytes.count
 
-        return identifier.usedBytes + bytes
+        return identifier.bigEndianData + bytes
     }
 
     private func boxInteger8PosNeg(_ value: Int) throws -> Data {
@@ -215,9 +211,9 @@ class FastRPCBoxer {
         // Create copy of `self` and ignore it's sign
         let unsigned = abs(value)
         // Create identifier using type ID increased by NLEN
-        let identifierData = (type.identifier + nlen(forCount: unsigned)).usedBytes
+        let identifierData = (type.identifier + nlen(forCount: unsigned)).bigEndianData
         // Encode value itself
-        let intData = unsigned.usedBytes
+        let intData = unsigned.littleEndianData
 
         // Combine identifier with encoded value
         return identifierData + intData
@@ -227,9 +223,9 @@ class FastRPCBoxer {
         // Encode int using zig-zag encoding
         let int = (value >> MemoryLayout<Int>.size - 1) ^ (value << 1)
         // Add data nlen to identifier
-        let identifier = FastRPCObejectType.int.identifier + nlen(forCount: int.usedBytes.count)
+        let identifier = FastRPCObejectType.int.identifier + nlen(forCount: int)
 
-        return identifier.usedBytes + int.usedBytes
+        return identifier.bigEndianData + int.littleEndianData
     }
 
     private func box(_ value: Data) throws -> Data {
@@ -237,7 +233,7 @@ class FastRPCBoxer {
         let identifier = FastRPCObejectType.binary.identifier + nlen(forCount: value.count)
 
         // Combine meta info with value
-        return identifier.usedBytes + value.count.usedBytes + value
+        return identifier.bigEndianData + value.count.bigEndianData + value
     }
 
     private func box(_ value: Date) throws -> Data {
@@ -290,7 +286,7 @@ class FastRPCBoxer {
         // Get raw representation of array length
         let nlen = self.nlen(forCount: value.count)
         // Encode the identifier
-        let identifierData = (identifier + nlen).usedBytes
+        let identifierData = (identifier + nlen).bigEndianData
         // Box all elements from collection
         let elementsData = try value
             // Box the elements
@@ -301,7 +297,7 @@ class FastRPCBoxer {
             .reduce(Data(), +)
 
         // Compose the final value using identifier, count and elements data
-        return identifierData + value.count.usedBytes + elementsData
+        return identifierData + value.count.bigEndianData + elementsData
     }
 
     private func box(_ value: NSDictionary) throws -> Data {
@@ -309,7 +305,7 @@ class FastRPCBoxer {
         // Get raw representation of number of fields
         let nlen = self.nlen(forCount: value.count)
         // Encode the identifier
-        let identifierData = (identifier + nlen).usedBytes
+        let identifierData = (identifier + nlen).bigEndianData
         // Box all struct fields
         let fields = try value
             .map { key, value -> Data in
@@ -320,16 +316,16 @@ class FastRPCBoxer {
                 let valueData = try box(value)
 
                 // Combine key-value pair data
-                return keyData.count.usedBytes + keyData + valueData
+                return keyData.count.bigEndianData + keyData + valueData
             }
             // Flatten fields into linear data representation
             .reduce(Data(), +)
 
         // Combine the structure meta with fields data
-        return identifierData + value.count.usedBytes + fields
+        return identifierData + value.count.bigEndianData + fields
     }
 
     private func nlen(forCount count: Int) -> Int {
-        return max(0, count.usedBytes.count - 1)
+        return max(0, count.littleEndianData.count - 1)
     }
 }
