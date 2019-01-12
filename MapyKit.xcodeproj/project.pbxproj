@@ -17,8 +17,6 @@
 		D20AF66521710CF500156AA8 /* FastRPCDecoder+OptionalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF66421710CF500156AA8 /* FastRPCDecoder+OptionalTests.swift */; };
 		D20AF66721710E3D00156AA8 /* FastRPCDecoder+DateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF66621710E3D00156AA8 /* FastRPCDecoder+DateTests.swift */; };
 		D20AF66921710F5F00156AA8 /* FastRPCDecoder+DataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF66821710F5F00156AA8 /* FastRPCDecoder+DataTests.swift */; };
-		D20AF66B217148BC00156AA8 /* FastRPCEncoder+IntTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF66A217148BC00156AA8 /* FastRPCEncoder+IntTests.swift */; };
-		D20AF66D2171E1A200156AA8 /* FastRPCEncoder+StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF66C2171E1A200156AA8 /* FastRPCEncoder+StringTests.swift */; };
 		D20AF66F2171E28F00156AA8 /* FastRPCEncoder+DoubleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF66E2171E28F00156AA8 /* FastRPCEncoder+DoubleTests.swift */; };
 		D20AF6712171E31300156AA8 /* FastRPCEncoder+BoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6702171E31300156AA8 /* FastRPCEncoder+BoolTests.swift */; };
 		D20AF6732171E40C00156AA8 /* FastRPCEncoder+OptionalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6722171E40C00156AA8 /* FastRPCEncoder+OptionalTests.swift */; };
@@ -173,8 +171,6 @@
 		D20AF66421710CF500156AA8 /* FastRPCDecoder+OptionalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCDecoder+OptionalTests.swift"; sourceTree = "<group>"; };
 		D20AF66621710E3D00156AA8 /* FastRPCDecoder+DateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCDecoder+DateTests.swift"; sourceTree = "<group>"; };
 		D20AF66821710F5F00156AA8 /* FastRPCDecoder+DataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCDecoder+DataTests.swift"; sourceTree = "<group>"; };
-		D20AF66A217148BC00156AA8 /* FastRPCEncoder+IntTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCEncoder+IntTests.swift"; sourceTree = "<group>"; };
-		D20AF66C2171E1A200156AA8 /* FastRPCEncoder+StringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCEncoder+StringTests.swift"; sourceTree = "<group>"; };
 		D20AF66E2171E28F00156AA8 /* FastRPCEncoder+DoubleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCEncoder+DoubleTests.swift"; sourceTree = "<group>"; };
 		D20AF6702171E31300156AA8 /* FastRPCEncoder+BoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCEncoder+BoolTests.swift"; sourceTree = "<group>"; };
 		D20AF6722171E40C00156AA8 /* FastRPCEncoder+OptionalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCEncoder+OptionalTests.swift"; sourceTree = "<group>"; };
@@ -321,8 +317,6 @@
 				D20AF66421710CF500156AA8 /* FastRPCDecoder+OptionalTests.swift */,
 				D20AF66621710E3D00156AA8 /* FastRPCDecoder+DateTests.swift */,
 				D20AF66821710F5F00156AA8 /* FastRPCDecoder+DataTests.swift */,
-				D20AF66A217148BC00156AA8 /* FastRPCEncoder+IntTests.swift */,
-				D20AF66C2171E1A200156AA8 /* FastRPCEncoder+StringTests.swift */,
 				D20AF66E2171E28F00156AA8 /* FastRPCEncoder+DoubleTests.swift */,
 				D20AF6702171E31300156AA8 /* FastRPCEncoder+BoolTests.swift */,
 				D20AF6722171E40C00156AA8 /* FastRPCEncoder+OptionalTests.swift */,
@@ -991,7 +985,6 @@
 				D20AF6752171E49900156AA8 /* FastRPCEncoder+DateTests.swift in Sources */,
 				D20AF6572170EE7F00156AA8 /* FastRPCDecoder+StringTests.swift in Sources */,
 				D2C3B06C216AA2C900B1F257 /* Asserts.swift in Sources */,
-				D20AF66D2171E1A200156AA8 /* FastRPCEncoder+StringTests.swift in Sources */,
 				D20AF6772171E54C00156AA8 /* FastRPCEncoder+DataTests.swift in Sources */,
 				D20AF65D2171008600156AA8 /* FastRPCDecoder+BoolTests.swift in Sources */,
 				D2477BDE21E9181200F3FA1F /* FastRPCBoxerTests.swift in Sources */,
@@ -1003,7 +996,6 @@
 				D20AF6592170FFD200156AA8 /* FastRPCDecoder+IntTests.swift in Sources */,
 				D2C3B070216AA37C00B1F257 /* BundledFiles.swift in Sources */,
 				D20AF66321710BC000156AA8 /* Random.swift in Sources */,
-				D20AF66B217148BC00156AA8 /* FastRPCEncoder+IntTests.swift in Sources */,
 				D20AF6712171E31300156AA8 /* FastRPCEncoder+BoolTests.swift in Sources */,
 				D20AF66521710CF500156AA8 /* FastRPCDecoder+OptionalTests.swift in Sources */,
 			);
