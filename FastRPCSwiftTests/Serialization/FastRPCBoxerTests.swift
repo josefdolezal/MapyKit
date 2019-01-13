@@ -88,9 +88,7 @@ class FastRPCBoxerTests: XCTestCase {
         ]
 
         for test in tests {
-            let boxer = FastRPCBoxer(container: staticProcedure(argument: test.value), version: .version2)
-
-            XCTAssertEqual(try [UInt8](boxer.box()), [0xCA, 0x11, 0x02, 0x00, 0x68, 0x01, 0x63] + test.encoded)
+            try assertEqualUsingProcedure(test.value, encoded: test.encoded)
         }
     }
 
@@ -107,7 +105,7 @@ class FastRPCBoxerTests: XCTestCase {
             let length = subject.prefix(bytesLength)
                 .enumerated()
                 .map { offset, byte in
-                    Int(byte) << (8 * offset)
+                    Int(byte) << (8 * (bytesLength - 1 - offset))
                 }
                 .reduce(0, +)
 
@@ -123,6 +121,91 @@ class FastRPCBoxerTests: XCTestCase {
         }
     }
 
+    func testProcedureBoxDouble() throws {
+        let tests: [(value: Double, encoded: [UInt8])] = [
+            (50.06451651464292, [24, 0xBC, 0x38, 0xC0, 0x13, 0x42, 0x08, 0x49, 0x40]),
+            (14.436357511288634, [24, 0x80, 0xB2, 0x70, 0x40, 0x6A, 0xDF, 0x2C, 0x40]),
+            (50.072890502005, [24, 0x77, 0x26, 0xD9, 0x79, 0x54, 0x09, 0x49, 0x40]),
+            (14.324434293515196, [24, 0x80, 0xB2, 0x70, 0x40, 0x1C, 0xA6, 0x2C, 0x40]),
+            (49.99222743840002, [24, 0x9C, 0x0F, 0x07, 0x4F, 0x01, 0xFF, 0x48, 0x40]),
+            (14.467256559140196, [24, 0x80, 0xB2, 0x70, 0x40, 0x3C, 0xEF, 0x2C, 0x40]),
+            (50.12919384639952, [24, 0xB0, 0x90, 0x88, 0x6C, 0x89, 0x10, 0x49, 0x40]),
+            (14.328346133765535, [24, 0x00, 0x95, 0x04, 0xFC, 0x1C, 0xA8, 0x2C, 0x40]),
+            (50.10208363663026, [24, 0x51, 0x64, 0x9C, 0x13, 0x11, 0x0D, 0x49, 0x40]),
+            (14.26300048828125, [24, 0x00, 0x00, 0x00, 0x00, 0xA8, 0x86, 0x2C, 0x40]),
+            (-50.06451651464292, [24, 0xBC, 0x38, 0xC0, 0x13, 0x42, 0x08, 0x49, 0xC0]),
+            (-14.436357511288634, [24, 0x80, 0xB2, 0x70, 0x40, 0x6A, 0xDF, 0x2C, 0xC0]),
+            (-50.072890502005, [24, 0x77, 0x26, 0xD9, 0x79, 0x54, 0x09, 0x49, 0xC0]),
+            (-14.324434293515196, [24, 0x80, 0xB2, 0x70, 0x40, 0x1C, 0xA6, 0x2C, 0xC0]),
+            (-49.99222743840002, [24, 0x9C, 0x0F, 0x07, 0x4F, 0x01, 0xFF, 0x48, 0xC0]),
+            (-14.467256559140196, [24, 0x80, 0xB2, 0x70, 0x40, 0x3C, 0xEF, 0x2C, 0xC0]),
+            (-50.12919384639952, [24, 0xB0, 0x90, 0x88, 0x6C, 0x89, 0x10, 0x49, 0xC0]),
+            (-14.328346133765535, [24, 0x00, 0x95, 0x04, 0xFC, 0x1C, 0xA8, 0x2C, 0xC0]),
+            (-50.10208363663026, [24, 0x51, 0x64, 0x9C, 0x13, 0x11, 0x0D, 0x49, 0xC0]),
+            (-14.26300048828125, [24, 0x00, 0x00, 0x00, 0x00, 0xA8, 0x86, 0x2C, 0xC0])
+        ]
+
+        for test in tests {
+            try assertEqualUsingProcedure(test.value, encoded: test.encoded)
+        }
+    }
+
+    func testProcedureBoxBool() throws {
+        let tests: [(value: Bool, encoded: [UInt8])] = [(true, [17]), (false, [16])]
+
+        for test in tests {
+            try assertEqualUsingProcedure(test.value, encoded: test.encoded)
+        }
+    }
+
+    func testProcedureBoxOptionalNil() throws {
+        try assertEqualUsingProcedure(NSNull(), encoded: [0x60])
+    }
+
+    func testProcedureBoxDate() throws {
+        let tests: [(value: Date, encoded: [UInt8])] = [
+            (Date(timeIntervalSince1970: 1537391055), [40, 248, 207, 185, 162, 91, 123, 136, 59, 83, 52]),
+            (Date(timeIntervalSince1970: 1537391056), [40, 248, 208, 185, 162, 91, 131, 136, 59, 83, 52]),
+            (Date(timeIntervalSince1970: 1537391057), [40, 248, 209, 185, 162, 91, 139, 136, 59, 83, 52]),
+            (Date(timeIntervalSince1970: 1537391058), [40, 248, 210, 185, 162, 91, 147, 136, 59, 83, 52]),
+            (Date(timeIntervalSince1970: 1537391059), [40, 248, 211, 185, 162, 91, 155, 136, 59, 83, 52]),
+            (Date(timeIntervalSince1970: 1537391060), [40, 248, 212, 185, 162, 91, 163, 136, 59, 83, 52]),
+            (Date(timeIntervalSince1970: 1537391061), [40, 248, 213, 185, 162, 91, 171, 136, 59, 83, 52]),
+            (Date(timeIntervalSince1970: 1537391062), [40, 248, 214, 185, 162, 91, 179, 136, 59, 83, 52]),
+            (Date(timeIntervalSince1970: 1537391063), [40, 248, 215, 185, 162, 91, 187, 136, 59, 83, 52]),
+            (Date(timeIntervalSince1970: 1537391064), [40, 248, 216, 185, 162, 91, 195, 136, 59, 83, 52])
+        ]
+
+        for test in tests {
+            // Because of problems with timezone encoding on different environments, do not check the timezone data
+            try assertEqualUsingProcedure(test.value, encoded: test.encoded, truncate: 2)
+        }
+    }
+
+    func testProcedureBoxData() throws {
+        for _ in 0..<10 {
+            let bytes = (0..<Int.random(in: 1...15)).map { _ in UInt8.random(in: 0...255) }
+            let identifier = UInt8(FastRPCObejectType.binary.identifier + bytes.count.nonTrailingBytesCount - 1)
+            let data = Data(bytes: bytes)
+
+            try assertEqualUsingProcedure(data, encoded: [identifier, UInt8(bytes.count)] + bytes)
+        }
+    }
+
+    func testResponseBox() throws {
+        XCTAssertEqual(try [UInt8](FastRPCBoxer(container: UntypedResponse(value: 50.06451651464292), version: .version2).box().dropFirst(5)), [24, 0xBC, 0x38, 0xC0, 0x13, 0x42, 0x08, 0x49, 0x40])
+    }
+
+    #warning("Add tests for multiple procedure arguments here")
+    
+    /// Asserts encoded value using static procedure wrapper
+    private func assertEqualUsingProcedure<T>(_ value: T, encoded: [UInt8], truncate: Int = 0) throws {
+        let boxer = FastRPCBoxer(container: UntypedProcedure(name: "c", arguments: [value]), version: .version2)
+
+        XCTAssertEqual(try [UInt8](boxer.box().dropFirst(7).dropFirst(truncate)), [UInt8](encoded.dropFirst(truncate)))
+    }
+
+    /// Procedure with staticly encoded meta (used for wrape top level encoded primitives)
     private func staticProcedure(argument: Any) -> UntypedProcedure {
         return UntypedProcedure(name: "c", arguments: [argument])
     }
