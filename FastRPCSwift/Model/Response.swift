@@ -8,36 +8,19 @@
 
 import Foundation
 
-class UntypedResponse: Codable, CustomStringConvertible {
-    var value: Any
+public class UntypedResponse: CustomStringConvertible {
+    public var value: Any
 
-    var description: String {
+    public var description: String {
         return "\(type(of: self)) =\t\(value)"
     }
 
-    init(value: Any) {
+    public init(value: Any) {
         self.value = value
-    }
-
-    required init(from decoder: Decoder) throws {
-        assert(decoder is FastRPCDecoder, "FastRPC Response is only decodable from internal FastRPCDecoder.")
-
-        let container = try decoder.singleValueContainer()
-        let response = try container.decode(UntypedResponse.self)
-
-        self.value = response.value
-    }
-
-    func encode(to encoder: Encoder) throws {
-        assert(encoder is FastRPCEncoder, "FastRPC Response is only encodable using internal FastRPCEncoder.")
-
-        var container = encoder.singleValueContainer()
-
-        try container.encode(self)
     }
 }
 
-public struct Response<Value: Decodable>: Decodable {
+public struct Response<Value: Codable>: Decodable {
     public var value: Value
 
     public init(value: Value) {
@@ -49,7 +32,13 @@ public struct Response<Value: Decodable>: Decodable {
     }
 
     public func encode(to encoder: Encoder) throws {
-        #warning("Implement response encoding")
-        fatalError()
+        guard let encoder = encoder as? FastRPCResponseEncoder else {
+            #warning("Implement response encoding")
+            fatalError()
+        }
+
+        var container = encoder.responseContainer()
+
+        try container.encode(value)
     }
 }

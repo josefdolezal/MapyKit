@@ -29,14 +29,17 @@ public protocol FastRPCProcedureEncoder: Encoder {
 }
 
 public protocol FastRPCResponseEncoder: Encoder {
-    func responseContainer() -> UnkeyedEncodingContainer
+    func responseContainer() -> FastRPCResponseEncodingContainer
 }
 
 public protocol FastRPCProcedureEncodingContainer: UnkeyedEncodingContainer {
     func encodeName(_ value: String) throws
 }
 
-class _FastRPCEncoder: Encoder, FastRPCProcedureEncoder, SingleValueEncodingContainer {
+public protocol FastRPCResponseEncodingContainer: SingleValueEncodingContainer { }
+
+class _FastRPCEncoder: Encoder, FastRPCProcedureEncoder, FastRPCResponseEncoder, SingleValueEncodingContainer, FastRPCResponseEncodingContainer {
+
     // MARK: Properties
 
     var codingPath: [CodingKey] = []
@@ -95,6 +98,18 @@ class _FastRPCEncoder: Encoder, FastRPCProcedureEncoder, SingleValueEncodingCont
         self.container = container
 
         return _FastRPCProcedureEncodingContainer(codingPath: codingPath, encoder: self, container: container)
+    }
+
+    func responseContainer() -> FastRPCResponseEncodingContainer {
+        guard self.container == nil else {
+            #warning("Throw an info message about encoding multiple top-level objects")
+            fatalError()
+        }
+
+        let container = UntypedResponse(value: NSNull())
+        self.container = container
+
+        return self
     }
 
     // MARK: - Internal converting interface
