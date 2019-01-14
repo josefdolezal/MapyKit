@@ -24,7 +24,19 @@ public struct FastRPCEncoder {
     }
 }
 
-class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
+public protocol FastRPCProcedureEncoder: Encoder {
+    func procedureContainer() -> FastRPCProcedureEncodingContainer
+}
+
+public protocol FastRPCResponseEncoder: Encoder {
+    func responseContainer() -> UnkeyedEncodingContainer
+}
+
+public protocol FastRPCProcedureEncodingContainer: UnkeyedEncodingContainer {
+    func encodeName(_ value: String) throws
+}
+
+class _FastRPCEncoder: Encoder, FastRPCProcedureEncoder, SingleValueEncodingContainer {
     // MARK: Properties
 
     var codingPath: [CodingKey] = []
@@ -43,6 +55,7 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
 
         // Create structure container
         let container = NSMutableDictionary()
+        self.container = container
 
         fatalError()
     }
@@ -56,6 +69,7 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
 
         // Create the collection container
         let container = NSMutableArray()
+        self.container = container
 
         // Create the collection
         return FastRPCUnkeyedEncodingContainer(codingPath: codingPath, encoder: self, container: container)
@@ -69,6 +83,18 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
         }
 
         return self
+    }
+
+    func procedureContainer() -> FastRPCProcedureEncodingContainer {
+        guard self.container == nil else {
+            #warning("Throw an info message about encoding multiple top-level objects")
+            fatalError()
+        }
+
+        let container = UntypedProcedure(name: "", arguments: [])
+        self.container = container
+
+        return _FastRPCProcedureEncodingContainer(codingPath: codingPath, encoder: self, container: container)
     }
 
     // MARK: - Internal converting interface
@@ -90,6 +116,13 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
     private func requireEmptyContainer() throws {
         if container != nil {
             #warning("Throw an error informing about unsuccessful encoding")
+            fatalError()
+        }
+    }
+
+    func encodeName(_ value: String) throws {
+        guard let procedure = container as? UntypedProcedure else {
+            #warning("throws unexpected container error")
             fatalError()
         }
     }
@@ -183,13 +216,86 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
         }
     }
 
+    private class _FastRPCProcedureEncodingContainer: FastRPCProcedureEncodingContainer {
+        var codingPath: [CodingKey]
+
+        var count: Int {
+            return container.arguments.count
+        }
+
+        private let encoder: _FastRPCEncoder
+        private let container: UntypedProcedure
+
+        init(codingPath: [CodingKey], encoder: _FastRPCEncoder, container: UntypedProcedure) {
+            self.codingPath = codingPath
+            self.encoder = encoder
+            self.container = container
+        }
+
+        func encodeName(_ value: String) throws { container.name = value }
+
+        func encodeNil()             throws { container.arguments.append(NSNull()) }
+        func encode(_ value: Bool)   throws { container.arguments.append(value) }
+        func encode(_ value: String) throws { container.arguments.append(value) }
+        func encode(_ value: Double) throws { container.arguments.append(value) }
+        func encode(_ value: Float)  throws { container.arguments.append(Double(value)) }
+        func encode(_ value: Int)    throws { container.arguments.append(value) }
+        func encode(_ value: Int8)   throws { container.arguments.append(Int(value)) }
+        func encode(_ value: Int16)  throws { container.arguments.append(Int(value)) }
+        func encode(_ value: Int32)  throws { container.arguments.append(Int(value)) }
+        func encode(_ value: Int64)  throws { container.arguments.append(Int(value)) }
+        func encode(_ value: UInt)   throws { container.arguments.append(Int(value)) }
+        func encode(_ value: UInt8)  throws { container.arguments.append(Int(value)) }
+        func encode(_ value: UInt16) throws { container.arguments.append(Int(value)) }
+        func encode(_ value: UInt32) throws { container.arguments.append(Int(value)) }
+        func encode(_ value: UInt64) throws { container.arguments.append(Int(value)) }
+
+        func encode<T>(_ value: T) throws where T : Encodable {
+            switch value {
+            case let data as Data:
+                container.arguments.append(data)
+            case let date as Date:
+                container.arguments.append(date)
+            case let fault as Fault:
+                container.arguments.append(fault)
+            default:
+                #warning("Unclear how to handle this case (or value.encode(..))")
+                container.arguments.append(try encoder.boxObject(value))
+            }
+        }
+
+        func nestedContainer<NestedKey>(keyedBy keyType: NestedKey.Type) -> KeyedEncodingContainer<NestedKey> where NestedKey: CodingKey {
+            let container = NSMutableDictionary()
+
+            self.container.arguments.append(container)
+
+            #warning("check if the coding path shouldnt be passed as argument")
+            return KeyedEncodingContainer(FastRPCKeyedEncodingContainer<NestedKey>(encoder: encoder, container: container))
+        }
+
+        func nestedUnkeyedContainer() -> UnkeyedEncodingContainer {
+            let container = NSMutableArray()
+
+            self.container.arguments.append(container)
+
+            return FastRPCUnkeyedEncodingContainer(codingPath: codingPath, encoder: encoder, container: container)
+        }
+
+        func superEncoder() -> Encoder {
+            #warning("Super class encoding not supported yet")
+            return encoder
+        }
+    }
+
     // MARK: - UnkeyedEncodingContainer
 
     private class FastRPCUnkeyedEncodingContainer: UnkeyedEncodingContainer {
         // MARK: Properties
         var codingPath: [CodingKey]
 
-        var count: Int
+        var count: Int {
+            return container.count
+        }
 
         private let encoder: _FastRPCEncoder
         private let container: NSMutableArray
@@ -200,7 +306,6 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
             self.codingPath = codingPath
             self.encoder = encoder
             self.container = container
-            self.count = 0
         }
 
         // MARK: Encoding
@@ -240,11 +345,15 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
         func nestedContainer<NestedKey>(keyedBy keyType: NestedKey.Type) -> KeyedEncodingContainer<NestedKey> where NestedKey : CodingKey {
             let container = NSMutableDictionary()
 
+            self.container.add(container)
+
             return KeyedEncodingContainer(FastRPCKeyedEncodingContainer<NestedKey>(encoder: encoder, container: container))
         }
 
         func nestedUnkeyedContainer() -> UnkeyedEncodingContainer {
             let container = NSMutableArray()
+
+            self.container.add(container)
 
             return FastRPCUnkeyedEncodingContainer(codingPath: codingPath, encoder: encoder, container: container)
         }
@@ -314,6 +423,13 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
             codingPath.append(key)
             defer { codingPath.removeLast() }
 
+            guard self.container[key.stringValue] == nil else {
+                #warning("throw already encoded value")
+                fatalError()
+            }
+
+            self.container[key.stringValue] = container
+
             return KeyedEncodingContainer(FastRPCKeyedEncodingContainer<NestedKey>(encoder: encoder, container: container))
         }
 
@@ -322,6 +438,13 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
 
             codingPath.append(key)
             defer { codingPath.removeLast() }
+
+            guard self.container[key.stringValue] == nil else {
+                #warning("throw already encoded value")
+                fatalError()
+            }
+
+            self.container[key.stringValue] = container
 
             return FastRPCUnkeyedEncodingContainer(codingPath: codingPath, encoder: encoder, container: container)
         }

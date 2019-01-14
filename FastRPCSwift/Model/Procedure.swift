@@ -8,23 +8,23 @@
 
 import Foundation
 
-class UntypedProcedure: CustomStringConvertible {
-    var name: String
-    var arguments: [Any]
+public class UntypedProcedure: CustomStringConvertible {
+    public var name: String
+    public var arguments: [Any]
 
-    var description: String {
+    public var description: String {
         return "\(type(of: self)) =\t{\n\tname =\t\(name)\n\targuments =\t\(arguments)"
     }
 
-    init(name: String, arguments: [Any]) {
+    public init(name: String, arguments: [Any]) {
         self.name = name
         self.arguments = arguments
     }
 }
 
 public struct Procedure1<Arg: Codable>: Codable {
-    var name: String
-    var arg: Arg
+    public var name: String
+    public var arg: Arg
 
     public init(name: String, arg: Arg) {
         self.name = name
@@ -49,21 +49,22 @@ public struct Procedure1<Arg: Codable>: Codable {
     }
 
     public func encode(to encoder: Encoder) throws {
-        // Due to limitations of type system, we do not support 3rd party encoders.
-        // This workaround due to usage of [Any] as arguments list, the encoding method cannot
-        // be synthetized by compiler.
-        assert(encoder is _FastRPCEncoder, "FastRPC Procedure is only encodable using internal FastRPCEncoder.")
+        guard var encoder = encoder as? FastRPCProcedureEncoder else {
+            #warning("FastRPC Procedure is only encodable using internal FastRPCEncoder.")
+            fatalError()
+        }
 
-        var container = encoder.unkeyedContainer()
+        var container = encoder.procedureContainer()
 
-        try container.encode(self)
+        try container.encodeName(name)
+        try container.encode(arg)
     }
 }
 
 public struct Procedure2<Arg1: Codable, Arg2: Codable>: Codable {
-    var name: String
-    var arg1: Arg1
-    var arg2: Arg2
+    public var name: String
+    public var arg1: Arg1
+    public var arg2: Arg2
 
     public init(name: String, arg1: Arg1, arg2: Arg2) {
         self.name = name
@@ -86,5 +87,16 @@ public struct Procedure2<Arg1: Codable, Arg2: Codable>: Codable {
         self.arg2 = try container.decode(Arg2.self)
     }
 
-    #warning("Implement procedure encoding")
+    public func encode(to encoder: Encoder) throws {
+        guard let encoder = encoder as? FastRPCProcedureEncoder else {
+            #warning("throw an error")
+            fatalError()
+        }
+
+        var container = encoder.procedureContainer()
+
+        try container.encodeName(name)
+        try container.encode(arg1)
+        try container.encode(arg2)
+    }
 }

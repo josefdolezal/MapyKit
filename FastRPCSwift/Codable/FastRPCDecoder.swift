@@ -99,6 +99,8 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
 
     // MARK: SingleValueDecodingContainer (Unsupported types)
 
+    #warning("support these types using fallback types")
+
     func decode(_ type: Float.Type)  throws -> Float  { throw unsupportedTypeError(Float.self, replacement: Double.self) }
     func decode(_ type: Int8.Type)   throws -> Int8   { throw unsupportedTypeError(Int8.self, replacement: Int.self) }
     func decode(_ type: Int16.Type)  throws -> Int16  { throw unsupportedTypeError(Int16.self, replacement: Int.self) }
