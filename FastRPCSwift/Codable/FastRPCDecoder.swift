@@ -22,7 +22,21 @@ public struct FastRPCDecoder {
     }
 }
 
-class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
+public protocol FastRPCProcedureDecoder {
+    func procedureContainer() -> FastRPCProcedureDecodingContainer
+}
+
+public protocol FastRPCResponseDecoder {
+    func responseContainer() -> FastRPCResponseDecodingContainer
+}
+
+public protocol FastRPCProcedureDecodingContainer: UnkeyedDecodingContainer {
+    func decodeName() throws -> String
+}
+
+public protocol FastRPCResponseDecodingContainer: SingleValueEncodingContainer { }
+
+class _FastRPCDecoder: Decoder, FastRPCProcedureDecoder, FastRPCResponseDecoder, FastRPCResponseDecodingContainer, SingleValueDecodingContainer {
     // MARK: Properties
 
     var codingPath: [CodingKey] = []
@@ -62,7 +76,7 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
         return self
     }
 
-    func procedureContainer() throws -> UnkeyedDecodingContainer {
+    func procedureContainer() throws -> FastRPCProcedureDecodingContainer {
         guard let nestedContainer = container as? UntypedProcedure else {
             throw FastRPCDecodingError.typeMismatch(expected: UntypedProcedure.self, actual: container)
         }
@@ -128,6 +142,169 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
 
     private func typeMismatchError<Expected, Actual>(expcted: Expected.Type, butGot actual: Actual) -> DecodingError {
         return DecodingError.typeMismatch(expcted, DecodingError.Context(codingPath: codingPath, debugDescription: "Expected type \(expcted) but got \(type(of: actual)) instead."))
+    }
+
+    private class _FastRPCProcedureDecodingContainer: UnkeyedDecodingContainer {
+        var codingPath: [CodingKey]
+        var count: Int?
+        var isAtEnd: Bool
+        var currentIndex: Int
+
+        mutating func decodeNil() throws -> Bool {
+            <#code#>
+        }
+
+        mutating func decode(_ type: Bool.Type) throws -> Bool {
+            <#code#>
+        }
+
+        mutating func decode(_ type: String.Type) throws -> String {
+            <#code#>
+        }
+
+        mutating func decode(_ type: Double.Type) throws -> Double {
+            <#code#>
+        }
+
+        mutating func decode(_ type: Float.Type) throws -> Float {
+            <#code#>
+        }
+
+        mutating func decode(_ type: Int.Type) throws -> Int {
+            <#code#>
+        }
+
+        mutating func decode(_ type: Int8.Type) throws -> Int8 {
+            <#code#>
+        }
+
+        mutating func decode(_ type: Int16.Type) throws -> Int16 {
+            <#code#>
+        }
+
+        mutating func decode(_ type: Int32.Type) throws -> Int32 {
+            <#code#>
+        }
+
+        mutating func decode(_ type: Int64.Type) throws -> Int64 {
+            <#code#>
+        }
+
+        mutating func decode(_ type: UInt.Type) throws -> UInt {
+            <#code#>
+        }
+
+        mutating func decode(_ type: UInt8.Type) throws -> UInt8 {
+            <#code#>
+        }
+
+        mutating func decode(_ type: UInt16.Type) throws -> UInt16 {
+            <#code#>
+        }
+
+        mutating func decode(_ type: UInt32.Type) throws -> UInt32 {
+            <#code#>
+        }
+
+        mutating func decode(_ type: UInt64.Type) throws -> UInt64 {
+            <#code#>
+        }
+
+        mutating func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
+            <#code#>
+        }
+
+        mutating func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {
+            <#code#>
+        }
+
+        mutating func nestedUnkeyedContainer() throws -> UnkeyedDecodingContainer {
+            <#code#>
+        }
+
+        mutating func superDecoder() throws -> Decoder {
+            <#code#>
+        }
+    }
+
+    private class _FastRPCResponseDecodingContainer: SingleValueDecodingContainer {
+        var codingPath: [CodingKey]
+
+        private let decoder: _FastRPCDecoder
+        private let container: UntypedResponse
+
+        private var currentIndex: Int
+
+        init(decoder: _FastRPCDecoder, container: UntypedResponse) {
+            self.decoder = decoder
+            self.container = container
+        }
+
+        func decodeNil() -> Bool {
+            return container.value is NSNull
+        }
+
+        func decode(_ type: Bool.Type) throws -> Bool {
+
+        }
+
+        func decode(_ type: String.Type) throws -> String {
+            <#code#>
+        }
+
+        func decode(_ type: Double.Type) throws -> Double {
+            <#code#>
+        }
+
+        func decode(_ type: Float.Type) throws -> Float {
+            <#code#>
+        }
+
+        func decode(_ type: Int.Type) throws -> Int {
+            <#code#>
+        }
+
+        func decode(_ type: Int8.Type) throws -> Int8 {
+            <#code#>
+        }
+
+        func decode(_ type: Int16.Type) throws -> Int16 {
+            <#code#>
+        }
+
+        func decode(_ type: Int32.Type) throws -> Int32 {
+            <#code#>
+        }
+
+        func decode(_ type: Int64.Type) throws -> Int64 {
+            <#code#>
+        }
+
+        func decode(_ type: UInt.Type) throws -> UInt {
+            <#code#>
+        }
+
+        func decode(_ type: UInt8.Type) throws -> UInt8 {
+            <#code#>
+        }
+
+        func decode(_ type: UInt16.Type) throws -> UInt16 {
+            <#code#>
+        }
+
+        func decode(_ type: UInt32.Type) throws -> UInt32 {
+            <#code#>
+        }
+
+        func decode(_ type: UInt64.Type) throws -> UInt64 {
+            <#code#>
+        }
+
+        func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
+            switch type {
+                case 
+            }
+        }
     }
 }
 
