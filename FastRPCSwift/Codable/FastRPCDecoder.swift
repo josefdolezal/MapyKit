@@ -89,7 +89,7 @@ class _FastRPCDecoder: Decoder, FastRPCProcedureDecoder, FastRPCResponseDecoder,
             throw FastRPCDecodingError.typeMismatch(expected: UntypedResponse.self, actual: self.container)
         }
 
-        return _FastRPCResponseDecodingContainer(decoder: self, container: container, codingPath: codingPath)
+        return _FastRPCResponseDecodingContainer(decoder: self, container: container)
     }
 
     // MARK: SingleValueDecodingContainer

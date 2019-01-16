@@ -34,8 +34,7 @@ class FastRPCBoxer {
         case let response as UntypedResponse:
             return try box(response)
         default:
-            #warning("Throw unsupported type")
-            fatalError("Unsupported top-level type")
+            throw FastRPCSerializationError.unsupportedTopLevelObject(container)
         }
     }
 
@@ -48,7 +47,7 @@ class FastRPCBoxer {
 
         // Encode procedure data using utf8
         guard let nameData = value.name.data(using: .utf8) else {
-            throw FastRPCError.requestEncoding(self, nil)
+            throw FastRPCSerializationError.corruptedStringFormat(value.name)
         }
 
         // Get bytes representation of encoded name length
@@ -123,8 +122,7 @@ class FastRPCBoxer {
         case let structure as NSDictionary:
             return try box(structure)
         default:
-            #warning("Should throw an error")
-            fatalError()
+            throw FastRPCSerializationError.unsupportedObject(value)
         }
     }
 
@@ -151,7 +149,7 @@ class FastRPCBoxer {
         // Try ot convert UTF8 string into data
         guard let stringData = value.data(using: .utf8) else {
             // Throw error on failure
-            throw FastRPCError.requestEncoding(self, nil)
+            throw FastRPCSerializationError.corruptedStringFormat(value)
         }
 
         // For FRPC 1.0, we don't use nlen so we don't have to substract 1,
@@ -309,9 +307,12 @@ class FastRPCBoxer {
         // Box all struct fields
         let fields = try value
             .map { key, value -> Data in
-                #warning("Should check safely for key type")
+                guard let stringKey = key as? String else {
+                    throw FastRPCSerializationError.unsupportedFieldNameObject(key)
+                }
+
                 // Encode the field name
-                let keyData = (key as! String).data(using: .utf8)!
+                let keyData = stringKey.data(using: .utf8)!
                 // Encode arbitrary field value
                 let valueData = try box(value)
 

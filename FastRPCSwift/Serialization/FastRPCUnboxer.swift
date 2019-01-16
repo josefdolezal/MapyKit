@@ -25,7 +25,7 @@ class FastRPCUnboxer {
 
         // We only support subset of types at top level
         guard type == .nonDataType else {
-            throw FastRPCDecodingError.unexpectedTopLevelObject
+            throw FastRPCSerializationError.unsupportedTopLevelIdentifier(type.identifier)
         }
 
         // Unbox the non-data type
@@ -56,9 +56,9 @@ class FastRPCUnboxer {
         case .nonDataType: return try unboxNonDataType()
 
         // These must be wrapped inside non-data type
-        case .procedure: throw FastRPCDecodingError.unexpectedTopLevelObject
-        case .response: throw FastRPCDecodingError.unexpectedTopLevelObject
-        case .fault: throw FastRPCDecodingError.unexpectedTopLevelObject
+        case .procedure: throw FastRPCSerializationError.unsupportedTopLevelIdentifier(type.identifier)
+        case .response: throw FastRPCSerializationError.unsupportedTopLevelIdentifier(type.identifier)
+        case .fault: throw FastRPCSerializationError.unsupportedTopLevelIdentifier(type.identifier)
         }
     }
 
@@ -86,7 +86,7 @@ class FastRPCUnboxer {
     private func unbox(_ type: Int.Type) throws -> Int {
         // Check first for type information (without last 3 additional info bits)
         guard let type = data.first.map({ Int($0 & 0xF8) }) else {
-            throw FastRPCDecodingError.corruptedData
+            throw FastRPCSerializationError.corruptedData(expectedBytes: 1, actualBytes: 0)
         }
 
         // Switch over int identifier
@@ -100,12 +100,12 @@ class FastRPCUnboxer {
             case .version2:
                 // Version 2 does not specify Int identifier (it uses separate Int8+/-),
                 // so the identifier is unknown
-                throw FastRPCDecodingError.unknownTypeIdentifier
+                throw FastRPCSerializationError.unknownTypeIdentifier(type, version)
             case .version3:
                 return try unboxZigZagInteger()
             }
         default:
-            throw FastRPCDecodingError.unknownTypeIdentifier
+            throw FastRPCSerializationError.unknownTypeIdentifier(type, version)
         }
     }
 
@@ -131,7 +131,7 @@ class FastRPCUnboxer {
 
         // Decode string data with utf8 encoding
         guard let string = String(data: stringData, encoding: .utf8) else {
-            throw FastRPCDecodingError.corruptedData
+            throw FastRPCSerializationError.corruptedStringEncoding(stringData)
         }
 
         return string
@@ -169,7 +169,7 @@ class FastRPCUnboxer {
             let nameData = try expectBytes(count: nameSize)
             // Unbox member name UTF8 encoded string, fail decoding on error
             guard let name = String(data: nameData, encoding: .utf8) else {
-                throw FastRPCDecodingError.corruptedData
+                throw FastRPCSerializationError.corruptedStringEncoding(nameData)
             }
             // Unbox arbitrary value
             let value = try unboxNestedValue()
@@ -276,7 +276,7 @@ class FastRPCUnboxer {
 
         // Identify the procol version from type meta
         guard let version = FastRPCProtocolVersion(rawValue: major) else {
-            throw FastRPCDecodingError.unsupportedProtocolVersion(major: major, minor: minor)
+            throw FastRPCSerializationError.unsupportedProtocolVersion(major: major, minor: minor)
         }
 
         // Override currently used protocol version
@@ -291,7 +291,7 @@ class FastRPCUnboxer {
         case .procedure: return try unboxProcedure()
         case .fault: return try unbox(Fault.self)
         default:
-            throw FastRPCDecodingError.unsupportedNonDataType
+            throw FastRPCSerializationError.unknownTypeIdentifier(type.identifier, version)
         }
     }
 
@@ -307,7 +307,7 @@ class FastRPCUnboxer {
 
         // The name must be encoded using UTF8
         guard let name = String(data: nameData, encoding: .utf8) else {
-            throw FastRPCDecodingError.corruptedData
+            throw FastRPCSerializationError.corruptedStringEncoding(nameData)
         }
 
         // We expect the parameters to be lineary aligned
@@ -330,15 +330,10 @@ class FastRPCUnboxer {
         // Throw out fault response signature
         _ = try expectTypeAdditionalInfo()
         // Try to decode fault content
-        do {
-            let code = try unbox(Int.self)
-            let message = try unbox(String.self)
+        let code = try unbox(Int.self)
+        let message = try unbox(String.self)
 
-            return Fault(code: code, message: message)
-        } catch {
-            // Throw custom error if either code or messae decoding fails
-            throw FastRPCDecodingError.corruptedData
-        }
+        return Fault(code: code, message: message)
     }
 
     // MARK: Private API
@@ -347,7 +342,7 @@ class FastRPCUnboxer {
         // Make the type info mutable so we can replace it with multibyte
         // representation later.
         guard var typeInfo = data.first.map({ Int($0 & 0xF8) }) else {
-            throw FastRPCDecodingError.missingTypeIdentifier
+            throw FastRPCSerializationError.corruptedData(expectedBytes: 1, actualBytes: 0)
         }
 
         // Extend type to multibyte representation, add last three bytes by adding '2'
@@ -362,7 +357,7 @@ class FastRPCUnboxer {
         // Continue with original `typeInfo` property since multibyte encoding is
         // handled before.
         guard let type = FastRPCObejectType(rawValue: typeInfo) else {
-            throw FastRPCDecodingError.unknownTypeIdentifier
+            throw FastRPCSerializationError.unknownTypeIdentifier(typeInfo, version)
         }
 
         return type
@@ -371,7 +366,7 @@ class FastRPCUnboxer {
     private func expectBytes(count: Int) throws -> Data {
         // Check if we have required bytes count
         guard data.count >= count else {
-            throw FastRPCDecodingError.corruptedData
+            throw FastRPCSerializationError.corruptedData(expectedBytes: count, actualBytes: data.count)
         }
 
         // Get expected bytes and remove it
@@ -383,7 +378,7 @@ class FastRPCUnboxer {
 
     private func expectTypeAdditionalInfo() throws -> UInt8 {
         guard data.first != nil else {
-            throw FastRPCDecodingError.missingTypeIdentifier
+            throw FastRPCSerializationError.corruptedData(expectedBytes: 1, actualBytes: 0)
         }
 
         // Return just last three bits

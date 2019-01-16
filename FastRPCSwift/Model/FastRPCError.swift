@@ -17,3 +17,15 @@ public enum FastRPCError: Error {
     case responseDecoding(Data, Error?)
     case unknown(Error?)
 }
+
+public enum FastRPCSerializationError: Error {
+    case corruptedData(expectedBytes: Int, actualBytes: Int)
+    case unsupportedTopLevelObject(Any)
+    case unsupportedTopLevelIdentifier(Int)
+    case unknownTypeIdentifier(Int, FastRPCProtocolVersion)
+    case unsupportedObject(Any)
+    case unsupportedFieldNameObject(Any)
+    case corruptedStringFormat(String)
+    case corruptedStringEncoding(Data)
+    case unsupportedProtocolVersion(major: Int, minor: Int)
+}
