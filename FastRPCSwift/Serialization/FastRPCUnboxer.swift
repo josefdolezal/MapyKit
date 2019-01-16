@@ -11,11 +11,12 @@ import Foundation
 class FastRPCUnboxer {
     /// Data representing FRPC encoded object
     private var data: Data
-    /// Version of the FRPC protocol used to decode stored object (default: 3.0)
-    private var version = FastRPCProtocolVersion.version3
+    /// Version of the FRPC protocol used to decode stored object (default: 2.0)
+    private var version: FastRPCProtocolVersion
 
-    init(data: Data) {
+    init(data: Data, version: FastRPCProtocolVersion = .version2) {
         self.data = data
+        self.version = version
     }
 
     func unbox() throws -> Any {
