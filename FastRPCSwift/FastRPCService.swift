@@ -45,13 +45,13 @@ public final class FastRPCService {
 //    }
 
     @discardableResult
-    public func call<Response: Decodable, A: Encodable>(path: String, procedure: Procedure1<A>, success: @escaping (Response) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
+    public func call<Response: Codable, A: Codable>(path: String, procedure: Procedure1<A>, success: @escaping (Response) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
         return frpcCall(path: path, procedure: procedure, success: success, failure: failure)
     }
 
     // MARK: Private API
 
-    private func frpcCall<Procedure: Encodable, Response: Decodable>(path: String, procedure: Procedure, success: @escaping (Response) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
+    private func frpcCall<Procedure: Codable, Response: Codable>(path: String, procedure: Procedure, success: @escaping (Response) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
         do {
             // Compose the final rpc call URL
             let url = self.url.appendingPathComponent(path)
@@ -88,7 +88,7 @@ public final class FastRPCService {
         return request
     }
 
-    private func request<T: Decodable>(_ request: URLRequest, success: @escaping (T) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
+    private func request<T: Codable>(_ request: URLRequest, success: @escaping (T) -> Void, failure: @escaping FailureCallback) -> URLSessionTask? {
         // Keep strong reference to decoder inside task callback
         let decoder = self.decoder
         // Create request task
