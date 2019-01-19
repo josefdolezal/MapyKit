@@ -78,6 +78,8 @@
 		D2A370C0215E5FF00096D219 /* Location+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370BF215E5FF00096D219 /* Location+Codable.swift */; };
 		D2A370C2215E607A0096D219 /* NavigationPoint+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370C1215E607A0096D219 /* NavigationPoint+Codable.swift */; };
 		D2A370C4215E60F50096D219 /* TransportType+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A370C3215E60F50096D219 /* TransportType+Codable.swift */; };
+		D2A83CE421F28711004F6AFF /* CodableSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A83CE321F28711004F6AFF /* CodableSubject.swift */; };
+		D2A83CE621F28AC1004F6AFF /* FastRPCDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A83CE521F28AC1004F6AFF /* FastRPCDecoderTests.swift */; };
 		D2C25BC92159814D00A78896 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C25BC82159814D00A78896 /* Location.swift */; };
 		D2C3B0592169FEC400B1F257 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B0582169FEC400B1F257 /* Place.swift */; };
 		D2C3B05B216A0DF100B1F257 /* Place+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B05A216A0DF100B1F257 /* Place+Codable.swift */; };
@@ -230,6 +232,8 @@
 		D2A370C1215E607A0096D219 /* NavigationPoint+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationPoint+Codable.swift"; sourceTree = "<group>"; };
 		D2A370C3215E60F50096D219 /* TransportType+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransportType+Codable.swift"; sourceTree = "<group>"; };
 		D2A370C6215ED2BA0096D219 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		D2A83CE321F28711004F6AFF /* CodableSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableSubject.swift; sourceTree = "<group>"; };
+		D2A83CE521F28AC1004F6AFF /* FastRPCDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCDecoderTests.swift; sourceTree = "<group>"; };
 		D2C25BC82159814D00A78896 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D2C3B0582169FEC400B1F257 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		D2C3B05A216A0DF100B1F257 /* Place+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Place+Codable.swift"; sourceTree = "<group>"; };
@@ -511,6 +515,7 @@
 			children = (
 				D28776CF2155125D0007C378 /* Supporting Files */,
 				D2477BCD21E5574A00F3FA1F /* Stub */,
+				D2A83CE021F28687004F6AFF /* Codable */,
 				D20AF6552170EE4C00156AA8 /* Serialization */,
 			);
 			path = FastRPCSwiftTests;
@@ -590,6 +595,15 @@
 				D20AF6802171E8D600156AA8 /* Location+GeoHashTests.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D2A83CE021F28687004F6AFF /* Codable */ = {
+			isa = PBXGroup;
+			children = (
+				D2A83CE321F28711004F6AFF /* CodableSubject.swift */,
+				D2A83CE521F28AC1004F6AFF /* FastRPCDecoderTests.swift */,
+			);
+			path = Codable;
 			sourceTree = "<group>";
 		};
 		D2C3B05E216A7D6900B1F257 /* Stub */ = {
@@ -966,9 +980,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D20AF66721710E3D00156AA8 /* FastRPCDecoder+DateTests.swift in Sources */,
+				D2A83CE421F28711004F6AFF /* CodableSubject.swift in Sources */,
 				D20AF65F217100D600156AA8 /* FastRPCDecoder+ArrayTests.swift in Sources */,
 				D20AF6572170EE7F00156AA8 /* FastRPCDecoder+StringTests.swift in Sources */,
 				D2C3B06C216AA2C900B1F257 /* Asserts.swift in Sources */,
+				D2A83CE621F28AC1004F6AFF /* FastRPCDecoderTests.swift in Sources */,
 				D20AF65D2171008600156AA8 /* FastRPCDecoder+BoolTests.swift in Sources */,
 				D2477BDE21E9181200F3FA1F /* FastRPCBoxerTests.swift in Sources */,
 				D2477BCC21E5524900F3FA1F /* FastRPCUnboxerTests.swift in Sources */,
