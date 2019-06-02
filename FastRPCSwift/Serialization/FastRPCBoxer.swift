@@ -262,7 +262,7 @@ class FastRPCBoxer {
         let second = dateComponents.second!
 
         // Define data structure
-        let bytes = [
+        let bytes: [Data] = [
             identifier.truncatedBytes(to: 1),
             timezone.truncatedBytes(to: 1),
             timestamp.truncatedBytes(to: 4),
