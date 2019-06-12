@@ -8,6 +8,16 @@
 
 import Foundation
 
+public enum FastRPCProcedureKeys: String, CodingKey {
+    case procedure
+    case arguments
+}
+
+public enum FastRPCFaultKeys: String, CodingKey {
+    case code
+    case message
+}
+
 class FastRPCUnboxer {
     /// Data representing FRPC encoded object
     private var data: Data
@@ -18,18 +28,35 @@ class FastRPCUnboxer {
         self.data = data
         self.version = version
     }
-
-    func unbox() throws -> Any {
-        // Get the data type
+    
+    func unboxProcedure() throws -> Any {
         let type = try validateType()
 
-        // We only support subset of types at top level
         guard type == .nonDataType else {
             throw FastRPCSerializationError.unsupportedTopLevelIdentifier(type.identifier)
         }
 
-        // Unbox the non-data type
-        return try unboxNonDataType()
+        return try unboxNonDataType(required: .procedure)
+    }
+
+    func unboxResponse() throws -> Any {
+        let type = try validateType()
+
+        guard type == .nonDataType else {
+            throw FastRPCSerializationError.unsupportedTopLevelIdentifier(type.identifier)
+        }
+
+        return try unboxNonDataType(required: .response)
+    }
+
+    func unboxFault() throws -> Any {
+        let type = try validateType()
+
+        guard type == .nonDataType else {
+            throw FastRPCSerializationError.unsupportedTopLevelIdentifier(type.identifier)
+        }
+
+        return try unboxNonDataType(required: .fault)
     }
 
     // MARK: Unbox type evaluation
@@ -267,7 +294,7 @@ class FastRPCUnboxer {
 
     // MARK: Non-data types
 
-    private func unboxNonDataType() throws -> Any {
+    private func unboxNonDataType(required: FastRPCObejectType? = nil) throws -> Any {
         // Ignore the non-data type multi-byte identifier
         _ = try expectBytes(count: 2)
         // Get FRPC version
@@ -285,17 +312,22 @@ class FastRPCUnboxer {
         // Check for the inner type
         let type = try validateType()
 
+        // Check whether the actual type matches the required type
+        guard required == nil || type == required else {
+            throw FastRPCSerializationError.unknownTypeIdentifier(type.identifier, version)
+        }
+
         // We only support subset of types as inner object
         switch type {
-        case .response: return try unboxResponse()
-        case .procedure: return try unboxProcedure()
-        case .fault: return try unbox(Fault.self)
+        case .response: return try _unboxResponse()
+        case .procedure: return try _unboxProcedure()
+        case .fault: return try _unboxFault()
         default:
             throw FastRPCSerializationError.unknownTypeIdentifier(type.identifier, version)
         }
     }
 
-    private func unboxProcedure() throws -> Any {
+    private func _unboxProcedure() throws -> Any {
         // Ignore the additional type info
         _ = try expectTypeAdditionalInfo()
         // Get number of bytes used by procedure name
@@ -315,25 +347,31 @@ class FastRPCUnboxer {
             arguments.append(try unboxNestedValue())
         }
 
-        return UntypedProcedure(name: name, arguments: arguments)
+        return NSDictionary(dictionary: [
+            FastRPCProcedureKeys.name.rawValue: name,
+            FastRPCProcedureKeys.arguments.rawValue: arguments
+        ])
     }
 
-    private func unboxResponse() throws -> Any {
+    private func _unboxResponse() throws -> Any {
         // Remove the unused type information
         _ = try expectTypeAdditionalInfo()
 
         // Wrap remote response with internal type
-        return UntypedResponse(value: try unboxNestedValue())
+        return try unboxNestedValue()
     }
 
-    private func unbox(_ type: Fault.Type) throws -> Fault {
+    private func _unboxFault() throws -> Any {
         // Throw out fault response signature
         _ = try expectTypeAdditionalInfo()
         // Try to decode fault content
         let code = try unbox(Int.self)
         let message = try unbox(String.self)
 
-        return Fault(code: code, message: message)
+        return NSDictionary(dictionary: [
+            FastRPCFaultKeys.code.rawValue: code,
+            FastRPCFaultKeys.message.rawValue: message
+        ])
     }
 
     // MARK: Private API

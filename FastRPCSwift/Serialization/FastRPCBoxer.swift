@@ -11,49 +11,28 @@ import Foundation
 class FastRPCBoxer {
     // MARK: Properties
 
-    private var container: Any
     private let version: FastRPCProtocolVersion
 
     // MARK: Initializers
 
-    init(container: Any, version: FastRPCProtocolVersion = .version2) {
-        self.container = container
+    init(version: FastRPCProtocolVersion = .version2) {
         self.version = version
     }
 
     // MARK: Public API
 
-    func box() throws -> Data {
-        // FRPC standard allows only certain objects to be at top-level, check for these
-        // before boxing potential nested containers.
-        switch container {
-        case let fault as Fault:
-            return try box(fault)
-        case let procedure as UntypedProcedure:
-            return try box(procedure)
-        case let response as UntypedResponse:
-            return try box(response)
-        default:
-            throw FastRPCSerializationError.unsupportedTopLevelObject(container)
-        }
-    }
-
-    // MARK: Private API
-
-    // MARK: Top level non-data types
-
-    private func box(_ value: UntypedProcedure) throws -> Data {
+    func box(procedure: String, arguments: [Any]) throws -> Data {
         let identifier = FastRPCObejectType.procedure.identifier.bigEndianData
 
         // Encode procedure data using utf8
-        guard let nameData = value.name.data(using: .utf8) else {
-            throw FastRPCSerializationError.corruptedStringFormat(value.name)
+        guard let nameData = procedure.data(using: .utf8) else {
+            throw FastRPCSerializationError.corruptedStringFormat(procedure)
         }
 
         // Get bytes representation of encoded name length
         let nameSize = nameData.count.bigEndianData
         // Encode arguments one-by-one as linear data
-        let arguments = try value.arguments
+        let encodedArguments = try arguments
             // Encode each argument separately
             .map { argument in
                 try box(argument)
@@ -62,26 +41,30 @@ class FastRPCBoxer {
             .reduce(Data(), +)
 
         // Combine all procedure calls informations
-        return boxNonDataTypeMeta() + identifier + nameSize + nameData + arguments
+        return boxNonDataTypeMeta() + identifier + nameSize + nameData + encodedArguments
     }
 
-    private func box(_ value: Fault) throws -> Data {
-        let identifier = FastRPCObejectType.fault.identifier.bigEndianData
-        let codeData = try box(value.code)
-        let nameData = try box(value.message)
-
-        return boxNonDataTypeMeta() + identifier + codeData + nameData
-    }
-
-    private func box(_ value: UntypedResponse) throws -> Data {
+    func box(response: Any) throws -> Data {
         // Encode static identifier
         let identifier = FastRPCObejectType.response.identifier.bigEndianData
         // Encode arbitrary (encodable) value
-        let valueData = try box(value.value)
+        let valueData = try box(response)
 
         // Combine identifier and its data
         return boxNonDataTypeMeta() + identifier + valueData
     }
+
+    func box(faultCode code: Int, message: String) throws -> Data {
+        let identifier = FastRPCObejectType.fault.identifier.bigEndianData
+        let codeData = try box(code)
+        let nameData = try box(message)
+
+        return boxNonDataTypeMeta() + identifier + codeData + nameData
+    }
+
+    // MARK: Private API
+
+    // MARK: Top level non-data type
 
     private func boxNonDataTypeMeta() -> Data {
         // Encode non-data type identifiex (0xCALL)
@@ -111,12 +94,6 @@ class FastRPCBoxer {
             return try box(data)
         case let date as Date:
             return try box(date)
-        case let fault as Fault:
-            return try box(fault)
-        case let procedure as UntypedProcedure:
-            return try box(procedure)
-        case let response as UntypedResponse:
-            return try box(response)
         case let array as NSArray:
             return try box(array)
         case let structure as NSDictionary:

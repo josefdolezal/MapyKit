@@ -15,30 +15,35 @@ public struct FastRPCEncoder {
 
     // MARK: Public API
 
-    public func encode<T: Encodable>(_ value: T) throws -> Data {
+    public func encode(procedure: String) throws -> Data {
+        return try FastRPCSerialization.data(procedure: procedure, arguments: [])
+    }
+
+    public func encode<T: Encodable>(procedure: String, _ arg1: T) throws -> Data {
         let encoder = _FastRPCEncoder()
 
-        let object = try encoder.boxObject(value)
+        let _arg1 = try encoder.boxObject(arg1)
 
-        return try FastRPCSerialization.data(withObject: object)
+        return try FastRPCSerialization.data(procedure: procedure, arguments: [_arg1])
     }
-}
 
-public protocol FastRPCProcedureEncoder: Encoder {
-    func procedureContainer() -> FastRPCProcedureEncodingContainer
-}
+    public func encode<T: Encodable, U: Encodable>(procedure: String, _ arg1: T, _ arg2: U) throws -> Data {
+        let encoder = _FastRPCEncoder()
 
-public protocol FastRPCResponseEncoder: Encoder {
-    func responseContainer() -> FastRPCResponseEncodingContainer
-}
+        let _arg1 = try encoder.boxObject(arg1)
+        let _arg2 = try encoder.boxObject(arg2)
 
-public protocol FastRPCProcedureEncodingContainer: UnkeyedEncodingContainer {
-    func encodeName(_ value: String) throws
+        return try FastRPCSerialization.data(procedure: procedure, arguments: [_arg1, _arg2])
+    }
+
+    public func encode(faultCode code: Int, message: String) throws -> Data {
+        return try FastRPCSerialization.data(faultCode: code, message: message)
+    }
 }
 
 public protocol FastRPCResponseEncodingContainer: SingleValueEncodingContainer { }
 
-class _FastRPCEncoder: Encoder, FastRPCProcedureEncoder, FastRPCResponseEncoder, SingleValueEncodingContainer, FastRPCResponseEncodingContainer {
+class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
 
     // MARK: Properties
 
@@ -88,30 +93,6 @@ class _FastRPCEncoder: Encoder, FastRPCProcedureEncoder, FastRPCResponseEncoder,
         return self
     }
 
-    func procedureContainer() -> FastRPCProcedureEncodingContainer {
-        guard self.container == nil else {
-            #warning("Throw an info message about encoding multiple top-level objects")
-            fatalError()
-        }
-
-        let container = UntypedProcedure(name: "", arguments: [])
-        self.container = container
-
-        return _FastRPCProcedureEncodingContainer(codingPath: codingPath, encoder: self, container: container)
-    }
-
-    func responseContainer() -> FastRPCResponseEncodingContainer {
-        guard self.container == nil else {
-            #warning("Throw an info message about encoding multiple top-level objects")
-            fatalError()
-        }
-
-        let container = UntypedResponse(value: NSNull())
-        self.container = container
-
-        return self
-    }
-
     // MARK: - Internal converting interface
 
     func boxObject<T: Encodable>(_ value: T) throws -> Any {
@@ -131,13 +112,6 @@ class _FastRPCEncoder: Encoder, FastRPCProcedureEncoder, FastRPCResponseEncoder,
     private func requireEmptyContainer() throws {
         if container != nil {
             #warning("Throw an error informing about unsuccessful encoding")
-            fatalError()
-        }
-    }
-
-    func encodeName(_ value: String) throws {
-        guard let procedure = container as? UntypedProcedure else {
-            #warning("throws unexpected container error")
             fatalError()
         }
     }
@@ -228,77 +202,6 @@ class _FastRPCEncoder: Encoder, FastRPCProcedureEncoder, FastRPCResponseEncoder,
         default:
             #warning("Unclear how to handle this case (or value.encode(..))")
             container = try boxObject(value)
-        }
-    }
-
-    private class _FastRPCProcedureEncodingContainer: FastRPCProcedureEncodingContainer {
-        var codingPath: [CodingKey]
-
-        var count: Int {
-            return container.arguments.count
-        }
-
-        private let encoder: _FastRPCEncoder
-        private let container: UntypedProcedure
-
-        init(codingPath: [CodingKey], encoder: _FastRPCEncoder, container: UntypedProcedure) {
-            self.codingPath = codingPath
-            self.encoder = encoder
-            self.container = container
-        }
-
-        func encodeName(_ value: String) throws { container.name = value }
-
-        func encodeNil()             throws { container.arguments.append(NSNull()) }
-        func encode(_ value: Bool)   throws { container.arguments.append(value) }
-        func encode(_ value: String) throws { container.arguments.append(value) }
-        func encode(_ value: Double) throws { container.arguments.append(value) }
-        func encode(_ value: Float)  throws { container.arguments.append(Double(value)) }
-        func encode(_ value: Int)    throws { container.arguments.append(value) }
-        func encode(_ value: Int8)   throws { container.arguments.append(Int(value)) }
-        func encode(_ value: Int16)  throws { container.arguments.append(Int(value)) }
-        func encode(_ value: Int32)  throws { container.arguments.append(Int(value)) }
-        func encode(_ value: Int64)  throws { container.arguments.append(Int(value)) }
-        func encode(_ value: UInt)   throws { container.arguments.append(Int(value)) }
-        func encode(_ value: UInt8)  throws { container.arguments.append(Int(value)) }
-        func encode(_ value: UInt16) throws { container.arguments.append(Int(value)) }
-        func encode(_ value: UInt32) throws { container.arguments.append(Int(value)) }
-        func encode(_ value: UInt64) throws { container.arguments.append(Int(value)) }
-
-        func encode<T>(_ value: T) throws where T : Encodable {
-            switch value {
-            case let data as Data:
-                container.arguments.append(data)
-            case let date as Date:
-                container.arguments.append(date)
-            case let fault as Fault:
-                container.arguments.append(fault)
-            default:
-                #warning("Unclear how to handle this case (or value.encode(..))")
-                container.arguments.append(try encoder.boxObject(value))
-            }
-        }
-
-        func nestedContainer<NestedKey>(keyedBy keyType: NestedKey.Type) -> KeyedEncodingContainer<NestedKey> where NestedKey: CodingKey {
-            let container = NSMutableDictionary()
-
-            self.container.arguments.append(container)
-
-            #warning("check if the coding path shouldnt be passed as argument")
-            return KeyedEncodingContainer(FastRPCKeyedEncodingContainer<NestedKey>(encoder: encoder, container: container))
-        }
-
-        func nestedUnkeyedContainer() -> UnkeyedEncodingContainer {
-            let container = NSMutableArray()
-
-            self.container.arguments.append(container)
-
-            return FastRPCUnkeyedEncodingContainer(codingPath: codingPath, encoder: encoder, container: container)
-        }
-
-        func superEncoder() -> Encoder {
-            #warning("Super class encoding not supported yet")
-            return encoder
         }
     }
 

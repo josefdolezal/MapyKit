@@ -22,21 +22,7 @@ public struct FastRPCDecoder {
     }
 }
 
-public protocol FastRPCProcedureDecoder {
-    func procedureContainer() throws -> FastRPCProcedureDecodingContainer
-}
-
-public protocol FastRPCResponseDecoder {
-    func responseContainer() throws -> FastRPCResponseDecodingContainer
-}
-
-public protocol FastRPCProcedureDecodingContainer: UnkeyedDecodingContainer {
-    func decodeName() throws -> String
-}
-
-public protocol FastRPCResponseDecodingContainer: SingleValueDecodingContainer { }
-
-class _FastRPCDecoder: Decoder, FastRPCProcedureDecoder, FastRPCResponseDecoder, FastRPCResponseDecodingContainer, SingleValueDecodingContainer {
+class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
     // MARK: Properties
 
     var codingPath: [CodingKey] = []
@@ -76,22 +62,6 @@ class _FastRPCDecoder: Decoder, FastRPCProcedureDecoder, FastRPCResponseDecoder,
         return self
     }
 
-    func procedureContainer() throws -> FastRPCProcedureDecodingContainer {
-        guard let container = container as? UntypedProcedure else {
-            throw FastRPCDecodingError.typeMismatch(expected: UntypedProcedure.self, actual: self.container)
-        }
-
-        return _FastRPCProcedureDecodingContainer(decoder: self, container: container)
-    }
-
-    func responseContainer() throws -> FastRPCResponseDecodingContainer {
-        guard let container = container as? UntypedResponse else {
-            throw FastRPCDecodingError.typeMismatch(expected: UntypedResponse.self, actual: self.container)
-        }
-
-        return _FastRPCResponseDecodingContainer(decoder: self, container: container)
-    }
-
     // MARK: SingleValueDecodingContainer
 
     func decodeNil() -> Bool {
@@ -122,10 +92,6 @@ class _FastRPCDecoder: Decoder, FastRPCProcedureDecoder, FastRPCResponseDecoder,
             return try unbox(Date.self) as! T
         case is Data.Type:
             return try unbox(Data.self) as! T
-        case is UntypedProcedure.Type:
-            return try unbox(UntypedProcedure.self) as! T
-        case is UntypedResponse.Type:
-            return try unbox(UntypedResponse.self) as! T
         default:
             // We don't know how to unbox this type, fallback to it's initializer
             return try T(from: self)
@@ -221,10 +187,6 @@ class _FastRPCDecoder: Decoder, FastRPCProcedureDecoder, FastRPCResponseDecoder,
                 return try unbox(Date.self) as! T
             case is Data.Type:
                 return try unbox(Data.self) as! T
-            case is UntypedProcedure.Type:
-                return try unbox(UntypedProcedure.self) as! T
-            case is UntypedResponse.Type:
-                return try unbox(UntypedResponse.self) as! T
             default:
                 guard !isAtEnd else {
                     throw FastRPCDecodingError.containerIsAtEnd
@@ -397,10 +359,6 @@ class _FastRPCDecoder: Decoder, FastRPCProcedureDecoder, FastRPCResponseDecoder,
                 return try unbox(Date.self, forKey: key) as! T
             case is Data.Type:
                 return try unbox(Data.self, forKey: key) as! T
-            case is UntypedProcedure.Type:
-                return try unbox(UntypedProcedure.self, forKey: key) as! T
-            case is UntypedResponse.Type:
-                return try unbox(UntypedProcedure.self, forKey: key) as! T
             default:
                 guard let value = container[key.stringValue] else {
                     throw FastRPCDecodingError.keyNotFound(key)
@@ -433,209 +391,6 @@ class _FastRPCDecoder: Decoder, FastRPCProcedureDecoder, FastRPCResponseDecoder,
             }
 
             return t
-        }
-    }
-
-    private class _FastRPCProcedureDecodingContainer: FastRPCProcedureDecodingContainer, UnkeyedDecodingContainer {
-        var codingPath: [CodingKey] {
-            return decoder.codingPath
-        }
-
-        var count: Int? {
-            return container.arguments.count
-        }
-
-        var isAtEnd: Bool {
-            return currentIndex >= container.arguments.count
-        }
-
-        private(set) var currentIndex: Int
-
-        private let container: UntypedProcedure
-        private let decoder: _FastRPCDecoder
-
-        init(decoder: _FastRPCDecoder, container: UntypedProcedure) {
-            self.decoder = decoder
-            self.container = container
-            self.currentIndex = 0
-        }
-
-        // MARK: Superclass decoders
-
-        func superDecoder() throws -> Decoder {
-            #warning("add support for superclass decoding")
-            return _FastRPCDecoder(container: container, at: codingPath)
-        }
-
-        // MARK: Decoders
-
-        func decodeName() throws -> String {
-            return container.name
-        }
-
-        func decodeNil() throws -> Bool {
-            guard !isAtEnd else {
-                #warning("Container is at end")
-                fatalError()
-            }
-
-            if container.arguments[currentIndex] as? NSNull != nil {
-                currentIndex += 1
-                return true
-            }
-
-            return false
-        }
-
-        func decode(_ type: Bool.Type)   throws -> Bool   { return try unbox(type) }
-        func decode(_ type: String.Type) throws -> String { return try unbox(type) }
-        func decode(_ type: Double.Type) throws -> Double { return try unbox(type) }
-        func decode(_ type: Int.Type)    throws -> Int    { return try unbox(type) }
-
-        func decode(_ type: Float.Type)  throws -> Float  { return try Float(unbox(Double.self)) }
-        func decode(_ type: Int8.Type)   throws -> Int8   { return try type.init(unbox(Int.self)) }
-        func decode(_ type: Int16.Type)  throws -> Int16  { return try type.init(unbox(Int.self)) }
-        func decode(_ type: Int32.Type)  throws -> Int32  { return try type.init(unbox(Int.self)) }
-        func decode(_ type: Int64.Type)  throws -> Int64  { return try type.init(unbox(Int.self)) }
-        func decode(_ type: UInt.Type)   throws -> UInt   { return try type.init(unbox(Int.self)) }
-        func decode(_ type: UInt8.Type)  throws -> UInt8  { return try type.init(unbox(Int.self)) }
-        func decode(_ type: UInt16.Type) throws -> UInt16 { return try type.init(unbox(Int.self)) }
-        func decode(_ type: UInt32.Type) throws -> UInt32 { return try type.init(unbox(Int.self)) }
-        func decode(_ type: UInt64.Type) throws -> UInt64 { return try type.init(unbox(Int.self)) }
-
-        func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
-            switch type {
-            case is Data.Type:
-                return try decode(Data.self) as! T
-            case is Date.Type:
-                return try decode(Date.self) as! T
-            case is UntypedProcedure.Type:
-                return try unbox(UntypedProcedure.self) as! T
-            case is UntypedResponse.Type:
-                return try unbox(UntypedResponse.self) as! T
-            default:
-                let value = try T.init(from: decoder)
-
-                currentIndex += 1
-
-                return value
-            }
-        }
-
-        // MARK: Nested decoders
-
-        func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {
-            guard !isAtEnd else {
-                #warning("at end error")
-                fatalError()
-            }
-
-            guard let container = container.arguments[currentIndex] as? NSDictionary else {
-                #warning("throw unexpected type")
-                fatalError()
-            }
-
-            currentIndex += 1
-
-            return KeyedDecodingContainer(FRPCKeyedDecodingContainer(decoder: decoder, container: container))
-        }
-
-        func nestedUnkeyedContainer() throws -> UnkeyedDecodingContainer {
-            guard !isAtEnd else {
-                #warning("At end error")
-                fatalError()
-            }
-
-            guard let container = container.arguments[currentIndex] as? NSArray else {
-                #warning("throw an error")
-                fatalError()
-            }
-
-            currentIndex += 1
-
-            return FRPCUnkeyedDecodingContainer(decoder: decoder, container: container)
-        }
-
-        // MARK: Private API
-
-        private func unbox<T>(_ type: T.Type) throws -> T {
-            guard !isAtEnd else {
-                #warning("at end error")
-                fatalError()
-            }
-
-            guard let value = container.arguments[currentIndex] as? T else {
-                #warning("should throw an error")
-                fatalError()
-            }
-
-            currentIndex += 1
-
-            return value
-        }
-    }
-
-    private class _FastRPCResponseDecodingContainer: FastRPCResponseDecodingContainer, SingleValueDecodingContainer {
-        var codingPath: [CodingKey] {
-            return decoder.codingPath
-        }
-
-        private let decoder: _FastRPCDecoder
-        private let container: UntypedResponse
-
-        // MARK: Initializers
-
-        init(decoder: _FastRPCDecoder, container: UntypedResponse) {
-            self.decoder = decoder
-            self.container = container
-        }
-
-        // MARK: Decoders
-
-        func decodeNil() -> Bool {
-            return container.value is NSNull
-        }
-
-        func decode(_ type: Bool.Type)   throws -> Bool   { return try unbox(Bool.self) }
-        func decode(_ type: String.Type) throws -> String { return try unbox(String.self) }
-        func decode(_ type: Double.Type) throws -> Double { return try unbox(Double.self) }
-        func decode(_ type: Int.Type)    throws -> Int    { return try unbox(Int.self) }
-
-        func decode(_ type: Float.Type)  throws -> Float  { return try Float(unbox(Double.self)) }
-        func decode(_ type: Int8.Type)   throws -> Int8   { return try type.init(unbox(Int.self)) }
-        func decode(_ type: Int16.Type)  throws -> Int16  { return try type.init(unbox(Int.self)) }
-        func decode(_ type: Int32.Type)  throws -> Int32  { return try type.init(unbox(Int.self)) }
-        func decode(_ type: Int64.Type)  throws -> Int64  { return try type.init(unbox(Int.self)) }
-        func decode(_ type: UInt.Type)   throws -> UInt   { return try type.init(unbox(Int.self)) }
-        func decode(_ type: UInt8.Type)  throws -> UInt8  { return try type.init(unbox(Int.self)) }
-        func decode(_ type: UInt16.Type) throws -> UInt16 { return try type.init(unbox(Int.self)) }
-        func decode(_ type: UInt32.Type) throws -> UInt32 { return try type.init(unbox(Int.self)) }
-        func decode(_ type: UInt64.Type) throws -> UInt64 { return try type.init(unbox(Int.self)) }
-
-        func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
-            switch type {
-            case is Data.Type:
-                return try unbox(Data.self) as! T
-            case is Date.Type:
-                return try unbox(Date.self) as! T
-            case is UntypedResponse.Type:
-                return try unbox(UntypedResponse.self) as! T
-            case is UntypedProcedure.Type:
-                return try unbox(UntypedProcedure.self) as! T
-            default:
-                return try T(from: decoder)
-            }
-        }
-
-        // MARK: Private API
-
-        private func unbox<T>(_ type: T.Type) throws -> T {
-            guard let value = container.value as? T else {
-                #warning("throw an error")
-                fatalError()
-            }
-
-            return value
         }
     }
 }
