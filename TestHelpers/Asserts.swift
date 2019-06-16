@@ -16,7 +16,7 @@ public func XCTAssertNoThrow<T>(_ expression: @autoclosure () throws -> T, _ mes
 
     var result: T?
 
-    XCTAssertNoThrow(try executeAndAssignResult(expression, to: &result), message, file: file, line: line)
+    XCTAssertNoThrow(try executeAndAssignResult(expression(), to: &result), message, file: file, line: line)
     
     if let r = result {
         tests(r)
