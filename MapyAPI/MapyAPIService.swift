@@ -48,9 +48,10 @@ public final class MapyAPIService {
     @discardableResult
     public func navigate(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint] = [], success: @escaping (Int) -> Void, failure: @escaping FRPCFailureCallback) -> URLSessionTask? {
         // Create procedure from given parameters
-        let procedure = MapyAPIService.createNavigationProcedure(from: from, to: to, through: through)
+        fatalError()
+//        let procedure = MapyAPIService.createNavigationProcedure(from: from, to: to, through: through)
 
-        return frpcService.call(path: "tplanner", procedure: procedure, success: success, failure: failure)
+//        return frpcService.call(path: "tplanner", procedure: procedure, success: success, failure: failure)
     }
 
     @discardableResult
@@ -71,12 +72,10 @@ public final class MapyAPIService {
 
     // MARK: Private API
 
-    private static func createNavigationProcedure(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint]) -> Procedure1<[NavigationPoint]> {
-        // Merge serialiable points
-        let locations = [from] + through + [to]
-        // Create the procedure call representation
-        let procedure = Procedure1(name: "route", arg: locations)
-
-        return procedure
-    }
+//    private static func createNavigationProcedure(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint]) -> Procedure1<[NavigationPoint]> {
+//        // Merge serialiable points
+//        let locations = [from] + through + [to]
+//        // Create the procedure call representation
+//        fatalError()
+//    }
 }

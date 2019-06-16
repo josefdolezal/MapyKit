@@ -348,7 +348,7 @@ class FastRPCUnboxer {
         }
 
         return NSDictionary(dictionary: [
-            FastRPCProcedureKeys.name.rawValue: name,
+            FastRPCProcedureKeys.procedure.rawValue: name,
             FastRPCProcedureKeys.arguments.rawValue: arguments
         ])
     }

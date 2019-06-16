@@ -15,10 +15,25 @@ public struct FastRPCDecoder {
 
     // MARK: Public API
 
-    public func decode<T>(_ type: T.Type, from data: Data) throws -> T  where T: Decodable {
-        let object = try FastRPCSerialization.object(with: data)
+    public func decodeResponse<T>(_ type: T.Type, from data: Data) throws -> T where T: Decodable {
+        let response = try FastRPCSerialization.frpcResponse(with: data)
 
-        return try _FastRPCDecoder(container: object, at: []).decode(type)
+        return try _FastRPCDecoder(container: response, at: [])
+            .decode(type)
+    }
+
+    public func decodeProcedure<T>(_ type: T.Type, from data: Data) throws -> T where T: Decodable {
+        let procedure = try FastRPCSerialization.frpcProcedure(with: data)
+
+        return try _FastRPCDecoder(container: procedure, at: [])
+            .decode(type)
+    }
+
+    public func decodeFault<T>(_ type: T.Type, from data: Data) throws -> T where T: Decodable {
+        let fault = try FastRPCSerialization.frpcFault(with: data)
+
+        return try _FastRPCDecoder(container: fault, at: [])
+            .decode(type)
     }
 }
 
