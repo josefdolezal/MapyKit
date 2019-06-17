@@ -83,30 +83,30 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
         return container is NSNull
     }
 
-    func decode(_ type: Bool.Type)   throws -> Bool   { return try unbox(type) }
-    func decode(_ type: String.Type) throws -> String { return try unbox(type) }
-    func decode(_ type: Int.Type)    throws -> Int    { return try unbox(type) }
-    func decode(_ type: Double.Type) throws -> Double { return try unbox(type) }
+    func decode(_ type: Bool.Type)   throws -> Bool   { return try cast(type) }
+    func decode(_ type: String.Type) throws -> String { return try cast(type) }
+    func decode(_ type: Int.Type)    throws -> Int    { return try cast(type) }
+    func decode(_ type: Double.Type) throws -> Double { return try cast(type) }
 
-    func decode(_ type: Float.Type)  throws -> Float  { return try Float(unbox(Double.self)) }
-    func decode(_ type: Int8.Type)   throws -> Int8   { return try type.init(unbox(Int.self)) }
-    func decode(_ type: Int16.Type)  throws -> Int16  { return try type.init(unbox(Int.self)) }
-    func decode(_ type: Int32.Type)  throws -> Int32  { return try type.init(unbox(Int.self)) }
-    func decode(_ type: Int64.Type)  throws -> Int64  { return try type.init(unbox(Int.self)) }
-    func decode(_ type: UInt.Type)   throws -> UInt   { return try type.init(unbox(Int.self)) }
-    func decode(_ type: UInt8.Type)  throws -> UInt8  { return try type.init(unbox(Int.self)) }
-    func decode(_ type: UInt16.Type) throws -> UInt16 { return try type.init(unbox(Int.self)) }
-    func decode(_ type: UInt32.Type) throws -> UInt32 { return try type.init(unbox(Int.self)) }
-    func decode(_ type: UInt64.Type) throws -> UInt64 { return try type.init(unbox(Int.self)) }
+    func decode(_ type: Float.Type)  throws -> Float  { return try type.init(cast(Double.self)) }
+    func decode(_ type: Int8.Type)   throws -> Int8   { return try type.init(cast(Int.self)) }
+    func decode(_ type: Int16.Type)  throws -> Int16  { return try type.init(cast(Int.self)) }
+    func decode(_ type: Int32.Type)  throws -> Int32  { return try type.init(cast(Int.self)) }
+    func decode(_ type: Int64.Type)  throws -> Int64  { return try type.init(cast(Int.self)) }
+    func decode(_ type: UInt.Type)   throws -> UInt   { return try type.init(cast(Int.self)) }
+    func decode(_ type: UInt8.Type)  throws -> UInt8  { return try type.init(cast(Int.self)) }
+    func decode(_ type: UInt16.Type) throws -> UInt16 { return try type.init(cast(Int.self)) }
+    func decode(_ type: UInt32.Type) throws -> UInt32 { return try type.init(cast(Int.self)) }
+    func decode(_ type: UInt64.Type) throws -> UInt64 { return try type.init(cast(Int.self)) }
 
     func decode<T>(_ type: T.Type) throws -> T where T: Decodable {
         // In addition to standard decodable types, we know how to unbox
         // Date and Data types
         switch type {
         case is Date.Type:
-            return try unbox(Date.self) as! T
+            return try cast(Date.self) as! T
         case is Data.Type:
-            return try unbox(Data.self) as! T
+            return try cast(Data.self) as! T
         default:
             // We don't know how to unbox this type, fallback to it's initializer
             return try T(from: self)
@@ -115,10 +115,9 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
 
     // MARK: Private API
 
-    private func unbox<T>(_ type: T.Type) throws -> T {
+    private func cast<T>(_ type: T.Type) throws -> T {
         guard let value = container as? T else {
-            #warning("throw an error")
-            fatalError()
+            throw FastRPCDecodingError.typeMismatch(expected: type, actual: container)
         }
 
         return value
@@ -156,8 +155,7 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
 
         func superDecoder() throws -> Decoder {
             guard !isAtEnd else {
-                #warning("throw an error")
-                fatalError()
+                throw FastRPCDecodingError.containerIsAtEnd
             }
 
             currentIndex += 1
@@ -180,28 +178,28 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
             return false
         }
 
-        func decode(_ type: Bool.Type)   throws -> Bool   { return try unbox(type) }
-        func decode(_ type: String.Type) throws -> String { return try unbox(type) }
-        func decode(_ type: Double.Type) throws -> Double { return try unbox(type) }
-        func decode(_ type: Int.Type)    throws -> Int    { return try unbox(type) }
+        func decode(_ type: Bool.Type)   throws -> Bool   { return try cast(type) }
+        func decode(_ type: String.Type) throws -> String { return try cast(type) }
+        func decode(_ type: Double.Type) throws -> Double { return try cast(type) }
+        func decode(_ type: Int.Type)    throws -> Int    { return try cast(type) }
 
-        func decode(_ type: Float.Type)  throws -> Float  { return try Float(unbox(Double.self)) }
-        func decode(_ type: Int8.Type)   throws -> Int8   { return try type.init(unbox(Int.self)) }
-        func decode(_ type: Int16.Type)  throws -> Int16  { return try type.init(unbox(Int.self)) }
-        func decode(_ type: Int32.Type)  throws -> Int32  { return try type.init(unbox(Int.self)) }
-        func decode(_ type: Int64.Type)  throws -> Int64  { return try type.init(unbox(Int.self)) }
-        func decode(_ type: UInt.Type)   throws -> UInt   { return try type.init(unbox(Int.self)) }
-        func decode(_ type: UInt8.Type)  throws -> UInt8  { return try type.init(unbox(Int.self)) }
-        func decode(_ type: UInt16.Type) throws -> UInt16 { return try type.init(unbox(Int.self)) }
-        func decode(_ type: UInt32.Type) throws -> UInt32 { return try type.init(unbox(Int.self)) }
-        func decode(_ type: UInt64.Type) throws -> UInt64 { return try type.init(unbox(Int.self)) }
+        func decode(_ type: Float.Type)  throws -> Float  { return try type.init(cast(Double.self)) }
+        func decode(_ type: Int8.Type)   throws -> Int8   { return try type.init(cast(Int.self)) }
+        func decode(_ type: Int16.Type)  throws -> Int16  { return try type.init(cast(Int.self)) }
+        func decode(_ type: Int32.Type)  throws -> Int32  { return try type.init(cast(Int.self)) }
+        func decode(_ type: Int64.Type)  throws -> Int64  { return try type.init(cast(Int.self)) }
+        func decode(_ type: UInt.Type)   throws -> UInt   { return try type.init(cast(Int.self)) }
+        func decode(_ type: UInt8.Type)  throws -> UInt8  { return try type.init(cast(Int.self)) }
+        func decode(_ type: UInt16.Type) throws -> UInt16 { return try type.init(cast(Int.self)) }
+        func decode(_ type: UInt32.Type) throws -> UInt32 { return try type.init(cast(Int.self)) }
+        func decode(_ type: UInt64.Type) throws -> UInt64 { return try type.init(cast(Int.self)) }
 
         func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
             switch type {
             case is Date.Type:
-                return try unbox(Date.self) as! T
+                return try cast(Date.self) as! T
             case is Data.Type:
-                return try unbox(Data.self) as! T
+                return try cast(Data.self) as! T
             default:
                 guard !isAtEnd else {
                     throw FastRPCDecodingError.containerIsAtEnd
@@ -220,7 +218,6 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
 
         func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {
             guard !isAtEnd else {
-                #warning("throw error")
                 throw FastRPCDecodingError.containerIsAtEnd
             }
 
@@ -249,14 +246,13 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
 
         // MARK: Private API
 
-        private func unbox<T>(_ type: T.Type) throws -> T {
+        private func cast<T>(_ type: T.Type) throws -> T {
             guard !isAtEnd else {
                 throw FastRPCDecodingError.containerIsAtEnd
             }
 
             guard let value = container[currentIndex] as? T else {
-                #warning("throw an error")
-                fatalError()
+                throw FastRPCDecodingError.typeMismatch(expected: type, actual: container[currentIndex])
             }
 
             currentIndex += 1
@@ -352,28 +348,28 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
             return value is NSNull
         }
 
-        func decode(_ type: Bool.Type, forKey key: Key)   throws -> Bool   { return try unbox(type, forKey: key) }
-        func decode(_ type: String.Type, forKey key: Key) throws -> String { return try unbox(type, forKey: key) }
-        func decode(_ type: Double.Type, forKey key: Key) throws -> Double { return try unbox(type, forKey: key) }
-        func decode(_ type: Int.Type, forKey key: Key)    throws -> Int    { return try unbox(type, forKey: key) }
+        func decode(_ type: Bool.Type, forKey key: Key)   throws -> Bool   { return try cast(type, forKey: key) }
+        func decode(_ type: String.Type, forKey key: Key) throws -> String { return try cast(type, forKey: key) }
+        func decode(_ type: Double.Type, forKey key: Key) throws -> Double { return try cast(type, forKey: key) }
+        func decode(_ type: Int.Type, forKey key: Key)    throws -> Int    { return try cast(type, forKey: key) }
 
-        func decode(_ type: Float.Type, forKey key: Key)  throws -> Float  { return try Float(unbox(Double.self, forKey: key)) }
-        func decode(_ type: Int8.Type, forKey key: Key)   throws -> Int8   { return try type.init(unbox(Int.self, forKey: key)) }
-        func decode(_ type: Int16.Type, forKey key: Key)  throws -> Int16  { return try type.init(unbox(Int.self, forKey: key)) }
-        func decode(_ type: Int32.Type, forKey key: Key)  throws -> Int32  { return try type.init(unbox(Int.self, forKey: key)) }
-        func decode(_ type: Int64.Type, forKey key: Key)  throws -> Int64  { return try type.init(unbox(Int.self, forKey: key)) }
-        func decode(_ type: UInt.Type, forKey key: Key)   throws -> UInt   { return try type.init(unbox(Int.self, forKey: key)) }
-        func decode(_ type: UInt8.Type, forKey key: Key)  throws -> UInt8  { return try type.init(unbox(Int.self, forKey: key)) }
-        func decode(_ type: UInt16.Type, forKey key: Key) throws -> UInt16 { return try type.init(unbox(Int.self, forKey: key)) }
-        func decode(_ type: UInt32.Type, forKey key: Key) throws -> UInt32 { return try type.init(unbox(Int.self, forKey: key)) }
-        func decode(_ type: UInt64.Type, forKey key: Key) throws -> UInt64 { return try type.init(unbox(Int.self, forKey: key)) }
+        func decode(_ type: Float.Type, forKey key: Key)  throws -> Float  { return try type.init(cast(Double.self, forKey: key)) }
+        func decode(_ type: Int8.Type, forKey key: Key)   throws -> Int8   { return try type.init(cast(Int.self, forKey: key)) }
+        func decode(_ type: Int16.Type, forKey key: Key)  throws -> Int16  { return try type.init(cast(Int.self, forKey: key)) }
+        func decode(_ type: Int32.Type, forKey key: Key)  throws -> Int32  { return try type.init(cast(Int.self, forKey: key)) }
+        func decode(_ type: Int64.Type, forKey key: Key)  throws -> Int64  { return try type.init(cast(Int.self, forKey: key)) }
+        func decode(_ type: UInt.Type, forKey key: Key)   throws -> UInt   { return try type.init(cast(Int.self, forKey: key)) }
+        func decode(_ type: UInt8.Type, forKey key: Key)  throws -> UInt8  { return try type.init(cast(Int.self, forKey: key)) }
+        func decode(_ type: UInt16.Type, forKey key: Key) throws -> UInt16 { return try type.init(cast(Int.self, forKey: key)) }
+        func decode(_ type: UInt32.Type, forKey key: Key) throws -> UInt32 { return try type.init(cast(Int.self, forKey: key)) }
+        func decode(_ type: UInt64.Type, forKey key: Key) throws -> UInt64 { return try type.init(cast(Int.self, forKey: key)) }
 
         func decode<T>(_ type: T.Type, forKey key: Key) throws -> T where T : Decodable {
             switch type {
             case is Date.Type:
-                return try unbox(Date.self, forKey: key) as! T
+                return try cast(Date.self, forKey: key) as! T
             case is Data.Type:
-                return try unbox(Data.self, forKey: key) as! T
+                return try cast(Data.self, forKey: key) as! T
             default:
                 guard let value = container[key.stringValue] else {
                     throw FastRPCDecodingError.keyNotFound(key)
@@ -390,7 +386,7 @@ class _FastRPCDecoder: Decoder, SingleValueDecodingContainer {
 
         // MARK: Private API
 
-        private func unbox<T>(_ type: T.Type, forKey key: Key) throws -> T {
+        private func cast<T>(_ type: T.Type, forKey key: Key) throws -> T {
             // Try to lookup the value inside container
             guard let value = container[key.stringValue] else {
                 throw FastRPCDecodingError.keyNotFound(key)
