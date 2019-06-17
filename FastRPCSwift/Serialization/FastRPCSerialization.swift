@@ -25,17 +25,21 @@ public class FastRPCSerialization {
 
     private init () { }
 
-    static func frpcProcedure(with data: Data) throws -> Any { // T
+    // MARK: Decoding
+
+    static func frpcProcedure(with data: Data) throws -> Any {
         return try FastRPCUnboxer(data: data).unboxProcedure()
     }
 
-    static func frpcResponse(with data: Data) throws -> Any { // NSDictionary
+    static func frpcResponse(with data: Data) throws -> Any {
         return try FastRPCUnboxer(data: data).unboxResponse()
     }
 
-    static func frpcFault(with data: Data) throws -> Any { // NSDict
+    static func frpcFault(with data: Data) throws -> Any {
         return try FastRPCUnboxer(data: data).unboxFault()
     }
+
+    // MARK: Encoding
 
     static func data(procedure: String, arguments: [Any], version: FastRPCProtocolVersion = .version2) throws -> Data {
         let boxer = FastRPCBoxer(version: version)

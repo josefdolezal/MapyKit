@@ -13,7 +13,7 @@ public struct FastRPCEncoder {
 
     public init() { }
 
-    // MARK: Public API
+    // MARK: Public API - Procedure
 
     public func encode(procedure: String) throws -> Data {
         return try FastRPCSerialization.data(procedure: procedure, arguments: [])
@@ -28,20 +28,39 @@ public struct FastRPCEncoder {
     }
 
     public func encode<T: Encodable, U: Encodable>(procedure: String, _ arg1: T, _ arg2: U) throws -> Data {
-        let encoder = _FastRPCEncoder()
+        let arg1Encoder = _FastRPCEncoder()
+        let arg2Encoder = _FastRPCEncoder()
 
-        let _arg1 = try encoder.boxObject(arg1)
-        let _arg2 = try encoder.boxObject(arg2)
+        let _arg1 = try arg1Encoder.boxObject(arg1)
+        let _arg2 = try arg2Encoder.boxObject(arg2)
 
         return try FastRPCSerialization.data(procedure: procedure, arguments: [_arg1, _arg2])
     }
 
+    // MARK: Public API - Fault
+
     public func encode(faultCode code: Int, message: String) throws -> Data {
         return try FastRPCSerialization.data(faultCode: code, message: message)
+    }
+
+    // MARK: Public API - Response
+
+    public func encode<T: Encodable>(response value: T) throws -> Data {
+        let encoder = _FastRPCEncoder()
+
+        let response = try encoder.boxObject(value)
+
+        return try FastRPCSerialization.data(response: response)
     }
 }
 
 public protocol FastRPCResponseEncodingContainer: SingleValueEncodingContainer { }
+
+public enum FastRPCEncodingError: Error {
+    case noEncodedValue
+    case encodingMultipleValues
+    case nestedContainerNotFound([CodingKey])
+}
 
 class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
 
@@ -55,41 +74,46 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
     // MARK: Container
 
     func container<Key>(keyedBy type: Key.Type) -> KeyedEncodingContainer<Key> where Key : CodingKey {
+        let topContainer: NSMutableDictionary
+
         // Do not allow multiple top-level encoding
-        guard self.container == nil else {
-            #warning("Throw an info message about encoding multiple top-level objects")
-            fatalError()
+        if let container = self.container {
+            if let dictContainer = container as? NSMutableDictionary {
+                topContainer = dictContainer
+            } else {
+                preconditionFailure("Can not encode into multiple top level containers")
+            }
+        } else {
+            // Create structure container
+            topContainer = NSMutableDictionary()
         }
 
-        // Create structure container
-        let container = NSMutableDictionary()
-        self.container = container
+        self.container = topContainer
 
-        fatalError()
+        return KeyedEncodingContainer(FastRPCKeyedEncodingContainer(encoder: self, container: topContainer))
     }
 
     func unkeyedContainer() -> UnkeyedEncodingContainer {
+        let topContainer: NSMutableArray
+
         // Do not allow multiple top-level encoding
-        guard self.container == nil else {
-            #warning("Throw an info message about encoding multiple top-level objects")
-            fatalError()
+        if let container = self.container {
+            if let arrContainer = container as? NSMutableArray {
+                topContainer = arrContainer
+            } else {
+                preconditionFailure("Can not encode into multiple top level containers")
+            }
+        } else {
+            topContainer = NSMutableArray()
         }
 
-        // Create the collection container
-        let container = NSMutableArray()
-        self.container = container
+        self.container = topContainer
 
         // Create the collection
-        return FastRPCUnkeyedEncodingContainer(codingPath: codingPath, encoder: self, container: container)
+        return FastRPCUnkeyedEncodingContainer(codingPath: codingPath, encoder: self, container: topContainer)
     }
 
     func singleValueContainer() -> SingleValueEncodingContainer {
-        // Do not allow multiple top-level encoding
-        guard self.container == nil else {
-            #warning("Throw an info message about encoding multiple top-level objects")
-            fatalError()
-        }
-
         return self
     }
 
@@ -100,8 +124,7 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
         try value.encode(to: self)
 
         guard let container = container else {
-            #warning("Throw error informing that object T did not encode any value")
-            fatalError()
+            throw FastRPCEncodingError.noEncodedValue
         }
 
         return container
@@ -111,8 +134,7 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
 
     private func requireEmptyContainer() throws {
         if container != nil {
-            #warning("Throw an error informing about unsuccessful encoding")
-            fatalError()
+            throw FastRPCEncodingError.encodingMultipleValues
         }
     }
 
@@ -200,7 +222,6 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
         case let fault as Fault:
             container = fault
         default:
-            #warning("Unclear how to handle this case (or value.encode(..))")
             container = try boxObject(value)
         }
     }
@@ -253,8 +274,7 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
             case let fault as Fault:
                 container.add(fault)
             default:
-                #warning("Unclear how to handle this case (or value.encode(..))")
-                container.add(try encoder.boxObject(value))
+                try container.add(encoder.boxObject(value))
             }
         }
 
@@ -277,7 +297,6 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
         }
 
         func superEncoder() -> Encoder {
-            #warning("Superclass encoder is not fully implemented yet")
             return encoder
         }
     }
@@ -341,11 +360,6 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
             codingPath.append(key)
             defer { codingPath.removeLast() }
 
-            guard self.container[key.stringValue] == nil else {
-                #warning("throw already encoded value")
-                fatalError()
-            }
-
             self.container[key.stringValue] = container
 
             return KeyedEncodingContainer(FastRPCKeyedEncodingContainer<NestedKey>(encoder: encoder, container: container))
@@ -357,26 +371,18 @@ class _FastRPCEncoder: Encoder, SingleValueEncodingContainer {
             codingPath.append(key)
             defer { codingPath.removeLast() }
 
-            guard self.container[key.stringValue] == nil else {
-                #warning("throw already encoded value")
-                fatalError()
-            }
-
             self.container[key.stringValue] = container
 
             return FastRPCUnkeyedEncodingContainer(codingPath: codingPath, encoder: encoder, container: container)
         }
 
         func superEncoder() -> Encoder {
-            #warning("Superclass encoder is not fully implemented yet")
             return encoder
         }
 
         func superEncoder(forKey key: Key) -> Encoder {
             codingPath.append(key)
             defer { codingPath.removeLast() }
-
-            #warning("Superclass encoder is not fully implemented yet")
 
             return encoder
         }
