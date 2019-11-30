@@ -12,13 +12,7 @@ import FastRPCSwift
 public final class MapyAPIService {
     // MARK: Structure
 
-    public typealias Callback<T> = (T) -> Void
-
-    public typealias SuccessDataCallback = Callback<Data>
-    public typealias SuccessPlacesCallback = Callback<[Place]>
-
-    public typealias FRPCFailureCallback = Callback<FastRPCError>
-    public typealias JSONFailureCallback = Callback<JSONAPIError>
+    public typealias Completion<T> = (Result<T, Error>) -> Void
 
     // MARK: Properties
 
@@ -46,16 +40,14 @@ public final class MapyAPIService {
     ///   - success: Request success callback
     ///   - failure: Request failure callback
     @discardableResult
-    public func navigate(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint] = [], success: @escaping (Int) -> Void, failure: @escaping FRPCFailureCallback) -> URLSessionTask? {
-        // Create procedure from given parameters
-        fatalError()
-//        let procedure = MapyAPIService.createNavigationProcedure(from: from, to: to, through: through)
+    public func navigate(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint] = [], completion: @escaping Completion<String>) -> Disposable {
+        let locations = [from] + through + [to]
 
-//        return frpcService.call(path: "tplanner", procedure: procedure, success: success, failure: failure)
+        return try! frpcService.call(path: "tplanner", procedure: "simpleRoute", locations, version: .version2_1, completion: completion)
     }
 
     @discardableResult
-    public func suggestions(forPhrase phrase: String, count: Int, success: @escaping ([Place]) -> Void, failure: @escaping JSONFailureCallback) -> URLSessionTask? {
+    public func suggestions(forPhrase phrase: String, count: Int, completion: @escaping Completion<[Place]>) -> Disposable {
         // Create request parameters
         let parameters = [
             "count": "\(count)",
@@ -64,18 +56,11 @@ public final class MapyAPIService {
         ]
 
         // Unwrap returned value using custom success callback
-        let callback: (Suggestions) -> Void = { suggestions in success(suggestions.places) }
+        let callback: (Result<Suggestions, Error>) -> Void = { suggestions in
+            completion(suggestions.map { $0.places })
+        }
 
         // Run the request
-        return jsonService.request(Suggestions.self, path: "suggest/", parameters: parameters, success: callback, failure: failure)
+        return jsonService.request(Suggestions.self, path: "suggest/", parameters: parameters, completion: callback)
     }
-
-    // MARK: Private API
-
-//    private static func createNavigationProcedure(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint]) -> Procedure1<[NavigationPoint]> {
-//        // Merge serialiable points
-//        let locations = [from] + through + [to]
-//        // Create the procedure call representation
-//        fatalError()
-//    }
 }

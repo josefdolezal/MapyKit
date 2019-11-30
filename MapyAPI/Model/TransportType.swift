@@ -17,7 +17,10 @@ import FastRPCSwift
 /// - foot: Foot navigation
 /// - skiing: Cross country skiing navigation
 /// - boat: Canoeing navigation
-public enum TransportType {
+public enum TransportType: Codable {
+    internal enum CodingKeys: String, CodingKey {
+        case value = "criterion"
+    }
     // MARK: Structure
 
     case car(PreferredAttributes)
@@ -25,25 +28,6 @@ public enum TransportType {
     case foot(TourType)
     case skiing
     case boat
-
-    // MARK: Initializers
-
-    init?(rawValue: Int) {
-        switch rawValue {
-        case 111: self = .car(.fast)
-        case 113: self = .car(.short)
-        case 121: self = .bike(.mountain)
-        case 122: self = .bike(.road)
-        case 131: self = .foot(.short)
-        case 132: self = .foot(.touristic)
-        case 141: self = .skiing
-        case 143: self = .boat
-        default:
-            return nil
-        }
-    }
-
-    // MARK: Public API
 
     /// Remote API transport type identifier
     var identifier: Int {
@@ -57,6 +41,34 @@ public enum TransportType {
         case .skiing: return 141
         case .boat: return 143
         }
+    }
+
+    // MARK: Decodable
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let rawValue = try container.decode(Int.self, forKey: .value)
+
+        switch rawValue {
+        case 111: self = .car(.fast)
+        case 113: self = .car(.short)
+        case 121: self = .bike(.mountain)
+        case 122: self = .bike(.road)
+        case 131: self = .foot(.short)
+        case 132: self = .foot(.touristic)
+        case 141: self = .skiing
+        case 143: self = .boat
+        default:
+            throw DecodingError.typeMismatch(TransportType.self, DecodingError.Context.init(codingPath: [], debugDescription: "Unsupported raw value \(rawValue)."))
+        }
+    }
+
+    // MARK: Encodable
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(identifier, forKey: .value)
     }
 }
 

@@ -64,13 +64,16 @@ final class SearchViewController: UITableViewController, UISearchBarDelegate {
 
             // Run the request with two callbacks, update places on success, print error on failure
             self.mapyService.suggestions(forPhrase: phrase, count: 10,
-                success: { places in
-                    // Deliver the result on main thread
-                    DispatchQueue.main.async { [weak self] in
-                        self?.places = places
+                completion: { result in
+                    switch result {
+                    case let .success(places):
+                        // Deliver the result on main thread
+                        DispatchQueue.main.async { [weak self] in
+                            self?.places = places
+                        }
+                    case let .failure(error):
+                        print(error)
                     }
-                }, failure: { [weak self] error in
-                    self?.showError(error)
                 })
         }
 

@@ -124,7 +124,7 @@ class FastRPCUnboxer {
             switch version {
             case .version1:
                 return try unboxUnifiedInteger()
-            case .version2:
+            case .version2, .version2_1:
                 // Version 2 does not specify Int identifier (it uses separate Int8+/-),
                 // so the identifier is unknown
                 throw FastRPCSerializationError.unknownTypeIdentifier(type, version)
@@ -302,7 +302,7 @@ class FastRPCUnboxer {
         let minor = try Int(data: expectBytes(count: 1))
 
         // Identify the procol version from type meta
-        guard let version = FastRPCProtocolVersion(rawValue: major) else {
+        guard let version = FastRPCProtocolVersion(major: major, minor: minor) else {
             throw FastRPCSerializationError.unsupportedProtocolVersion(major: major, minor: minor)
         }
 

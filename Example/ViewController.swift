@@ -67,10 +67,8 @@ class ViewController: UIViewController {
         let destination = NavigationPoint(coordinates: destinationLocation)
 
         service.navigate(from: start, to: destination,
-        success: { data in
-            print("request succeeded with response: \(data)")
-        }, failure: { error in
-            print("request failed with response: \(error)")
+        completion: { result in
+            print("request succeeded with response: \(result)")
         })
     }
 }

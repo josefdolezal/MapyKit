@@ -161,7 +161,7 @@ class FastRPCBoxer {
         switch version {
         case .version1:
             return try boxUnifiedInt(value)
-        case .version2:
+        case .version2, .version2_1:
             return try boxInteger8PosNeg(value)
         case .version3:
             return try boxZigZagInt(value)

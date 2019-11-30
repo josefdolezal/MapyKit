@@ -9,7 +9,7 @@
 import FastRPCSwift
 
 /// Represents GPS location coordinations.
-public struct Location {
+public struct Location: Codable {
     // MARK: Properties
 
     /// Coordinations latitude
@@ -27,5 +27,23 @@ public struct Location {
     public init(latitude: Double, longitude: Double) {
         self.latitude = latitude
         self.longitude = longitude
+    }
+
+    // MARK: Decodable
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let serialized = try container.decode(String.self)
+
+        self.latitude = Double(serialized) ?? 0
+        self.longitude = Double(serialized) ?? 0
+    }
+
+    // MARK: Encodable
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+
+        try container.encode("\(latitude),\(longitude)")
     }
 }

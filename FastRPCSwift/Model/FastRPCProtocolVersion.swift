@@ -9,15 +9,35 @@
 import Foundation
 
 /// Currently used FastRPC version standard.
-public enum FastRPCProtocolVersion: Int {
-    case version1 = 1
-    case version2 = 2
-    case version3 = 3
+public enum FastRPCProtocolVersion {
+    case version1
+    case version2
+    case version2_1
+    case version3
 
     /// FRPC major version
-    var major: Int { return self.rawValue }
+    public var major: Int { return version.major }
     /// FRPC minor version
-    var minor: Int { return 0 }
+    public var minor: Int { return version.minor }
     /// FRPC version string
-    var versionString: String { return "\(major).\(minor)"}
+    public var versionString: String { return "\(major).\(minor)"}
+
+    public init?(major: Int, minor: Int) {
+        switch (major, minor) {
+        case (1, 0): self = .version1
+        case (2, 0): self = .version2
+        case (2, 1): self = .version2_1
+        case (3, 0): self = .version3
+        default: return nil
+        }
+    }
+
+    private var version: (major: Int, minor: Int) {
+        switch self {
+        case .version1: return (1, 0)
+        case .version2: return (2, 0)
+        case .version2_1: return (2, 1)
+        case .version3: return (3, 0)
+        }
+    }
 }

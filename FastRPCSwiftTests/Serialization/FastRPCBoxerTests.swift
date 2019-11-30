@@ -197,23 +197,5 @@ class FastRPCBoxerTests: XCTestCase {
     }
 
     #warning("Add tests for multiple procedure arguments here")
-    
-    /// Asserts encoded value using static procedure wrapper
-//    private func assertEqualUsingProcedure<T>(_ value: T, encoded: [UInt8], truncate: Int = 0) throws {
-//        let boxer = FastRPCBoxer(container: UntypedProcedure(name: "c", arguments: [value]), version: .version2)
-//
-//        XCTAssertEqual(try [UInt8](boxer.box().dropFirst(7).dropFirst(truncate)), [UInt8](encoded.dropFirst(truncate)))
-//    }
 
-    /// Procedure with staticly encoded meta (used for wrape top level encoded primitives)
-//    private func staticProcedure(argument: Any) -> UntypedProcedure {
-//        return UntypedProcedure(name: "c", arguments: [argument])
-//    }
-
-    private func randomFault() -> Fault {
-        let code = Int.random(in: 0 ... .max)
-        let message = String.random(maxLength: 20)
-
-        return Fault(code: code, message: message)
-    }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FastRPCSwift
 
 public enum JSONAPIError: Error {
     case network(Error, URLResponse?)
@@ -15,6 +16,8 @@ public enum JSONAPIError: Error {
 
 /// Remote API service treating response data as JSON objects.
 final class JSONService {
+
+    typealias Completion<T> = (Result<T, Error>) -> Void
     // MARK: Properties
 
     /// Base requests URL
@@ -34,15 +37,15 @@ final class JSONService {
 
     // MARK: Public API
 
-    func request<T: Decodable>(_ type: T.Type, path: String, parameters: [String: String] = [:], success: @escaping (T) -> Void, failure: @escaping (JSONAPIError) -> Void) -> URLSessionTask? {
+    func request<T: Decodable>(_ type: T.Type, path: String, parameters: [String: String] = [:], completion: @escaping Completion<T>) -> Disposable {
         let request = JSONService.buildRequest(url: baseURL, path: path, parameters: parameters)
 
         let task = session.dataTask(with: request) { [weak self] data, response, error in
             guard let self = self else { return }
 
             // Check for network error
-            guard error == nil else {
-                failure(.network(error!, response))
+            if let error = error {
+                completion(.failure(JSONAPIError.network(error, response)))
                 return
             }
 
@@ -58,17 +61,17 @@ final class JSONService {
                 let object = try self.decoder.decode(type, from: json)
 
                 // Success callback for decoded data
-                success(object)
+                completion(.success(object))
             } catch {
                 // Failure callback for decoding error
-                failure(.responseDecoding(error, response))
+                completion(.failure(JSONAPIError.responseDecoding(error, response)))
             }
         }
 
         // Run request and return the task
         task.resume()
 
-        return task
+        return Disposable(task: task)
     }
 
     // MARK: Private API
