@@ -47,7 +47,13 @@ public final class FastRPCService {
     }
 
     @discardableResult
-    public func call<Response: Decodable, Arg1: Encodable>(path: String, procedure: String, _ arg: Arg1, version: FastRPCProtocolVersion = .version2, completion: @escaping (Result<Response, Error>) -> Void) -> Disposable? {
+    public func call<Response: Decodable, Arg1: Encodable>(
+        path: String,
+        procedure: String,
+        arg: Arg1,
+        version: FastRPCProtocolVersion = .version2,
+        completion: @escaping (Result<Response, Error>) -> Void
+    ) -> Disposable? {
         do {
             let request = try prepare(path: path, rpc: encoder.encode(procedure: procedure, arg, version: version))
             return execute(request: request, completion: completion)
@@ -58,7 +64,33 @@ public final class FastRPCService {
     }
 
     @discardableResult
-    public func call<Response: Decodable, Arg1: Encodable, Arg2: Encodable>(path: String, procedure: String, arg1: Arg1, arg2: Arg2, version: FastRPCProtocolVersion = .version2, completion: @escaping (Result<Response, Error>) -> Void) -> Disposable? {
+    public func call<Response: Decodable, Arg1: Encodable, Arg2: Encodable>(
+        path: String,
+        procedure: String,
+        arg1: Arg1,
+        arg2: Arg2,
+        version: FastRPCProtocolVersion = .version2,
+        completion: @escaping (Result<Response, Error>) -> Void
+    ) -> Disposable? {
+        do {
+            let request = try prepare(path: path, rpc: encoder.encode(procedure: procedure, arg1, arg2, version: version))
+            return execute(request: request, completion: completion)
+        } catch {
+            completion(.failure(error))
+            return nil
+        }
+    }
+
+    @discardableResult
+    public func call<Response: Decodable, Arg1: Encodable, Arg2: Encodable, Arg3: Encodable>(
+        path: String,
+        procedure: String,
+        arg1: Arg1,
+        arg2: Arg2,
+        arg3: Arg3,
+        version: FastRPCProtocolVersion = .version2,
+        completion: @escaping (Result<Response, Error>) -> Void
+    ) -> Disposable? {
         do {
             let request = try prepare(path: path, rpc: encoder.encode(procedure: procedure, arg1, arg2, version: version))
             return execute(request: request, completion: completion)
