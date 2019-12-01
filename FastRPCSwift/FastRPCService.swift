@@ -123,14 +123,12 @@ public final class FastRPCService {
 
             if let data = base64Encoded {
                 do {
-                    print(data.map { "\($0)" }.joined(separator: " "))
-                    let response = try decoder.decodeResponse(Response.self, from: data)
-
-                    completion(.success(response))
+                    let error = try decoder.decodeFault(from: data)
+                    completion(.failure(NSError(domain: "decoding", code: error.code, userInfo: ["message": error.message])))
                 } catch {
                     do {
-                        let error = try decoder.decodeFault(from: data)
-                        completion(.failure(NSError(domain: "decoding", code: error.code, userInfo: ["message": error.message])))
+                        let response = try decoder.decodeResponse(Response.self, from: data)
+                        completion(.success(response))
                     } catch {
                         completion(.failure(error))
                     }
