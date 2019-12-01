@@ -43,7 +43,23 @@ public final class MapyAPIService {
     public func navigate(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint] = [], completion: @escaping Completion<String>) -> Disposable? {
         let locations = [from] + through + [to]
 
-        return frpcService.call(path: "tplanner", procedure: "simpleRoute", arg1: locations, arg2: TollExludedCountries.default, version: .version2_1, completion: completion)
+        return frpcService.call(path: "tplanner", procedure: "simpleRoute",
+                                arg1: locations,
+                                arg2: TollExludedCountries.default,
+                                version: .version2_1,
+                                completion: completion)
+    }
+
+    @discardableResult
+    public func turnByTurnDirections(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint] = [], completion: @escaping Completion<Itinerary>) -> Disposable? {
+        let locations = [from] + through + [to]
+
+        return frpcService.call(path: "tplanner", procedure: "simpleRoute",
+                                arg1: locations,
+                                arg2: EmbeddedItinerary(isItineraryIncluded: true),
+                                arg3: TollExludedCountries.default,
+                                version: .version2_1,
+                                completion: completion)
     }
 
     @discardableResult

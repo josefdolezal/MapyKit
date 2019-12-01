@@ -94,6 +94,8 @@
 		EC6D9E662393F443008CD4CD /* TransportType+TourType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6D9E652393F443008CD4CD /* TransportType+TourType.swift */; };
 		EC6D9E692393F479008CD4CD /* LocationCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6D9E682393F479008CD4CD /* LocationCoder.swift */; };
 		EC87587C239075F000185346 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC87587B239075F000185346 /* TestVC.swift */; };
+		ECDEED2E239419C400A46630 /* EmbeddedItinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDEED2D239419C400A46630 /* EmbeddedItinerary.swift */; };
+		ECDEED3023941D1400A46630 /* Itinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDEED2F23941D1400A46630 /* Itinerary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -247,6 +249,8 @@
 		EC6D9E652393F443008CD4CD /* TransportType+TourType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransportType+TourType.swift"; sourceTree = "<group>"; };
 		EC6D9E682393F479008CD4CD /* LocationCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCoder.swift; sourceTree = "<group>"; };
 		EC87587B239075F000185346 /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
+		ECDEED2D239419C400A46630 /* EmbeddedItinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedItinerary.swift; sourceTree = "<group>"; };
+		ECDEED2F23941D1400A46630 /* Itinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Itinerary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -551,6 +555,7 @@
 		D28776F52156DE720007C378 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				ECDEED2C239419A000A46630 /* Itinerary */,
 				EC6D9E6A239405E0008CD4CD /* Suggestions */,
 				EC6D9E602393F3BA008CD4CD /* TransportType */,
 				EC6D9E5B2393F297008CD4CD /* NavigationPoint */,
@@ -673,6 +678,15 @@
 				D2C3B0582169FEC400B1F257 /* Place.swift */,
 			);
 			path = Suggestions;
+			sourceTree = "<group>";
+		};
+		ECDEED2C239419A000A46630 /* Itinerary */ = {
+			isa = PBXGroup;
+			children = (
+				ECDEED2D239419C400A46630 /* EmbeddedItinerary.swift */,
+				ECDEED2F23941D1400A46630 /* Itinerary.swift */,
+			);
+			path = Itinerary;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -963,8 +977,10 @@
 				D212C7CE2175367D00E3CF14 /* Directions.swift in Sources */,
 				EC6D9E622393F406008CD4CD /* TransportType+PreferredAttributes.swift in Sources */,
 				EC6D9E642393F421008CD4CD /* TransportType+BikeType.swift in Sources */,
+				ECDEED2E239419C400A46630 /* EmbeddedItinerary.swift in Sources */,
 				D212C7D0217539EF00E3CF14 /* Directions+Codable.swift in Sources */,
 				D258E9D9216AAC29009F752B /* Suggestions.swift in Sources */,
+				ECDEED3023941D1400A46630 /* Itinerary.swift in Sources */,
 				D258E9E0216AAFD3009F752B /* JSONService.swift in Sources */,
 				D2C3B0592169FEC400B1F257 /* Place.swift in Sources */,
 				D2877706215805650007C378 /* NavigationPoint.swift in Sources */,
