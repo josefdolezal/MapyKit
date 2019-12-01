@@ -35,14 +35,14 @@ public struct FastRPCEncoder {
 
     // MARK: Public API - Fault
 
-    public func encode(faultCode code: Int, message: String) throws -> Data {
-        return try FastRPCSerialization.data(faultCode: code, message: message)
+    public func encode(faultCode code: Int, message: String, version: FastRPCProtocolVersion = .version2) throws -> Data {
+        return try FastRPCSerialization.data(faultCode: code, message: message, version: version)
     }
 
     // MARK: Public API - Response
 
-    public func encode<T: Encodable>(response value: T) throws -> Data {
-        return try FastRPCSerialization.data(response: serialize(value))
+    public func encode<T: Encodable>(response value: T, version: FastRPCProtocolVersion = .version2) throws -> Data {
+        return try FastRPCSerialization.data(response: serialize(value), version: version)
     }
 
     // MARK: Private API

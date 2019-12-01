@@ -47,10 +47,25 @@ public final class FastRPCService {
     }
 
     @discardableResult
-    public func call<Response: Decodable, Arg1: Encodable>(path: String, procedure: String, _ arg: Arg1, version: FastRPCProtocolVersion = .version2, completion: @escaping (Result<Response, Error>) -> Void) throws -> Disposable {
-        let request = try prepare(path: path, rpc: encoder.encode(procedure: procedure, arg, version: version))
+    public func call<Response: Decodable, Arg1: Encodable>(path: String, procedure: String, _ arg: Arg1, version: FastRPCProtocolVersion = .version2, completion: @escaping (Result<Response, Error>) -> Void) -> Disposable? {
+        do {
+            let request = try prepare(path: path, rpc: encoder.encode(procedure: procedure, arg, version: version))
+            return execute(request: request, completion: completion)
+        } catch {
+            completion(.failure(error))
+            return nil
+        }
+    }
 
-        return execute(request: request, completion: completion)
+    @discardableResult
+    public func call<Response: Decodable, Arg1: Encodable, Arg2: Encodable>(path: String, procedure: String, arg1: Arg1, arg2: Arg2, version: FastRPCProtocolVersion = .version2, completion: @escaping (Result<Response, Error>) -> Void) -> Disposable? {
+        do {
+            let request = try prepare(path: path, rpc: encoder.encode(procedure: procedure, arg1, arg2, version: version))
+            return execute(request: request, completion: completion)
+        } catch {
+            completion(.failure(error))
+            return nil
+        }
     }
 
     private func prepare(path: String, rpc: Data) -> URLRequest {

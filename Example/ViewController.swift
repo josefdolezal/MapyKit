@@ -60,10 +60,10 @@ class ViewController: UIViewController {
 
     @objc
     private func handleMapViewTap() {
-        let startLocation = Location(latitude: 26.322762072086334, longitude: 45.53549565374851)
+        let startLocation = Location(latitude: 42.028415501117706, longitude: -1.6626061499118805)
         let start = NavigationPoint(coordinates: startLocation, transportType: .foot(.touristic))
 
-        let destinationLocation = Location(latitude: 25.71641117334366, longitude: 45.51505118608475)
+        let destinationLocation = Location(latitude: 42.027961537241936, longitude: -1.6558147966861725)
         let destination = NavigationPoint(coordinates: destinationLocation)
 
         service.navigate(from: start, to: destination,

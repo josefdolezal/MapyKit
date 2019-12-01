@@ -20,12 +20,26 @@ final class TestVC: UIViewController, UITextViewDelegate {
     }
 
     func textViewDidChange(_ textView: UITextView) {
+        guard
+            let data = Data(base64Encoded: textView.text, options: .ignoreUnknownCharacters)
+            else {
+                return
+        }
 
-        if let data = Data(base64Encoded: "yhECAWgLc2ltcGxlUm91dGVYA1AFAmlkYAZzb3VyY2UgBGNvb3IIZ2VvbWV0cnkgCjlocFZheFh6YkcLcm91dGVQYXJhbXNQAQljcml0ZXJpb244bwpkZXNjUGFyYW1zUAMKZmV0Y2hQaG90bxEGcmF0aW9zWAEgAzN4MgRsYW5nWAEgAmVuUAUCaWQgJTE0LjY5OTA1NDE3NzQ3NDk0OSw1MC4wOTQ0ODgyMTg3OTY5MjYGc291cmNlIARjb29yCGdlb21ldHJ5IAo5aHA5VXhYenNJC3JvdXRlUGFyYW1zUAEJY3JpdGVyaW9uOG8KZGVzY1BhcmFtc1ADCmZldGNoUGhvdG8RBnJhdGlvc1gBIAMzeDIEbGFuZ1gBIAJlblAEAmlkYAZzb3VyY2UgBGNvb3IIZ2VvbWV0cnkgCjlocHJBeFguVm4KZGVzY1BhcmFtc1ADCmZldGNoUGhvdG8RBnJhdGlvc1gBIAMzeDIEbGFuZ1gBIAJlblABFHRvbGxFeGNsdWRlQ291bnRyaWVzWAA=") {
+        do {
+            print("Decoding procedure")
+            print(try FastRPCSerialization.frpcProcedure(with: data))
+        } catch {
+            print("Falling back to response")
             do {
-                print(try FastRPCSerialization.frpcProcedure(with: data))
+                print(try FastRPCSerialization.frpcResponse(with: data))
             } catch {
-                print(error)
+                print("Falling back to fault")
+                do {
+                    print(try FastRPCSerialization.frpcFault(with: data))
+                } catch {
+                    print("error", error)
+                }
             }
         }
     }

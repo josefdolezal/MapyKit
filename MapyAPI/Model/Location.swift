@@ -44,6 +44,6 @@ public struct Location: Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
 
-        try container.encode("\(latitude),\(longitude)")
+        try container.encode(LocationCoder.stringify([self]))
     }
 }

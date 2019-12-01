@@ -86,10 +86,10 @@ class FastRPCBoxer {
             return try box(bool)
         case let string as String:
             return try box(string)
-        case let double as Double:
-            return try box(double)
         case let int as Int:
             return try box(int)
+        case let double as Double:
+            return try box(double)
         case let data as Data:
             return try box(data)
         case let date as Date:

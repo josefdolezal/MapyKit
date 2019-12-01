@@ -71,30 +71,3 @@ public enum TransportType: Codable {
         try container.encode(identifier, forKey: .value)
     }
 }
-
-/// Prefered route attributes.
-///
-/// - fast: Prefers fastest route (measured by ETA)
-/// - short: Prefers short route (measured by total distance)
-public enum PreferredAttributes {
-    case fast
-    case short
-}
-
-/// Bike type.
-///
-/// - mountain: Mountain bike for terrain cycling
-/// - road: Road-only bike
-public enum BikeType {
-    case mountain
-    case road
-}
-
-/// Foot tour type.
-///
-/// - short: Shortest route (measured by total distance)
-/// - touristic: Route preferring touristic trails
-public enum TourType {
-    case short
-    case touristic
-}

@@ -40,10 +40,10 @@ public final class MapyAPIService {
     ///   - success: Request success callback
     ///   - failure: Request failure callback
     @discardableResult
-    public func navigate(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint] = [], completion: @escaping Completion<String>) -> Disposable {
+    public func navigate(from: NavigationPoint, to: NavigationPoint, through: [NavigationPoint] = [], completion: @escaping Completion<String>) -> Disposable? {
         let locations = [from] + through + [to]
 
-        return try! frpcService.call(path: "tplanner", procedure: "simpleRoute", locations, version: .version2_1, completion: completion)
+        return frpcService.call(path: "tplanner", procedure: "simpleRoute", arg1: locations, arg2: TollExludedCountries.default, version: .version2_1, completion: completion)
     }
 
     @discardableResult
