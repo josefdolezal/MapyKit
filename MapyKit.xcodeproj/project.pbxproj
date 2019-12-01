@@ -19,7 +19,6 @@
 		D20AF66921710F5F00156AA8 /* FastRPCDecoder+DataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF66821710F5F00156AA8 /* FastRPCDecoder+DataTests.swift */; };
 		D20AF6792171E72900156AA8 /* Location+CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6782171E72900156AA8 /* Location+CodableTests.swift */; };
 		D20AF67B2171E7C100156AA8 /* TransportType+CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF67A2171E7C100156AA8 /* TransportType+CodableTests.swift */; };
-		D20AF6812171E8D600156AA8 /* Location+GeoHashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6802171E8D600156AA8 /* Location+GeoHashTests.swift */; };
 		D20AF6852171F04800156AA8 /* NavigationPoint+CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6842171F04800156AA8 /* NavigationPoint+CodableTests.swift */; };
 		D20AF6882171F39000156AA8 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20AF6872171F39000156AA8 /* NavigationViewController.swift */; };
 		D212C7CE2175367D00E3CF14 /* Directions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212C7CD2175367D00E3CF14 /* Directions.swift */; };
@@ -172,7 +171,6 @@
 		D20AF66821710F5F00156AA8 /* FastRPCDecoder+DataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FastRPCDecoder+DataTests.swift"; sourceTree = "<group>"; };
 		D20AF6782171E72900156AA8 /* Location+CodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CodableTests.swift"; sourceTree = "<group>"; };
 		D20AF67A2171E7C100156AA8 /* TransportType+CodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransportType+CodableTests.swift"; sourceTree = "<group>"; };
-		D20AF6802171E8D600156AA8 /* Location+GeoHashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+GeoHashTests.swift"; sourceTree = "<group>"; };
 		D20AF6842171F04800156AA8 /* NavigationPoint+CodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationPoint+CodableTests.swift"; sourceTree = "<group>"; };
 		D20AF6872171F39000156AA8 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		D212C7CD2175367D00E3CF14 /* Directions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Directions.swift; sourceTree = "<group>"; };
@@ -591,7 +589,6 @@
 				D20AF6842171F04800156AA8 /* NavigationPoint+CodableTests.swift */,
 				D20AF6782171E72900156AA8 /* Location+CodableTests.swift */,
 				D2C3B05C216A7A7400B1F257 /* Place+CodableTests.swift */,
-				D20AF6802171E8D600156AA8 /* Location+GeoHashTests.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1003,7 +1000,6 @@
 				D2C3B06F216AA37C00B1F257 /* BundledFiles.swift in Sources */,
 				EC6D9E5A239328AC008CD4CD /* LocationCoderTests.swift in Sources */,
 				D20AF6852171F04800156AA8 /* NavigationPoint+CodableTests.swift in Sources */,
-				D20AF6812171E8D600156AA8 /* Location+GeoHashTests.swift in Sources */,
 				D20AF67B2171E7C100156AA8 /* TransportType+CodableTests.swift in Sources */,
 				D2C3B06B216AA2C900B1F257 /* Asserts.swift in Sources */,
 				D20AF6792171E72900156AA8 /* Location+CodableTests.swift in Sources */,

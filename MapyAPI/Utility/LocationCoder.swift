@@ -31,6 +31,59 @@ public enum LocationCoder {
         }.string
     }
 
+    public static func locations(from string: String) -> [Location] {
+        let fiveChars = 3 << 4
+        let threeChars = 1 << 5
+        var locations = [Location]()
+        var coordinates = Location(latitude: 0, longitude: 0)
+        var string = String(string.trimmingCharacters(in: .whitespaces).reversed())
+        var saveLongitude = true
+
+        while !string.isEmpty {
+            var number = extractNumber(from: &string)
+
+            if (number & fiveChars) == fiveChars {
+                number -= fiveChars
+                number = ((number & 15) << 24) + extractNumber(from: &string, count: 4)
+
+                if saveLongitude {
+                    coordinates.longitude = Double(number)
+                } else {
+                    coordinates.latitude = Double(number)
+                }
+            } else if (number & threeChars) == threeChars {
+                number = ((number & 15) << 12) + extractNumber(from: &string, count: 2)
+                number -= 1 << 15
+
+                if saveLongitude {
+                    coordinates.longitude += Double(number)
+                } else {
+                    coordinates.latitude += Double(number)
+                }
+            } else {
+                number = ((number & 31) << 6) + extractNumber(from: &string, count: 1)
+                number -= 1 << 10
+
+                if saveLongitude {
+                    coordinates.longitude += Double(number)
+                } else {
+                    coordinates.latitude += Double(number)
+                }
+            }
+
+            if !saveLongitude {
+                let longitude = Double(coordinates.longitude) * 360 / Double(1 << 28) - 180
+                let latitude = Double(coordinates.latitude) * 180 / Double(1 << 28) - 90
+
+                locations.append(Location(latitude: latitude, longitude: longitude))
+            }
+
+            saveLongitude.toggle()
+        }
+
+        return locations
+    }
+
     /// Serializes given coordinate into ASCII string. Given integer number is serialized using
     /// some kind of geohashing algorithm.
     ///
@@ -60,6 +113,22 @@ public enum LocationCoder {
         }
 
         return code
+    }
+
+    private static func extractNumber(from string: inout String, count: UInt8 = 1) -> Int {
+        assert(count > 0, "Count must be positive number.")
+        let count = Int(count)
+        let result = string.suffix(count).reversed().reduce(0) { partial, character in
+            guard let offset = alphabet.firstIndex(of: character)?.utf16Offset(in: alphabet) else {
+                return partial
+            }
+
+            return (partial << 6) + offset
+        }
+
+        string.removeLast(count)
+
+        return result
     }
 }
 

@@ -9,7 +9,7 @@
 import FastRPCSwift
 
 /// Represents GPS location coordinations.
-public struct Location: Codable {
+public struct Location: Codable, Equatable {
     // MARK: Properties
 
     /// Coordinations latitude
