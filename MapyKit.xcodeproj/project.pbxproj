@@ -75,7 +75,6 @@
 		D2A83CE621F28AC1004F6AFF /* FastRPCDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A83CE521F28AC1004F6AFF /* FastRPCDecoderTests.swift */; };
 		D2C25BC92159814D00A78896 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C25BC82159814D00A78896 /* Location.swift */; };
 		D2C3B0592169FEC400B1F257 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B0582169FEC400B1F257 /* Place.swift */; };
-		D2C3B05B216A0DF100B1F257 /* Place+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B05A216A0DF100B1F257 /* Place+Codable.swift */; };
 		D2C3B05D216A7A7400B1F257 /* Place+CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3B05C216A7A7400B1F257 /* Place+CodableTests.swift */; };
 		D2C3B061216A7D8800B1F257 /* 00-place.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C3B060216A7D8800B1F257 /* 00-place.json */; };
 		D2C3B063216A7E3B00B1F257 /* 01-place.json in Resources */ = {isa = PBXBuildFile; fileRef = D2C3B062216A7E3B00B1F257 /* 01-place.json */; };
@@ -230,7 +229,6 @@
 		D2A83CE521F28AC1004F6AFF /* FastRPCDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastRPCDecoderTests.swift; sourceTree = "<group>"; };
 		D2C25BC82159814D00A78896 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D2C3B0582169FEC400B1F257 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
-		D2C3B05A216A0DF100B1F257 /* Place+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Place+Codable.swift"; sourceTree = "<group>"; };
 		D2C3B05C216A7A7400B1F257 /* Place+CodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Place+CodableTests.swift"; sourceTree = "<group>"; };
 		D2C3B060216A7D8800B1F257 /* 00-place.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "00-place.json"; sourceTree = "<group>"; };
 		D2C3B062216A7E3B00B1F257 /* 01-place.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "01-place.json"; sourceTree = "<group>"; };
@@ -553,12 +551,11 @@
 		D28776F52156DE720007C378 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EC6D9E6A239405E0008CD4CD /* Suggestions */,
 				EC6D9E602393F3BA008CD4CD /* TransportType */,
 				EC6D9E5B2393F297008CD4CD /* NavigationPoint */,
 				D212C7CD2175367D00E3CF14 /* Directions.swift */,
 				D2C25BC82159814D00A78896 /* Location.swift */,
-				D2C3B0582169FEC400B1F257 /* Place.swift */,
-				D258E9D8216AAC29009F752B /* Suggestions.swift */,
 				EC6D9E56239317A2008CD4CD /* TollExludedCountries.swift */,
 			);
 			path = Model;
@@ -577,7 +574,6 @@
 		D2A370BE215E5FBF0096D219 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D2C3B05A216A0DF100B1F257 /* Place+Codable.swift */,
 				D212C7CF217539EF00E3CF14 /* Directions+Codable.swift */,
 			);
 			path = Extensions;
@@ -668,6 +664,15 @@
 				EC6D9E682393F479008CD4CD /* LocationCoder.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		EC6D9E6A239405E0008CD4CD /* Suggestions */ = {
+			isa = PBXGroup;
+			children = (
+				D258E9D8216AAC29009F752B /* Suggestions.swift */,
+				D2C3B0582169FEC400B1F257 /* Place.swift */,
+			);
+			path = Suggestions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -968,7 +973,6 @@
 				EC6D9E57239317A2008CD4CD /* TollExludedCountries.swift in Sources */,
 				D28776F72156DEB60007C378 /* TransportType.swift in Sources */,
 				EC6D9E662393F443008CD4CD /* TransportType+TourType.swift in Sources */,
-				D2C3B05B216A0DF100B1F257 /* Place+Codable.swift in Sources */,
 				EC6D9E5F2393F2E0008CD4CD /* NavigationPoint+Source.swift in Sources */,
 				EC6D9E692393F479008CD4CD /* LocationCoder.swift in Sources */,
 			);

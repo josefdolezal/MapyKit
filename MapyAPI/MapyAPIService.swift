@@ -26,7 +26,7 @@ public final class MapyAPIService {
     /// Creates new API service.
     public init() {
         let frpcBaseURL = URL(string: "https://pro.mapy.cz")!
-        let jsonBaseURL = URL(string: "https://api.mapy.cz")!
+        let jsonBaseURL = URL(string: "https://pro.mapy.cz")!
 
         self.frpcService = FastRPCService(url: frpcBaseURL)
         self.jsonService = JSONService(baseURL: jsonBaseURL)
