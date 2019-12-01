@@ -323,13 +323,9 @@
 			isa = PBXGroup;
 			children = (
 				D2A370C6215ED2BA0096D219 /* Playground.playground */,
-				D215D8A0213EFBB100296D74 /* MapyKit */,
-				D2385228214E90DD000087DD /* MapyAPI */,
-				D28776B4215512300007C378 /* FastRPCSwift */,
+				ECDEED3123946A1300A46630 /* Source */,
+				ECDEED3223946A1A00A46630 /* Tests */,
 				D227AD6C213F0F120003DE4C /* Example */,
-				D2C3B068216AA25600B1F257 /* TestHelpers */,
-				D23975F721503B17000C6AD8 /* MapyAPITests */,
-				D28776C4215512450007C378 /* FastRPCSwiftTests */,
 				D215D89F213EFBB100296D74 /* Products */,
 				D227AD7D213F0FAF0003DE4C /* Frameworks */,
 			);
@@ -684,6 +680,26 @@
 				ECDEED2F23941D1400A46630 /* Itinerary.swift */,
 			);
 			path = Itinerary;
+			sourceTree = "<group>";
+		};
+		ECDEED3123946A1300A46630 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				D215D8A0213EFBB100296D74 /* MapyKit */,
+				D2385228214E90DD000087DD /* MapyAPI */,
+				D28776B4215512300007C378 /* FastRPCSwift */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		ECDEED3223946A1A00A46630 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D23975F721503B17000C6AD8 /* MapyAPITests */,
+				D28776C4215512450007C378 /* FastRPCSwiftTests */,
+				D2C3B068216AA25600B1F257 /* TestHelpers */,
+			);
+			name = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
