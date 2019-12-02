@@ -22,7 +22,7 @@ import MapKit
 /// - historical: Historical map (Czech Republic only)
 /// - textMap: Text only map (April fools day easter egg, 2017)
 /// - in100Years: Czech Republic in 100 years (April fools day easter egg, 2018)
-public enum ExtendedMapType {
+public enum ExtendedMapType: CaseIterable {
     case standard
     case tourist
     case winter
